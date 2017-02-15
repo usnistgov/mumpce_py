@@ -1,2 +1,0 @@
-.. automodule:: Project
-   :members:
