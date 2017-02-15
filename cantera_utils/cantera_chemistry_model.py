@@ -1,7 +1,8 @@
 from state_definition import StateDefinition
 from abc import ABCMeta, abstractmethod
 import cantera as ct
-import mumpce_new as mumpce
+import mumpce
+#import mumpce_py as mumpce
 import numpy as np
 
 import tqdm

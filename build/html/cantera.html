@@ -557,11 +557,11 @@
 </div>
 <div class="section" id="laminar-flame-speeds">
 <h3><a class="toc-backref" href="#id7">Laminar flame speeds</a><a class="headerlink" href="#laminar-flame-speeds" title="Permalink to this headline">¶</a></h3>
-<p>This model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/onedim.html#cantera.FreeFlame" title="(in Cantera v2.2)"><code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code></a> to determine the propagation speed of a freely-propagating laminar flame.</p>
+<p>This model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/onedim.html#cantera.FreeFlame" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code></a> to determine the propagation speed of a freely-propagating laminar flame.</p>
 </div>
 <div class="section" id="shock-tubes">
 <h3><a class="toc-backref" href="#id8">Shock tubes</a><a class="headerlink" href="#shock-tubes" title="Permalink to this headline">¶</a></h3>
-<p>This class of model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.2)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
+<p>This class of model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
 <div class="section" id="shock-tube-ignition-delay-time">
 <h4>Shock tube ignition delay time<a class="headerlink" href="#shock-tube-ignition-delay-time" title="Permalink to this headline">¶</a></h4>
 <p>This model finds the ignition delay time <span class="math">\(\tau_{\text{ign}}\)</span> by finding the maximum pressure rise or species concentration production rate, by solving:</p>

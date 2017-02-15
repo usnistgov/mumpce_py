@@ -1,7 +1,8 @@
 import sys
 sys.path.append('..')
 
-import mumpce_py as mumpce
+#import mumpce_py as mumpce
+import mumpce
 import numpy as np
 import pandas as pd
 

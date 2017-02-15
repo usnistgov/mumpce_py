@@ -1,4 +1,5 @@
-import mumpce_new as mumpce
+#import mumpce_py as mumpce
+import mumpce
 
 #from cantera_chemistry_model import cantera_chemistry_model
 from flame_speed import FlameSpeed
