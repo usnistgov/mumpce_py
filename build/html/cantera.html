@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Cantera interface to MUM-PCE &mdash; mumpce 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mumpce 0.1 documentation" href="index.html" />
+    <link rel="next" title="Generic chemistry interface for Cantera" href="generic_chem.html" />
+    <link rel="prev" title="Example usage and output" href="toy_model_example.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="index.html">mumpce 0.1 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="toy_model_example.html" title="Example usage and output"
+             accesskey="P">previous</a> |
+          <a href="generic_chem.html" title="Generic chemistry interface for Cantera"
+             accesskey="N">next</a> |
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-cantera-interface-to-mum-pce">
+<h1><a class="toc-backref" href="#id1">The Cantera interface to MUM-PCE</a><a class="headerlink" href="#the-cantera-interface-to-mum-pce" title="Permalink to this headline">¶</a></h1>
+<p>The Cantera model is designed to demonstrate a real-world example of MUM-PCE. Like the toy model, it consists of a set of experimental measurements that will be used to constrain a chemistry model.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#the-cantera-interface-to-mum-pce" id="id1">The Cantera interface to MUM-PCE</a><ul>
+<li><a class="reference internal" href="#the-initialization-function" id="id2">The initialization function</a><ul>
+<li><a class="reference internal" href="#example-data-file" id="id3">Example data file</a></li>
+<li><a class="reference internal" href="#columns-of-the-data-file" id="id4">Columns of the data file</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-classes-in-the-cantera-interface" id="id5">Model classes in the Cantera interface</a><ul>
+<li><a class="reference internal" href="#generic-interface" id="id6">Generic interface</a></li>
+<li><a class="reference internal" href="#laminar-flame-speeds" id="id7">Laminar flame speeds</a></li>
+<li><a class="reference internal" href="#shock-tubes" id="id8">Shock tubes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#function-summary" id="id9">Function summary</a><ul>
+<li><a class="reference internal" href="#generic-chemistry-model-summary" id="id10">Generic chemistry model summary</a></li>
+<li><a class="reference internal" href="#laminar-flame-speed-summary" id="id11">Laminar flame speed summary</a></li>
+<li><a class="reference internal" href="#shock-tube-summary" id="id12">Shock tube summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generic_chem.html">Generic chemistry interface for Cantera</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generic_chem.html#module-cantera_utils">Initialization function summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic_chem.html#generic-chemistry-model-method-summary">Generic chemistry model method summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic_chem.html#generic-cantera-chemistry-model-class">Generic Cantera chemistry model class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shock.html">Shock tube models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="shock.html#base-shock-tube-class">Base shock tube class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shock.html#shock-tube-delay">Shock tube delay</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shock.html#shock-tube-concentration">Shock tube concentration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shock.html#shock-tube-ratio">Shock tube ratio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flame.html">Laminar flame speeds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flame.html#laminar-flame-speed-model">Laminar flame speed model</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="the-initialization-function">
+<h2><a class="toc-backref" href="#id2">The initialization function</a><a class="headerlink" href="#the-initialization-function" title="Permalink to this headline">¶</a></h2>
+<p>The function <a class="reference internal" href="generic_chem.html#cantera_utils.measurement_initialize_pd" title="cantera_utils.measurement_initialize_pd"><code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_pd()</span></code></a> reads an Excel file to determine the experimental database. The header row gives the name of each column, which will be parsed by <a class="reference internal" href="generic_chem.html#cantera_utils.measurement_initialize_pd" title="cantera_utils.measurement_initialize_pd"><code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_pd()</span></code></a>. The order of the columns does not matter. Two examples are given below.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The columns can be in any order. If a column is not used by any measurement in the list, it can be omitted. If a column is not used by a particular measurement, it can be left blank; the parser will ignore it.</p>
+</div>
+<div class="section" id="example-data-file">
+<h3><a class="toc-backref" href="#id3">Example data file</a><a class="headerlink" href="#example-data-file" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="example-1">
+<h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="3%" />
+<col width="5%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="5%" />
+<col width="8%" />
+<col width="5%" />
+<col width="3%" />
+<col width="4%" />
+<col width="4%" />
+<col width="12%" />
+<col width="9%" />
+<col width="5%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">ID</th>
+<th class="head">Fuel1</th>
+<th class="head">X_fuel1</th>
+<th class="head">Fuel2</th>
+<th class="head">X_fuel2</th>
+<th class="head">Fuel3</th>
+<th class="head">X_fuel3</th>
+<th class="head">Ox</th>
+<th class="head">Dil</th>
+<th class="head">Temp</th>
+<th class="head">Pres</th>
+<th class="head">Model</th>
+<th class="head">Crit_spec</th>
+<th class="head">Sim</th>
+<th class="head">Exp_unc</th>
+<th class="head">Exp_val</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ign</td>
+<td>1a1</td>
+<td>CH4</td>
+<td>0.091</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.182</td>
+<td>AR</td>
+<td>1771</td>
+<td>1.8</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.2</td>
+<td>4.28</td>
+</tr>
+<tr class="row-odd"><td>ign</td>
+<td>1a2</td>
+<td>CH4</td>
+<td>0.091</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.182</td>
+<td>AR</td>
+<td>1426</td>
+<td>1.8</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.2</td>
+<td>7.46</td>
+</tr>
+<tr class="row-even"><td>ign</td>
+<td>1a3</td>
+<td>CH4</td>
+<td>0.333</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.133</td>
+<td>AR</td>
+<td>1734</td>
+<td>3.8</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.1</td>
+<td>4.09</td>
+</tr>
+<tr class="row-odd"><td>ign</td>
+<td>1a4</td>
+<td>CH4</td>
+<td>0.333</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.133</td>
+<td>AR</td>
+<td>1509</td>
+<td>3.8</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.1</td>
+<td>6.49</td>
+</tr>
+<tr class="row-even"><td>ign</td>
+<td>1a5</td>
+<td>CH4</td>
+<td>0.048</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.191</td>
+<td>AR</td>
+<td>1594</td>
+<td>1.6</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.2</td>
+<td>4.41</td>
+</tr>
+<tr class="row-odd"><td>ign</td>
+<td>1a6</td>
+<td>CH4</td>
+<td>0.048</td>
+<td>C2H6</td>
+<td>0</td>
+<td>C3H8</td>
+<td>0</td>
+<td>0.191</td>
+<td>AR</td>
+<td>1347</td>
+<td>1.6</td>
+<td>gri30.xml</td>
+<td>OH</td>
+<td>crit</td>
+<td>0.2</td>
+<td>7.19</td>
+</tr>
+<tr class="row-even"><td>fls</td>
+<td>11a</td>
+<td>CH4</td>
+<td>0.71</td>
+<td>N2</td>
+<td>0</td>
+<td>N2</td>
+<td>0</td>
+<td>2</td>
+<td>Air</td>
+<td>298</td>
+<td>1</td>
+<td>gri30.xml</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>1</td>
+<td>17.6</td>
+</tr>
+<tr class="row-odd"><td>fls</td>
+<td>11b</td>
+<td>CH4</td>
+<td>0.98</td>
+<td>N2</td>
+<td>0</td>
+<td>N2</td>
+<td>0</td>
+<td>2</td>
+<td>Air</td>
+<td>298</td>
+<td>1</td>
+<td>gri30.xml</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>1</td>
+<td>36.72</td>
+</tr>
+<tr class="row-even"><td>fls</td>
+<td>11c</td>
+<td>CH4</td>
+<td>1.24</td>
+<td>N2</td>
+<td>0</td>
+<td>N2</td>
+<td>0</td>
+<td>2</td>
+<td>Air</td>
+<td>298</td>
+<td>1</td>
+<td>gri30.xml</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>1</td>
+<td>29.58</td>
+</tr>
+<tr class="row-odd"><td>fls</td>
+<td>11d</td>
+<td>CH4</td>
+<td>1.5</td>
+<td>N2</td>
+<td>0</td>
+<td>N2</td>
+<td>0</td>
+<td>2</td>
+<td>Air</td>
+<td>298</td>
+<td>1</td>
+<td>gri30.xml</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>1</td>
+<td>9.86</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-2">
+<h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="3%" />
+<col width="4%" />
+<col width="6%" />
+<col width="5%" />
+<col width="6%" />
+<col width="4%" />
+<col width="7%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="6%" />
+<col width="8%" />
+<col width="4%" />
+<col width="7%" />
+<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Type</th>
+<th class="head">ID</th>
+<th class="head">Fuel1</th>
+<th class="head">X_fuel1</th>
+<th class="head">Fuel2</th>
+<th class="head">X_fuel2</th>
+<th class="head">Fuel3</th>
+<th class="head">X_fuel3</th>
+<th class="head">Fuel4</th>
+<th class="head">Xfuel4</th>
+<th class="head">Dil</th>
+<th class="head">Temp</th>
+<th class="head">Pres</th>
+<th class="head">Model</th>
+<th class="head">Crit_spec</th>
+<th class="head">Sim</th>
+<th class="head">Crit_val</th>
+<th class="head">Crit_denom</th>
+<th class="head">Exp_unc</th>
+<th class="head">Exp_val</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pul</td>
+<td>31a</td>
+<td>pC3H4</td>
+<td>0.005</td>
+<td>TMBENZ</td>
+<td>0.005</td>
+<td>tBPO</td>
+<td>0.000025</td>
+<td>H2</td>
+<td>0.2</td>
+<td>AR</td>
+<td>1053</td>
+<td>3</td>
+<td>js2.cti</td>
+<td>MXYLENE</td>
+<td>ratio</td>
+<td>500</td>
+<td>C2H2</td>
+<td>0.05</td>
+<td>0.87</td>
+</tr>
+<tr class="row-odd"><td>pul</td>
+<td>31b</td>
+<td>pC3H4</td>
+<td>0.005</td>
+<td>TMBENZ</td>
+<td>0.005</td>
+<td>tBPO</td>
+<td>0.000025</td>
+<td>H2</td>
+<td>0.2</td>
+<td>AR</td>
+<td>1000</td>
+<td>3</td>
+<td>js2.cti</td>
+<td>MXYLENE</td>
+<td>ratio</td>
+<td>500</td>
+<td>C2H2</td>
+<td>0.05</td>
+<td>0.92</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="columns-of-the-data-file">
+<h3><a class="toc-backref" href="#id4">Columns of the data file</a><a class="headerlink" href="#columns-of-the-data-file" title="Permalink to this headline">¶</a></h3>
+<p>The data file contains the following options. Columns with names marked with an asterisk are required, and all others are optional. Text enclosed in (parentheses) is optional. For instance, the parser will recognize Temp, Temper, and Temperature as valid keywords for specifying the unburned gas temperature.</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>Type*: The type of measurement, which determines which Cantera model will be used</dt>
+<dd><ul class="first last simple">
+<li>ign: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a></li>
+<li>pro: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a></li>
+<li>pul: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a></li>
+<li>fls: <a class="reference internal" href="flame.html#flame_speed.FlameSpeed" title="flame_speed.FlameSpeed"><code class="xref py py-class docutils literal"><span class="pre">FlameSpeed</span></code></a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>ID*: A free-form text identifier</dt>
+<dd><div class="first last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The &#8216;name&#8217; of the experiment will be generated from Type and ID</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Reactant definitions*:</dt>
+<dd><ul class="first">
+<li><p class="first">Fuel: A text identifier for a reactant species in the unburned gas mixture. This must be a species in the Cantera chemistry model</p>
+</li>
+<li><dl class="first docutils">
+<dt>X_Fuel: The mole fraction of each reactant species in the unburned gas mixture.</dt>
+<dd><div class="first last admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">As seen in the example, any number of Fuel and X_fuel pairs can be used. They can be in any order, but the first Fuel column must correspond to the first X_fuel column. Although the columns are named Fuel1, Fuel2, etc in the example, this is arbitrary and any identifier, or none, can be used.</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">Ox: The mole fraction of oxygen.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Dil: The diluent species. The behavior depends on what this is.</dt>
+<dd><ul class="first last simple">
+<li>&#8216;Air&#8217;: 3.76 moles of nitrogen is added per mole of oxygen. Ox must be specified</li>
+<li>&#8216;ArAir&#8217;: 3.76 moles of argon is added per mole of oxygen. Ox must be specified</li>
+<li>A species in the Cantera chemistry model: the total mole fractions of all the fuels and oxidizer add to less than unity, then enough of this species will be added to ensure that the mole fractions sum to unity.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At least one substance must be specified somehow by one of these keywords. If Dil=&#8217;Air&#8217; or Dil=&#8217;ArAir&#8217;, Ox be specified.</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">Temp(erature)*: The temperature of the unburned gas in Kelvins</p>
+</li>
+<li><p class="first">Pres(sure)*: The pressure of the unburned gas in standard atmospheres</p>
+</li>
+<li><dl class="first docutils">
+<dt>Model: The Cantera chemistry model used for this measurement.</dt>
+<dd><div class="first admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The value of chemistry_model used in the function call is used as a default for all measurements. If this column is not provided, chemistry_model is used for all measurements. If this column is provided, a value needs to be specified only for those experiments that use a different model</p>
+</div>
+<div class="last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Different models for different measurements is only intended to be used if some measurements are conducted under conditions where rate constants may change (e.g. certain kinds of pressure dependencies). All models should have exactly the same reactions and corresponding parameters, although they can take different values.</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Sim(ulation): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments, defines how the delay time is determined.</dt>
+<dd><ul class="first last simple">
+<li>crit: Ignition delay time measured by maximum critical species production</li>
+<li>pres: Ignition delay time measured by maximum pressure rise</li>
+<li>conc: Delay time until a certain critical species concentration</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Crit(ical_)spec(ies): The species whose mole fraction is to be tracked. If the value in this column is PRES, then pressure is tracked in the simulation, otherwise it must be a species in the Cantera chemistry model. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the species whose concentration appears in the numerator.</dt>
+<dd><div class="first last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For backwards compatibility with previous database implementations, Simulation=&#8217;crit&#8217; and Critical_species=&#8217;PRES&#8217; is equivalent to Simulation=&#8217;pres&#8217;</p>
+</div>
+</dd>
+</dl>
+</li>
+<li><p class="first">Crit(ical_)denom(inator): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the species whose concentration appears in the denominator.</p>
+</li>
+<li><p class="first">Crit(ical_)rise: For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments with Simulation=&#8217;conc&#8217;, this determines if the critical species concentration should be rising or falling through the critical value</p>
+</li>
+<li><p class="first">Crit(ical_)val(ue): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a> and <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the integration time in seconds. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments with Simulation=&#8217;conc&#8217;, this is the critical species mole fraction at which the delay occurs.</p>
+</li>
+<li><p class="first">Exp(erimental_)val(ue): The measured value for this experiment.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Exp(erimental_)unc(ertainty): The uncertainty in the experimentally-measured value</dt>
+<dd><div class="first last admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If Exp_val is present, Exp_unc must also be preseint</p>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="model-classes-in-the-cantera-interface">
+<h2><a class="toc-backref" href="#id5">Model classes in the Cantera interface</a><a class="headerlink" href="#model-classes-in-the-cantera-interface" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generic-interface">
+<h3><a class="toc-backref" href="#id6">Generic interface</a><a class="headerlink" href="#generic-interface" title="Permalink to this headline">¶</a></h3>
+<p>The generic chemistry interface for Cantera, <a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel" title="cantera_chemistry_model.CanteraChemistryModel"><code class="xref py py-class docutils literal"><span class="pre">CanteraChemistryModel</span></code></a>, defines a number of common methods that are used for all Cantera-based simulations. These methods create and modify Cantera phase objects for sensitivity analysis. It defines all of the methods required by a <a class="reference internal" href="measurement.html#model.Model" title="model.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a> except for <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code>.</p>
+</div>
+<div class="section" id="laminar-flame-speeds">
+<h3><a class="toc-backref" href="#id7">Laminar flame speeds</a><a class="headerlink" href="#laminar-flame-speeds" title="Permalink to this headline">¶</a></h3>
+<p>This model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/onedim.html#cantera.FreeFlame" title="(in Cantera v2.2)"><code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code></a> to determine the propagation speed of a freely-propagating laminar flame.</p>
+</div>
+<div class="section" id="shock-tubes">
+<h3><a class="toc-backref" href="#id8">Shock tubes</a><a class="headerlink" href="#shock-tubes" title="Permalink to this headline">¶</a></h3>
+<p>This class of model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.2)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
+<div class="section" id="shock-tube-ignition-delay-time">
+<h4>Shock tube ignition delay time<a class="headerlink" href="#shock-tube-ignition-delay-time" title="Permalink to this headline">¶</a></h4>
+<p>This model finds the ignition delay time <span class="math">\(\tau_{\text{ign}}\)</span> by finding the maximum pressure rise or species concentration production rate, by solving:</p>
+<div class="math">
+\[\tau_{\text{ign}} = \text{argmax}_\tau \frac{dX}{dt}\bigg|_{t=\tau}\]</div>
+<p>where <span class="math">\(X(t)\)</span> is either the pressure or the mole fraction of the critical species in the reactor. Specified with Type = &#8216;ign&#8217; and Sim = &#8216;crit&#8217;.</p>
+</div>
+<div class="section" id="shock-tube-species-profile-concentration">
+<h4>Shock tube species profile concentration<a class="headerlink" href="#shock-tube-species-profile-concentration" title="Permalink to this headline">¶</a></h4>
+<p>This model finds the time <span class="math">\(\tau_{\text{ign}}\)</span> at which the critical species concentration reaches a critical value by solving:</p>
+<div class="math">
+\[\tau_{\text{crit}} = \text{argmin}_\tau (X(t=\tau) - X_{\text{crit}})^2\]</div>
+<p>where <span class="math">\(X(t)\)</span> is the mole fraction of the critical species in the reactor and <span class="math">\(X_{\text{crit}}\)</span> is the critical value. There is an additional constraint that <span class="math">\(dX/dt\)</span> must be either positive or negative when this occurs. Specified with Type = &#8216;ign&#8217; and Sim = &#8216;conc&#8217;.</p>
+</div>
+<div class="section" id="shock-tube-species-profile-time">
+<h4>Shock tube species profile time<a class="headerlink" href="#shock-tube-species-profile-time" title="Permalink to this headline">¶</a></h4>
+<p>This model finds the critical species mole fraction <span class="math">\(X_{\text{crit}}\)</span> by solving:</p>
+<div class="math">
+\[X_{\text{crit}} = X(t=\tau_{\text{crit}})\]</div>
+<p>where <span class="math">\(X(t)\)</span> is the mole fraction of the critical species in the reactor and <span class="math">\(\tau_{\text{crit}}\)</span> is the integration time. Specified with Type = &#8216;pro&#8217;.</p>
+</div>
+<div class="section" id="shock-tube-species-concentration-ratio">
+<h4>Shock tube species concentration ratio<a class="headerlink" href="#shock-tube-species-concentration-ratio" title="Permalink to this headline">¶</a></h4>
+<p>This model finds the critical species mole fraction ratio <span class="math">\(r_{\text{crit}}\)</span> by solving:</p>
+<div class="math">
+\[r_{\text{crit}} = \frac{X_{\text{num}}(t)}{X_{\text{denom}}(t)}\bigg|_{t=\tau_{\text{crit}}}\]</div>
+<p>where <span class="math">\(X_{\text{num}}(t)\)</span> and <span class="math">\(X_{\text{denom}}(t)\)</span> are the mole fractions of the numerator and denominator species in the reactor and <span class="math">\(tau_{\text{crit}}\)</span> is the integration time. Specified with Type = &#8216;pul&#8217;.</p>
+</div>
+</div>
+</div>
+<div class="section" id="function-summary">
+<h2><a class="toc-backref" href="#id9">Function summary</a><a class="headerlink" href="#function-summary" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generic-chemistry-model-summary">
+<h3><a class="toc-backref" href="#id10">Generic chemistry model summary</a><a class="headerlink" href="#generic-chemistry-model-summary" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel" title="cantera_chemistry_model.CanteraChemistryModel"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...)</td>
+<td>A class for Cantera chemistry models.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.sensitivity" title="cantera_chemistry_model.CanteraChemistryModel.sensitivity"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.sensitivity</span></code></a>(...)</td>
+<td>Evaluates the sensitivity of the model value with respect to the model parameters</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.get_parameter" title="cantera_chemistry_model.CanteraChemistryModel.get_parameter"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.get_parameter</span></code></a>(parameter)</td>
+<td>Retrieves a model parameter&#8217;s value</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.perturb_parameter" title="cantera_chemistry_model.CanteraChemistryModel.perturb_parameter"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.perturb_parameter</span></code></a>(...)</td>
+<td>Perturbs a model parameter&#8217;s value by a specified amount.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.reset_model" title="cantera_chemistry_model.CanteraChemistryModel.reset_model"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.reset_model</span></code></a>()</td>
+<td>Reset all model parameters to their original values</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.get_model_parameter_info" title="cantera_chemistry_model.CanteraChemistryModel.get_model_parameter_info"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.get_model_parameter_info</span></code></a>([...])</td>
+<td>Gets the list of available parameters for this model</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.prepare_chemistry</span></code></a>()</td>
+<td>Instantiate the Cantera chemistry model and get information about the reaction model.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.initialize_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.initialize_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.initialize_chemistry</span></code></a>()</td>
+<td>Create the Cantera phase object and set its initial state</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.blank_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.blank_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.blank_chemistry</span></code></a>()</td>
+<td>Erase the Cantera phase object, Cantera reactor object, and Cantera simulation object.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">StateDefinition</span></code>(T,&nbsp;Patm,&nbsp;composition)</td>
+<td>A top level class for a thermodynamic state definition of an ideal gas</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="laminar-flame-speed-summary">
+<h3><a class="toc-backref" href="#id11">Laminar flame speed summary</a><a class="headerlink" href="#laminar-flame-speed-summary" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="flame.html#flame_speed.FlameSpeed" title="flame_speed.FlameSpeed"><code class="xref py py-obj docutils literal"><span class="pre">FlameSpeed</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;chemistry_model)</td>
+<td>A model for laminar flame speed</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="flame.html#flame_speed.FlameSpeed.evaluate" title="flame_speed.FlameSpeed.evaluate"><code class="xref py py-obj docutils literal"><span class="pre">FlameSpeed.evaluate</span></code></a>()</td>
+<td>Compute the laminar flame speed</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="flame.html#flame_speed.FlameSpeed.initialize_reactor" title="flame_speed.FlameSpeed.initialize_reactor"><code class="xref py py-obj docutils literal"><span class="pre">FlameSpeed.initialize_reactor</span></code></a>()</td>
+<td>Initialize the freely-propagating laminar flame object</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="shock-tube-summary">
+<h3><a class="toc-backref" href="#id12">Shock tube summary</a><a class="headerlink" href="#shock-tube-summary" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="shock.html#shock_tube_base.ShockTube" title="shock_tube_base.ShockTube"><code class="xref py py-obj docutils literal"><span class="pre">ShockTube</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;loglevel])</td>
+<td>A class for defining shock tube simulations.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="shock.html#shock_tube_base.ShockTube.initialize_reactor" title="shock_tube_base.ShockTube.initialize_reactor"><code class="xref py py-obj docutils literal"><span class="pre">ShockTube.initialize_reactor</span></code></a>()</td>
+<td>Initialize the shock tube.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="shock.html#shock_tube_base.ShockTube.reset_model" title="shock_tube_base.ShockTube.reset_model"><code class="xref py py-obj docutils literal"><span class="pre">ShockTube.reset_model</span></code></a>()</td>
+<td>Reset all model parameters to their original values</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="shock-tube-delay-summary">
+<h4>Shock tube delay summary<a class="headerlink" href="#shock-tube-delay-summary" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeDelay</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
+<td>A model for determining the delay time in shock tube ignition</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay.evaluate" title="shock_tube_utils.ShockTubeDelay.evaluate"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeDelay.evaluate</span></code></a>()</td>
+<td>Finds the ignition delay time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="shock-tube-concentration-summary">
+<h4>Shock tube concentration summary<a class="headerlink" href="#shock-tube-concentration-summary" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeConcentration</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...)</td>
+<td>A model for determining the concentration of a particular species after a certain integration time.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration.evaluate" title="shock_tube_utils.ShockTubeConcentration.evaluate"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeConcentration.evaluate</span></code></a>()</td>
+<td>Calculates the concentration of the critical species at the specified integration time</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="shock-tube-concentration-ratio-summary">
+<h4>Shock tube concentration ratio summary<a class="headerlink" href="#shock-tube-concentration-ratio-summary" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeRatio</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
+<td>A model for determining the mole fration ratios of two particular species after a certain integration time.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio.evaluate" title="shock_tube_utils.ShockTubeRatio.evaluate"><code class="xref py py-obj docutils literal"><span class="pre">ShockTubeRatio.evaluate</span></code></a>()</td>
+<td>Compute the concentration of the critical species</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Project.html">Projects and Solutions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measurement.html">Measurements and Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toy.html">A toy example using MUM-PCE</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">The Cantera interface to MUM-PCE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generic_chem.html">Generic chemistry interface for Cantera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shock.html">Shock tube models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flame.html">Laminar flame speeds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-initialization-function">The initialization function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-classes-in-the-cantera-interface">Model classes in the Cantera interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#function-summary">Function summary</a></li>
+</ul>
+</li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+            <p class="searchtip" style="font-size: 90%">
+                Enter search terms or a module, class or function name.
+            </p>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="toy_model_example.html" title="Example usage and output"
+              >previous</a> |
+            <a href="generic_chem.html" title="Generic chemistry interface for Cantera"
+              >next</a> |
+            <a href="py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="_sources/cantera.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
