@@ -8,7 +8,7 @@
 Welcome to MUM-PCE's documentation!
 ===================================
    
-Welcome to the home page for the Method of Uncertainty Minimization using Polynomial Chaos Expansions. This software is a Python package that implements the methodology presented in `Link Sheen & Wang (2011) <http://dx.doi.org/10.1016/j.combustflame.2011.05.010>`_, `Link Wang & Sheen (2015) <http://dx.doi.org/10.1016/j.pecs.2014.10.002>`_, and `Link Sheen & Manion (2014) <http://dx.doi.org/10.1021/jp5041844>`_. The software does the following things:
+Welcome to the home page for the Method of Uncertainty Minimization using Polynomial Chaos Expansions. This software is a Python package that implements the methodology presented in `Sheen & Wang (2011) <http://dx.doi.org/10.1016/j.combustflame.2011.05.010>`_, `Wang & Sheen (2015) <http://dx.doi.org/10.1016/j.pecs.2014.10.002>`_, and `Sheen & Manion (2014) <http://dx.doi.org/10.1021/jp5041844>`_. The software does the following things:
 
   * Compiles a database of experimental measurements
   * Constrains a physical model against the measurements in the database (optimization)
