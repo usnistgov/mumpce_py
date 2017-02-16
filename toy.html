@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A toy example using MUM-PCE &mdash; mumpce 0.1 documentation</title>
+    <title>A toy example using MUM-PCE &#8212; mumpce 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,14 +17,16 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mumpce 0.1 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example usage and output" href="toy_model_example.html" />
     <link rel="prev" title="Measurements and Models" href="measurement.html" /> 
   </head>
@@ -57,7 +59,7 @@
   <div class="section" id="a-toy-example-using-mum-pce">
 <h1>A toy example using MUM-PCE<a class="headerlink" href="#a-toy-example-using-mum-pce" title="Permalink to this headline">¶</a></h1>
 <p>This toy model is designed to demonstrate the entire workflow for MUM-PCE. It contains a set of measurements and applications that have hard-wired dependencies on a set of parameters, which guarantees that their response surfaces will take a particular form. This model contains measurements that are known to be outliers and also measurements that poorly constrain the model, thus providing an example of the functionality of MUM-PCE. This document explains how the model is developed, how the initialization function interacts with the model to create measurements, and how these entities interact with a MUM-PCE Project.</p>
-<p>In addition, <a class="reference internal" href="toy_model_example.html"><em>Example usage and output</em></a> is provided which shows the complete workflow of the toy project:</p>
+<p>In addition, <a class="reference internal" href="toy_model_example.html"><span class="doc">Example usage and output</span></a> is provided which shows the complete workflow of the toy project:</p>
 <div class="toctree-wrapper compound">
 </div>
 <div class="section" id="defining-models">
@@ -67,7 +69,7 @@
 \[y = A \prod_i k_i p_i\]</div>
 <p>This equation is equivalent to <span class="math">\(\ln y = a^\text{T}x + z\)</span> where <span class="math">\(x_i = \ln p_i\)</span>, <span class="math">\(a_i = \ln k_i\)</span>, and <span class="math">\(z = \ln A\)</span>. The parameters <span class="math">\(p_i\)</span> are initially all set to 1, so that the nominal response of the model is equal to <span class="math">\(A\)</span>. Consequently, the response surface will be identical to model.</p>
 <p>A <a class="reference internal" href="#toy.toy_model" title="toy.toy_model"><code class="xref py py-class docutils literal"><span class="pre">toy_model</span></code></a> object can be created directly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">experiment_number</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">experiment_number</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">my_model</span> <span class="o">=</span> <span class="n">toy_model</span><span class="p">(</span><span class="n">experiment_number</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -79,21 +81,21 @@
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="mf">1.2214027581601699</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.2214027581601699</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">V</span><span class="p">,</span><span class="n">S</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="mf">0.0000001</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Value =  1.22140275816
-Param  Value+       Value-           Sensitivity
-     0  1.22140e+00   1.22140e+00   1.0000e+00
-     1  1.22140e+00   1.22140e+00   6.0000e-01
-     2  1.22140e+00   1.22140e+00   4.0000e-01
-     3  1.22140e+00   1.22140e+00   1.0000e-01
-     4  1.22140e+00   1.22140e+00   3.0000e-02
-     5  1.22140e+00   1.22140e+00   1.0000e-02
-     6  1.22140e+00   1.22140e+00   2.0000e-02
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Value</span> <span class="o">=</span>  <span class="mf">1.22140275816</span>
+<span class="n">Param</span>  <span class="n">Value</span><span class="o">+</span>       <span class="n">Value</span><span class="o">-</span>           <span class="n">Sensitivity</span>
+     <span class="mi">0</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">1.0000e+00</span>
+     <span class="mi">1</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">6.0000e-01</span>
+     <span class="mi">2</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">4.0000e-01</span>
+     <span class="mi">3</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">1.0000e-01</span>
+     <span class="mi">4</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">3.0000e-02</span>
+     <span class="mi">5</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">1.0000e-02</span>
+     <span class="mi">6</span>  <span class="mf">1.22140e+00</span>   <span class="mf">1.22140e+00</span>   <span class="mf">2.0000e-02</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -101,10 +103,10 @@ Param  Value+       Value-           Sensitivity
 <p class="last">The sensitivity output shown above is printed to the log file and also to the screen.</p>
 </div>
 <p>Calling <code class="xref py py-func docutils literal"><span class="pre">my_model.get_parameter_info()</span></code> returns a list of dictionaries that has information about the model parameters. The keys of this dictionary are the number of the parameter and its name; the names are (imaginatively) Parameter 1 through Parameter 7. As an example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">get_model_parameter_info</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_model</span><span class="o">.</span><span class="n">get_model_parameter_info</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([{</span><span class="s1">&#39;parameter_number&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;parameter_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Parameter 1&#39;</span><span class="p">},</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([{</span><span class="s1">&#39;parameter_number&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;parameter_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Parameter 1&#39;</span><span class="p">},</span>
        <span class="p">{</span><span class="s1">&#39;parameter_number&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;parameter_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Parameter 2&#39;</span><span class="p">},</span>
        <span class="p">{</span><span class="s1">&#39;parameter_number&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;parameter_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Parameter 3&#39;</span><span class="p">},</span>
        <span class="p">{</span><span class="s1">&#39;parameter_number&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;parameter_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Parameter 4&#39;</span><span class="p">},</span>
@@ -117,12 +119,12 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="the-initialization-function">
 <h2>The initialization function<a class="headerlink" href="#the-initialization-function" title="Permalink to this headline">¶</a></h2>
 <p>The function <a class="reference internal" href="#toy.toy_initialize" title="toy.toy_initialize"><code class="xref py py-func docutils literal"><span class="pre">toy_initialize()</span></code></a> gives an example of how to instantiate measurements. This function reads an Excel file to determine the experimental database. The Excel file for the measurement list looks like the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Name                 Number  Value   Uncertainty
-Experiment 1         0       0.4     0.05
-Experiment 2         1       0.25    0.05
-Experiment 3         2       0.2     0.05
-Experiment 4         3       0.7     0.08
-Experiment 5         4       0.4     0.8
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Name</span>                 <span class="n">Number</span>  <span class="n">Value</span>   <span class="n">Uncertainty</span>
+<span class="n">Experiment</span> <span class="mi">1</span>         <span class="mi">0</span>       <span class="mf">0.4</span>     <span class="mf">0.05</span>
+<span class="n">Experiment</span> <span class="mi">2</span>         <span class="mi">1</span>       <span class="mf">0.25</span>    <span class="mf">0.05</span>
+<span class="n">Experiment</span> <span class="mi">3</span>         <span class="mi">2</span>       <span class="mf">0.2</span>     <span class="mf">0.05</span>
+<span class="n">Experiment</span> <span class="mi">4</span>         <span class="mi">3</span>       <span class="mf">0.7</span>     <span class="mf">0.08</span>
+<span class="n">Experiment</span> <span class="mi">5</span>         <span class="mi">4</span>       <span class="mf">0.4</span>     <span class="mf">0.8</span>
 </pre></div>
 </div>
 <p>The header row gives the names of each column, which will be parsed by <a class="reference internal" href="#toy.toy_initialize" title="toy.toy_initialize"><code class="xref py py-func docutils literal"><span class="pre">toy_initialize()</span></code></a>. Each row contains the simulation metadata for one measurement along with the relevant measurement data.</p>
@@ -139,7 +141,7 @@ Experiment 5         4       0.4     0.8
 <p class="last">It is allowed to create a <a class="reference internal" href="measurement.html#measurement.Measurement" title="measurement.Measurement"><code class="xref py py-class docutils literal"><span class="pre">Measurement</span></code></a> without a value or uncertainty, but it is not possible to optimize a model if any members of the measurement list do not have a value or an uncertainty.</p>
 </div>
 <p>The initialization function is called with the Excel experimental database as its argument:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_measurements</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_measurements</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">)</span>
 <span class="n">my_apps</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_apps.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_app</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -148,7 +150,7 @@ Experiment 5         4       0.4     0.8
 <div class="section" id="creating-a-project">
 <h2>Creating a Project<a class="headerlink" href="#creating-a-project" title="Permalink to this headline">¶</a></h2>
 <p>In its most simple form, a mumpce <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> can be created by defining a measurement initialization function and some parameter uncertainties.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">,</span>
                              <span class="n">initialize_function</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -156,7 +158,7 @@ Experiment 5         4       0.4     0.8
 <div class="section" id="initializing-measurements-within-the-project">
 <h3>Initializing Measurements within the Project<a class="headerlink" href="#initializing-measurements-within-the-project" title="Permalink to this headline">¶</a></h3>
 <p>If the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> has no measurements to begin with, the measurement and application lists can be created by the <code class="xref py py-func docutils literal"><span class="pre">measurement_initialize()</span></code> method</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_project</span><span class="o">.</span><span class="n">measurement_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_project</span><span class="o">.</span><span class="n">measurement_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">)</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">application_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_apps.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -164,7 +166,7 @@ Experiment 5         4       0.4     0.8
 <div class="section" id="creating-a-project-with-existing-measurements">
 <h3>Creating a Project with existing Measurements<a class="headerlink" href="#creating-a-project-with-existing-measurements" title="Permalink to this headline">¶</a></h3>
 <p>If the measurement and application lists have already been created, the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> can then be created with the measurement and application lists as arguments</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">measurement_list</span><span class="o">=</span><span class="n">toy_measurements</span><span class="p">,</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">measurement_list</span><span class="o">=</span><span class="n">toy_measurements</span><span class="p">,</span>
                           <span class="n">application_list</span><span class="o">=</span><span class="n">toy_apps</span><span class="p">,</span>
                           <span class="n">model</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">,</span>
                           <span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">,</span>
@@ -175,8 +177,8 @@ Experiment 5         4       0.4     0.8
 </div>
 <div class="section" id="solving-the-project">
 <h2>Solving the Project<a class="headerlink" href="#solving-the-project" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> is now ready to be solved. The workflow described in <a class="reference internal" href="Project.html"><em>Projects and Solutions</em></a> can be followed from this point:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_sensitivity</span><span class="p">()</span>
+<p>The <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> is now ready to be solved. The workflow described in <a class="reference internal" href="Project.html"><span class="doc">Projects and Solutions</span></a> can be followed from this point:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_sensitivity</span><span class="p">()</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">find_active_parameters</span><span class="p">(</span><span class="n">sens_cutoff</span><span class="p">)</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">set_active_parameters</span><span class="p">()</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">run_optimization</span><span class="p">()</span>
@@ -408,7 +410,7 @@ Experiment 5         4       0.4     0.8
           <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Project.html">Projects and Solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measurement.html">Measurements and Models</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">A toy example using MUM-PCE</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A toy example using MUM-PCE</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="toy_model_example.html">Example usage and output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#defining-models">Defining models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-initialization-function">The initialization function</a></li>
@@ -428,9 +430,6 @@ Experiment 5         4       0.4     0.8
                 <input type="hidden" name="check_keywords" value="yes" />
                 <input type="hidden" name="area" value="default" />
             </form>
-            <p class="searchtip" style="font-size: 90%">
-                Enter search terms or a module, class or function name.
-            </p>
           </div>
         </div>
         <div class="clearer"></div>
@@ -452,7 +451,7 @@ Experiment 5         4       0.4     0.8
           </div>
           <div role="note" aria-label="source link">
               <br/>
-              <a href="_sources/toy.txt"
+              <a href="_sources/toy.rst.txt"
                 rel="nofollow">Show Source</a>
           </div>
         </div>
@@ -460,7 +459,7 @@ Experiment 5         4       0.4     0.8
         <div class="right">
           
     <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

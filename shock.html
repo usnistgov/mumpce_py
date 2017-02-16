@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Shock tube models &mdash; mumpce 0.1 documentation</title>
+    <title>Shock tube models &#8212; mumpce 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mumpce 0.1 documentation" href="index.html" />
-    <link rel="up" title="The Cantera interface to MUM-PCE" href="cantera.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Laminar flame speeds" href="flame.html" />
     <link rel="prev" title="Generic chemistry interface for Cantera" href="generic_chem.html" /> 
   </head>
@@ -88,7 +89,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>T</strong> (<em>float</em>) &#8211; The unburned gas temperature in Kelvins</li>
 <li><strong>Patm</strong> (<em>float</em>) &#8211; The pressure in atmospheres (will be converted internally to Pa)</li>
-<li><strong>composition</strong> (<em>array-like or str</em>) &#8211; The composition of the unburned gas. Can be a float array or a Cantera composition string</li>
+<li><strong>composition</strong> (<em>array-like</em><em> or </em><em>str</em>) &#8211; The composition of the unburned gas. Can be a float array or a Cantera composition string</li>
 <li><strong>reactor_model</strong> (<em>Cantera reactor model</em>) &#8211; The Cantera reactor model used to simulate the shock tube. Typically IdealGasReactor</li>
 <li><strong>chemistry_model</strong> (<em>str</em>) &#8211; The chemistry model for the shock tube. Must be a filename that contains a Cantera chemistry model that can be used to make a Cantera phase object</li>
 <li><strong>loglevel</strong> &#8211; The level of external logging that the model should do. If None, does not produce any logging in the ignition delay solver. Otherwise, produces detailed output</li>
@@ -190,7 +191,7 @@
 <dd><p>A generic function to define whether the ignition delay criterion has been satisfied for use with the <code class="xref py py-func docutils literal"><span class="pre">shock_tube_delay()</span></code> class</p>
 <p>This is a function used by <a class="reference internal" href="#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> to determine if the ignition delay criterion has been satisfied. If it has been satisified, the integration will stop. <a class="reference internal" href="#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> stores this 
 The function is called in the following way:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">keep_going</span><span class="p">,</span><span class="n">crit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">critical_last</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">keep_going</span><span class="p">,</span><span class="n">crit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">critical_last</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If keep_going is True, <a class="reference internal" href="#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> continues integrating. If False, it will stop.</p>
@@ -329,7 +330,7 @@ The function is called in the following way:</p>
 <li class="toctree-l1"><a class="reference internal" href="toy.html">A toy example using MUM-PCE</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="cantera.html">The Cantera interface to MUM-PCE</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="generic_chem.html">Generic chemistry interface for Cantera</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Shock tube models</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Shock tube models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html">Laminar flame speeds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cantera.html#the-initialization-function">The initialization function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cantera.html#model-classes-in-the-cantera-interface">Model classes in the Cantera interface</a></li>
@@ -346,9 +347,6 @@ The function is called in the following way:</p>
                 <input type="hidden" name="check_keywords" value="yes" />
                 <input type="hidden" name="area" value="default" />
             </form>
-            <p class="searchtip" style="font-size: 90%">
-                Enter search terms or a module, class or function name.
-            </p>
           </div>
         </div>
         <div class="clearer"></div>
@@ -370,7 +368,7 @@ The function is called in the following way:</p>
           </div>
           <div role="note" aria-label="source link">
               <br/>
-              <a href="_sources/shock.txt"
+              <a href="_sources/shock.rst.txt"
                 rel="nofollow">Show Source</a>
           </div>
         </div>
@@ -378,7 +376,7 @@ The function is called in the following way:</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>
