@@ -5,10 +5,18 @@
 
 .. currentmodule:: mumpce_new
 
-Welcome to MUM-PCE's documentation!
-===================================
+Method of Uncertainty Minimization using Polynomial Chaos Expansions
+====================================================================
+
+*David A. Sheen*
+
+*National Institute of Standards and Technology*
+
+*Last Revision February 16, 2016*
+
+`Download this software from GitHub <https://github.com/davidasheen/mumpce_py>`_
    
-Welcome to the home page for the Method of Uncertainty Minimization using Polynomial Chaos Expansions. This software is a Python package that implements the methodology presented in `Sheen & Wang (2011) <http://dx.doi.org/10.1016/j.combustflame.2011.05.010>`_, `Wang & Sheen (2015) <http://dx.doi.org/10.1016/j.pecs.2014.10.002>`_, and `Sheen & Manion (2014) <http://dx.doi.org/10.1021/jp5041844>`_. The software does the following things:
+Welcome to the home page for the Method of Uncertainty Minimization using Polynomial Chaos Expansions (MUM-PCE). This software is a Python package that implements the methodology presented in `Sheen & Wang (2011) <http://dx.doi.org/10.1016/j.combustflame.2011.05.010>`_, `Wang & Sheen (2015) <http://dx.doi.org/10.1016/j.pecs.2014.10.002>`_, and `Sheen & Manion (2014) <http://dx.doi.org/10.1021/jp5041844>`_. The software does the following things:
 
   * Compiles a database of experimental measurements
   * Constrains a physical model against the measurements in the database (optimization)
@@ -20,8 +28,18 @@ This implementation cannot be used out of the box. Instead, it is necessary for 
 
 The package is implemented in a way to be as general as possible, which means that efficiency is often sacrificed in order to implement this generality. Expert users may be able to modify the code in such a way as to make it more efficient for their particular application. No support is provided for this adventure, but please let me know if you are successful.
 
-Contents:
-+++++++++
+Legal
++++++
+
+This software is subject to the NIST Software License (revised as of May 2015). This license can be found in the GitHub repo in the file named LICENSE. The following is a hopefully-useful but not-legally-binding summary:
+
+  * NIST software authored by NIST employees is in the public domain (15 USC 105).
+  * The software has NO WARRANTY.
+  * You may modify the software and distribute your modifications. If you do, you should note your changes and cite the original.
+  * If you use the software, you should cite the software and the papers documenting its development.
+
+Contents
+++++++++
 
 .. toctree::
    :maxdepth: 2
@@ -31,6 +49,16 @@ Contents:
    measurement
    toy
    cantera
+
+Links
++++++
+
+`GitHub profile <https://github.com/davidasheen>`_
+
+`NIST GitHub Organization <https://github.com/usnistgov>`_
+
+`NIST home page <http://nist.gov>`_
+
 
 
 Indices and tables

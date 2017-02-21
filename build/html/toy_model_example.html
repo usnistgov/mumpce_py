@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Example usage and output &mdash; mumpce 0.1 documentation</title>
+    <title>Example usage and output &#8212; mumpce 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -17,15 +17,16 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="mumpce 0.1 documentation" href="index.html" />
-    <link rel="up" title="A toy example using MUM-PCE" href="toy.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Cantera interface to MUM-PCE" href="cantera.html" />
     <link rel="prev" title="A toy example using MUM-PCE" href="toy.html" /> 
   </head>
@@ -192,7 +193,7 @@ div.nboutput  > :nth-child(2).stderr {
 <h1>Example usage and output<a class="headerlink" href="#Example-usage-and-output" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast container">
+<div class="nbinput container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [1]:
 </pre></div>
@@ -200,20 +201,37 @@ div.nboutput  > :nth-child(2).stderr {
 <div class="highlight-ipython2"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 
-<span class="kn">import</span> <span class="nn">mumpce_new</span> <span class="kn">as</span> <span class="nn">mumpce</span>
+<span class="kn">import</span> <span class="nn">mumpce_py</span> <span class="kn">as</span> <span class="nn">mumpce</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">mumpce_new.toy</span>
+<span class="kn">import</span> <span class="nn">mumpce_py.toy</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast container">
+<div class="container">
+</div>
+<div class="container">
+<div class="highlight"><pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">ImportError</span>                               Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-1-aa35fc590191&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> get_ipython<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow">.</span>magic<span class="ansiyellow">(</span><span class="ansiblue">u&apos;matplotlib inline&apos;</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      2</span> <span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 3</span><span class="ansiyellow"> </span><span class="ansigreen">import</span> mumpce_py <span class="ansigreen">as</span> mumpce<span class="ansiyellow"></span>
+<span class="ansigreen">      4</span> <span class="ansigreen">import</span> numpy <span class="ansigreen">as</span> np<span class="ansiyellow"></span>
+<span class="ansigreen">      5</span> <span class="ansigreen">import</span> mumpce_py<span class="ansiyellow">.</span>toy<span class="ansiyellow"></span>
+
+<span class="ansired">ImportError</span>: No module named mumpce_py
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Models">
 <h2>Models<a class="headerlink" href="#Models" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Creating-a-model-directly">
 <h3>Creating a model directly<a class="headerlink" href="#Creating-a-model-directly" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -223,28 +241,12 @@ div.nboutput  > :nth-child(2).stderr {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[2]:
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>array([{&#39;parameter_number&#39;: 0, &#39;parameter_name&#39;: &#39;Parameter 1&#39;},
-       {&#39;parameter_number&#39;: 1, &#39;parameter_name&#39;: &#39;Parameter 2&#39;},
-       {&#39;parameter_number&#39;: 2, &#39;parameter_name&#39;: &#39;Parameter 3&#39;},
-       {&#39;parameter_number&#39;: 3, &#39;parameter_name&#39;: &#39;Parameter 4&#39;},
-       {&#39;parameter_number&#39;: 4, &#39;parameter_name&#39;: &#39;Parameter 5&#39;},
-       {&#39;parameter_number&#39;: 5, &#39;parameter_name&#39;: &#39;Parameter 6&#39;},
-       {&#39;parameter_number&#39;: 6, &#39;parameter_name&#39;: &#39;Parameter 7&#39;}], dtype=object)
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="Evaluation-and-sensitivity-analysis">
 <h3>Evaluation and sensitivity analysis<a class="headerlink" href="#Evaluation-and-sensitivity-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -252,41 +254,15 @@ div.nboutput  > :nth-child(2).stderr {
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[3]:
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>1.2214027581601699
-</pre></div>
-</div>
-</div>
-<div class="nbinput container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
 <span></span><span class="n">V</span><span class="p">,</span><span class="n">S</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="mf">0.0000001</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Value =  1.22140275816
-Param  Value+       Value-           Sensitivity
-     0  1.22140e+00   1.22140e+00   1.0000e+00
-     1  1.22140e+00   1.22140e+00   6.0000e-01
-     2  1.22140e+00   1.22140e+00   4.0000e-01
-     3  1.22140e+00   1.22140e+00   1.0000e-01
-     4  1.22140e+00   1.22140e+00   3.0000e-02
-     5  1.22140e+00   1.22140e+00   1.0000e-02
-     6  1.22140e+00   1.22140e+00   2.0000e-02
-</pre></div></div>
 </div>
 </div>
 </div>
@@ -296,7 +272,7 @@ Param  Value+       Value-           Sensitivity
 <h3>Initializing measurements<a class="headerlink" href="#Initializing-measurements" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -308,9 +284,9 @@ Param  Value+       Value-           Sensitivity
 </div>
 <div class="section" id="Sensitivity-analysis-with-Measurements">
 <h3>Sensitivity analysis with Measurements<a class="headerlink" href="#Sensitivity-analysis-with-Measurements" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -323,73 +299,6 @@ Param  Value+       Value-           Sensitivity
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Experiment 1
-Value =  1.22140275816
-Param  Value+       Value-           Sensitivity
-     0  1.22140e+00   1.22140e+00   1.0000e+00
-     1  1.22140e+00   1.22140e+00   6.0000e-01
-     2  1.22140e+00   1.22140e+00   4.0000e-01
-     3  1.22140e+00   1.22140e+00   1.0000e-01
-     4  1.22140e+00   1.22140e+00   3.0000e-02
-     5  1.22140e+00   1.22140e+00   1.0001e-02
-     6  1.22140e+00   1.22140e+00   2.0000e-02
-Experiment 2
-Value =  0.548811636094
-Param  Value+       Value-           Sensitivity
-     0  5.48812e-01   5.48812e-01   2.0000e-02
-     1  5.48812e-01   5.48812e-01   6.0000e-01
-     2  5.48812e-01   5.48812e-01   1.0000e+00
-     3  5.48812e-01   5.48812e-01   2.9999e-02
-     4  5.48812e-01   5.48812e-01   1.0000e-01
-     5  5.48812e-01   5.48812e-01   1.0000e-02
-     6  5.48812e-01   5.48812e-01   4.0000e-01
-Experiment 3
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.64872e+00   1.64872e+00   1.0000e+00
-     1  1.64872e+00   1.64872e+00   4.0000e-01
-     2  1.64872e+00   1.64872e+00   6.0000e-01
-     3  1.64872e+00   1.64872e+00   1.0000e-01
-     4  1.64872e+00   1.64872e+00   2.0000e-02
-     5  1.64872e+00   1.64872e+00   3.0001e-02
-     6  1.64872e+00   1.64872e+00   9.9998e-03
-Experiment 4
-Value =  2.22554092849
-Param  Value+       Value-           Sensitivity
-     0  2.22554e+00   2.22554e+00   4.0000e-01
-     1  2.22554e+00   2.22554e+00   1.0000e+00
-     2  2.22554e+00   2.22554e+00   1.0000e-02
-     3  2.22554e+00   2.22554e+00   1.9999e-02
-     4  2.22554e+00   2.22554e+00   6.0000e-01
-     5  2.22554e+00   2.22554e+00   3.0000e-02
-     6  2.22554e+00   2.22554e+00   1.0000e-01
-Experiment 5
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.64872e+00   1.64872e+00   3.0001e-02
-     1  1.64872e+00   1.64872e+00   1.0000e-01
-     2  1.64872e+00   1.64872e+00   1.0000e+00
-     3  1.64872e+00   1.64872e+00   2.0000e-02
-     4  1.64872e+00   1.64872e+00   6.0000e-01
-     5  1.64872e+00   1.64872e+00   9.9998e-03
-     6  1.64872e+00   1.64872e+00   4.0000e-01
-Application 1
-Value =  1.0
-Param  Value+       Value-           Sensitivity
-     0  1.00000e+00   1.00000e+00   1.0000e+00
-     1  1.00000e+00   1.00000e+00   2.0000e-01
-     2  1.00000e+00   1.00000e+00   1.0000e-02
-     3  1.00000e+00   1.00000e+00   1.0000e-02
-     4  1.00000e+00   1.00000e+00   1.0000e-02
-     5  1.00000e+00   1.00000e+00   1.0000e-02
-     6  1.00000e+00   1.00000e+00   1.0000e-02
-</pre></div></div>
-</div>
 </div>
 </div>
 <div class="section" id="Projects">
@@ -398,7 +307,7 @@ Param  Value+       Value-           Sensitivity
 <h3>Create the Project<a class="headerlink" href="#Create-the-Project" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -415,7 +324,7 @@ Param  Value+       Value-           Sensitivity
 <h3>Initializing Measurements within Projects<a class="headerlink" href="#Initializing-Measurements-within-Projects" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [8]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -430,9 +339,9 @@ Param  Value+       Value-           Sensitivity
 <p class="first admonition-title">Note</p>
 <p class="last">This is exactly equivalent to creating the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> with the measurement and application lists already created.</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [9]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -440,15 +349,6 @@ Param  Value+       Value-           Sensitivity
 <span class="k">print</span> <span class="n">my_project</span><span class="p">[</span><span class="s1">&#39;Experiment 1&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Experiment 1         (Active         ): 0
-Experiment 1         (Active         ): 0
-</pre></div></div>
 </div>
 </div>
 <div class="section" id="Sensitivity-analysis-with-Projects">
@@ -458,9 +358,9 @@ Experiment 1         (Active         ): 0
 <p class="first admonition-title">Note</p>
 <p class="last">Calling <code class="xref py py-func docutils literal"><span class="pre">Project.find_sensitivity()</span></code> is the same as calling <code class="xref py py-func docutils literal"><span class="pre">Measurement.evaluate_sensitivity()</span></code> for each measurement</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [10]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -468,76 +368,9 @@ Experiment 1         (Active         ): 0
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Experiment 1
-Value =  1.22140275816
-Param  Value+       Value-           Sensitivity
-     0  1.28247e+00   1.16324e+00   9.7619e-01
-     1  1.25769e+00   1.18617e+00   5.8557e-01
-     2  1.24547e+00   1.19780e+00   3.9035e-01
-     3  1.22738e+00   1.21546e+00   9.7581e-02
-     4  1.22319e+00   1.21962e+00   2.9274e-02
-     5  1.22200e+00   1.22081e+00   9.7580e-03
-     6  1.22260e+00   1.22021e+00   1.9516e-02
-Experiment 2
-Value =  0.548811636094
-Param  Value+       Value-           Sensitivity
-     0  5.49347e-01   5.48276e-01   1.9516e-02
-     1  5.65115e-01   5.32979e-01   5.8557e-01
-     2  5.76252e-01   5.22678e-01   9.7619e-01
-     3  5.49616e-01   5.48009e-01   2.9274e-02
-     4  5.51496e-01   5.46140e-01   9.7581e-02
-     5  5.49079e-01   5.48544e-01   9.7580e-03
-     6  5.59627e-01   5.38205e-01   3.9035e-01
-Experiment 3
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.73116e+00   1.57021e+00   9.7619e-01
-     1  1.68121e+00   1.61686e+00   3.9035e-01
-     2  1.69770e+00   1.60116e+00   5.8557e-01
-     3  1.65679e+00   1.64070e+00   9.7581e-02
-     4  1.65033e+00   1.64711e+00   1.9516e-02
-     5  1.65114e+00   1.64631e+00   2.9274e-02
-     6  1.64953e+00   1.64792e+00   9.7580e-03
-Experiment 4
-Value =  2.22554092849
-Param  Value+       Value-           Sensitivity
-     0  2.26940e+00   2.18253e+00   3.9035e-01
-     1  2.33682e+00   2.11956e+00   9.7619e-01
-     2  2.22663e+00   2.22446e+00   9.7580e-03
-     3  2.22771e+00   2.22337e+00   1.9516e-02
-     4  2.29165e+00   2.16133e+00   5.8557e-01
-     5  2.22880e+00   2.22229e+00   2.9274e-02
-     6  2.23643e+00   2.21471e+00   9.7581e-02
-Experiment 5
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.65114e+00   1.64631e+00   2.9274e-02
-     1  1.65679e+00   1.64070e+00   9.7581e-02
-     2  1.73116e+00   1.57021e+00   9.7619e-01
-     3  1.65033e+00   1.64711e+00   1.9516e-02
-     4  1.69770e+00   1.60116e+00   5.8557e-01
-     5  1.64953e+00   1.64792e+00   9.7580e-03
-     6  1.68121e+00   1.61686e+00   3.9035e-01
-Application 1
-Value =  1.0
-Param  Value+       Value-           Sensitivity
-     0  1.05000e+00   9.52381e-01   9.7619e-01
-     1  1.00981e+00   9.90289e-01   1.9516e-01
-     2  1.00049e+00   9.99512e-01   9.7580e-03
-     3  1.00049e+00   9.99512e-01   9.7580e-03
-     4  1.00049e+00   9.99512e-01   9.7580e-03
-     5  1.00049e+00   9.99512e-01   9.7580e-03
-     6  1.00049e+00   9.99512e-01   9.7580e-03
-</pre></div></div>
-</div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [11]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -545,67 +378,6 @@ Param  Value+       Value-           Sensitivity
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Value =  1.22140275816
-Param  Value+       Value-           Sensitivity
-     0  1.28247e+00   1.16324e+00   9.7619e-01
-     1  1.25769e+00   1.18617e+00   5.8557e-01
-     2  1.24547e+00   1.19780e+00   3.9035e-01
-     3  1.22738e+00   1.21546e+00   9.7581e-02
-     4  1.22319e+00   1.21962e+00   2.9274e-02
-     5  1.22200e+00   1.22081e+00   9.7580e-03
-     6  1.22260e+00   1.22021e+00   1.9516e-02
-Value =  0.548811636094
-Param  Value+       Value-           Sensitivity
-     0  5.49347e-01   5.48276e-01   1.9516e-02
-     1  5.65115e-01   5.32979e-01   5.8557e-01
-     2  5.76252e-01   5.22678e-01   9.7619e-01
-     3  5.49616e-01   5.48009e-01   2.9274e-02
-     4  5.51496e-01   5.46140e-01   9.7581e-02
-     5  5.49079e-01   5.48544e-01   9.7580e-03
-     6  5.59627e-01   5.38205e-01   3.9035e-01
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.73116e+00   1.57021e+00   9.7619e-01
-     1  1.68121e+00   1.61686e+00   3.9035e-01
-     2  1.69770e+00   1.60116e+00   5.8557e-01
-     3  1.65679e+00   1.64070e+00   9.7581e-02
-     4  1.65033e+00   1.64711e+00   1.9516e-02
-     5  1.65114e+00   1.64631e+00   2.9274e-02
-     6  1.64953e+00   1.64792e+00   9.7580e-03
-Value =  2.22554092849
-Param  Value+       Value-           Sensitivity
-     0  2.26940e+00   2.18253e+00   3.9035e-01
-     1  2.33682e+00   2.11956e+00   9.7619e-01
-     2  2.22663e+00   2.22446e+00   9.7580e-03
-     3  2.22771e+00   2.22337e+00   1.9516e-02
-     4  2.29165e+00   2.16133e+00   5.8557e-01
-     5  2.22880e+00   2.22229e+00   2.9274e-02
-     6  2.23643e+00   2.21471e+00   9.7581e-02
-Value =  1.6487212707
-Param  Value+       Value-           Sensitivity
-     0  1.65114e+00   1.64631e+00   2.9274e-02
-     1  1.65679e+00   1.64070e+00   9.7581e-02
-     2  1.73116e+00   1.57021e+00   9.7619e-01
-     3  1.65033e+00   1.64711e+00   1.9516e-02
-     4  1.69770e+00   1.60116e+00   5.8557e-01
-     5  1.64953e+00   1.64792e+00   9.7580e-03
-     6  1.68121e+00   1.61686e+00   3.9035e-01
-Value =  1.0
-Param  Value+       Value-           Sensitivity
-     0  1.05000e+00   9.52381e-01   9.7619e-01
-     1  1.00981e+00   9.90289e-01   1.9516e-01
-     2  1.00049e+00   9.99512e-01   9.7580e-03
-     3  1.00049e+00   9.99512e-01   9.7580e-03
-     4  1.00049e+00   9.99512e-01   9.7580e-03
-     5  1.00049e+00   9.99512e-01   9.7580e-03
-     6  1.00049e+00   9.99512e-01   9.7580e-03
-</pre></div></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -616,9 +388,9 @@ Param  Value+       Value-           Sensitivity
 <h3>Response surface analysis<a class="headerlink" href="#Response-surface-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Active-parameters">
 <h4>Active parameters<a class="headerlink" href="#Active-parameters" title="Permalink to this headline">¶</a></h4>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [12]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -626,21 +398,9 @@ Param  Value+       Value-           Sensitivity
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Experiment 1
-Experiment 2
-Experiment 3
-Experiment 4
-Experiment 5
-</pre></div></div>
-</div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [13]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -649,18 +409,9 @@ Experiment 5
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-[0 1 2 4 6]
-[ 2.71828183  2.71828183  2.71828183  2.71828183  2.71828183]
-</pre></div></div>
-</div>
 <div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [14]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -673,7 +424,7 @@ Experiment 5
 <h4>Response surface evaluation<a class="headerlink" href="#Response-surface-evaluation" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [15]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -683,9 +434,9 @@ Experiment 5
 </pre></div>
 </div>
 </div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [30]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -694,26 +445,13 @@ Experiment 5
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-[[ 0.02  0.6   1.    0.1   0.4 ]]
-[[ 1.    0.4   0.6   0.02  0.01]]
-[[ 0.4   1.    0.01  0.6   0.1 ]]
-[[ 0.03  0.1   1.    0.6   0.4 ]]
-[[ 1.    0.2   0.01  0.01  0.01]]
-[[ 1.    0.6   0.4   0.03  0.02]]
-</pre></div></div>
-</div>
 </div>
 </div>
 <div class="section" id="Solving-the-Project">
 <h3>Solving the Project<a class="headerlink" href="#Solving-the-Project" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [17]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -721,37 +459,13 @@ Experiment 5
 </pre></div>
 </div>
 </div>
-<div class="nboutput container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Both actual and predicted relative reductions in the sum of squares
-  are at most 0.000000
-</pre></div></div>
-</div>
-<div class="nboutput nblast container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[17]:
-</pre></div>
-</div>
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>(array([-0.58888728,  1.12003551,  0.00704031, -1.62385897,  0.8043988 ]),
- array([[ 0.01488721, -0.01894579, -0.0104734 ,  0.01325883,  0.04734255],
-        [-0.01894579,  0.04284732, -0.00131388, -0.04801795, -0.04545704],
-        [-0.0104734 , -0.00131388,  0.02343655,  0.01588293, -0.05618227],
-        [ 0.01325883, -0.04801795,  0.01588293,  0.08171971,  0.00875019],
-        [ 0.04734255, -0.04545704, -0.05618227,  0.00875019,  0.2066927 ]]))
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</p>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [18]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -764,19 +478,12 @@ Both actual and predicted relative reductions in the sum of squares
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<img alt="_images/toy_model_example_36_0.png" src="_images/toy_model_example_36_0.png" />
-</div>
-</div>
 </div>
 <div class="section" id="Consistency-analysis">
 <h3>Consistency analysis<a class="headerlink" href="#Consistency-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [19]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -784,43 +491,13 @@ Both actual and predicted relative reductions in the sum of squares
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Both actual and predicted relative reductions in the sum of squares
-  are at most 0.000000
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 1        :   0.40   0.05   0.25   0.04   0.20   0.62
-Experiment 2        :   0.25   0.05   0.23   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.34   0.04   0.50   0.62
-Experiment 4        :   0.70   0.08   0.79   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80  -0.05   0.24   0.50   0.62
-Application 1       :   0.00   0.00  -0.37   0.10   0.00   0.51
-Experiment 1
-    Uncertainty Ratio:   0.86
-    Normalized Score:  -1.47
-    Weighted Consistency   1.08
-Both actual and predicted relative reductions in the sum of squares
-  are at most 0.000000
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80   1.11   0.31   0.50   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.08   0.20   0.62
-No inconsistent measurements
-</pre></div></div>
-</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Application 1 doesn&#8217;t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [20]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -828,25 +505,13 @@ No inconsistent measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-[[ 0.12479468  0.          0.          0.          0.        ]
- [-0.12013267  0.22624567  0.          0.          0.        ]
- [-0.10457956 -0.12695211  0.07784912  0.          0.        ]
- [ 0.05268069 -0.3544285   0.01919642  0.13432677  0.        ]
- [ 0.39559594  0.06070328 -0.1889603  -0.04967127  0.11964893]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <p>The parameter values are much more reasonable with the outlier removed.</p>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [21]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -859,19 +524,12 @@ No inconsistent measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<img alt="_images/toy_model_example_42_0.png" src="_images/toy_model_example_42_0.png" />
-</div>
-</div>
 </div>
 <div class="section" id="Experimental-design">
 <h3>Experimental design<a class="headerlink" href="#Experimental-design" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [22]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -879,30 +537,9 @@ No inconsistent measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80   1.11   0.31   0.50   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.08   0.20   0.62
-Experiment 2 Entropy flux   0.002025
-Experiment 3 Entropy flux   0.112731
-Experiment 4 Entropy flux   0.002400
-Experiment 5 Entropy flux   0.007757
-Application 1 Entropy flux  -0.028620
-Experiment 1 Entropy flux  -0.096291
-No low-information measurements
-</pre></div></div>
-</div>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [23]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -910,24 +547,12 @@ No low-information measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<div class="highlight"><pre>
-[[ 0.12479468  0.          0.          0.          0.        ]
- [-0.12013267  0.22624567  0.          0.          0.        ]
- [-0.10457956 -0.12695211  0.07784912  0.          0.        ]
- [ 0.05268069 -0.3544285   0.01919642  0.13432677  0.        ]
- [ 0.39559594  0.06070328 -0.1889603  -0.04967127  0.11964893]]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput nblast container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [24]:
+<span></span>In [ ]:
 </pre></div>
 </div>
 <div class="highlight-ipython2"><div class="highlight"><pre>
@@ -938,13 +563,6 @@ No low-information measurements
                <span class="p">]</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">my_project</span><span class="o">.</span><span class="n">plot_pdfs</span><span class="p">(</span><span class="n">factors_list</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput nblast container">
-<div class="container">
-</div>
-<div class="container">
-<img alt="_images/toy_model_example_47_0.png" src="_images/toy_model_example_47_0.png" />
 </div>
 </div>
 <div class="nbinput nblast container">
@@ -972,7 +590,7 @@ No low-information measurements
 <li class="toctree-l1"><a class="reference internal" href="Project.html">Projects and Solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measurement.html">Measurements and Models</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="toy.html">A toy example using MUM-PCE</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Example usage and output</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example usage and output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toy.html#defining-models">Defining models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toy.html#the-initialization-function">The initialization function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="toy.html#creating-a-project">Creating a Project</a></li>
@@ -991,9 +609,6 @@ No low-information measurements
                 <input type="hidden" name="check_keywords" value="yes" />
                 <input type="hidden" name="area" value="default" />
             </form>
-            <p class="searchtip" style="font-size: 90%">
-                Enter search terms or a module, class or function name.
-            </p>
           </div>
         </div>
         <div class="clearer"></div>
@@ -1015,7 +630,7 @@ No low-information measurements
           </div>
           <div role="note" aria-label="source link">
               <br/>
-              <a href="_sources/toy_model_example.txt"
+              <a href="_sources/toy_model_example.ipynb.txt"
                 rel="nofollow">Show Source</a>
           </div>
         </div>
@@ -1023,7 +638,7 @@ No low-information measurements
         <div class="right">
           
     <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

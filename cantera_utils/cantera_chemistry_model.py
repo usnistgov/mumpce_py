@@ -1,8 +1,14 @@
 from state_definition import StateDefinition
 from abc import ABCMeta, abstractmethod
 import cantera as ct
-import mumpce
-#import mumpce_py as mumpce
+#import mumpce
+
+#This is added because mumpce may not be in the path and we know that mumpce exists upstairs from cantera_chemistry_model
+#This line is needed for Sphinx autodoc to work. You may need to remove it yourself
+import sys
+sys.path.append('..')
+
+import mumpce_py as mumpce
 import numpy as np
 
 import tqdm
