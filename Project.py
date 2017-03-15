@@ -118,6 +118,14 @@ class Project(object):
             names[item.name] = item
         return names
     
+    @property
+    def active(self):
+        active = []
+        for meas_list in [self.measurement_list,self.application_list]:
+            if meas_list is not None:
+                active += meas_list
+        return active
+    
     def __len__(self):
         return len(self.items)
     
@@ -155,7 +163,7 @@ class Project(object):
         if type(newmeas) is mumpce.measurement:
             self.application_list += [newmeas]
         else:
-            raise(ValueError,'Cannot add non-measurement to measurement list')        
+            raise(ValueError,'Cannot add non-measurement to application list')        
     
     def __iter__(self):
         return iter(self.items)
@@ -523,7 +531,7 @@ class Project(object):
             
             caatc = np.dot(self.solution.cov,np.dot(aat,self.solution.cov))
             
-            for r,meas_r in enumerate(self):
+            for r,meas_r in enumerate(self.active):
                 y,a_r = meas_r.sensitivity_response(self.solution.x)
                 b_r = meas_r.response.b
                 
