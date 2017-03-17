@@ -54,7 +54,7 @@ class FlameSpeed(CanteraChemistryModel):
                    )
         modelstr = 'Laminar flame speed: {:8.0f} K, {:5.2f} kPa, {}'.format(*str_args)
         
-        modelstr = 'Laminar flame speed: ' + str(self.initial.T) + ' K, ' + str(self.initial.P) + ' Pa, ' + str(self.initial.composition)
+        #modelstr = 'Laminar flame speed: ' + str(self.initial.T) + ' K, ' + str(self.initial.P) + ' Pa, ' + str(self.initial.composition)
         return modelstr
     
     def initialize_reactor(self):

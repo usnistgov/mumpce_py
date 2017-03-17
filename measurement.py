@@ -89,7 +89,7 @@ class Measurement(object):
         """
         modelstr = str(self.model)
         
-        meas_str = "{:20} ({:15}): {}".format(self.name,self._status,modelstr)
+        meas_str = "{} ({}): {}".format(self.name,self._status,modelstr)
         
         return meas_str
         

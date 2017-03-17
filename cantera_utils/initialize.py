@@ -234,7 +234,7 @@ def measurement_initialize_pd(filename,chemistry_model=None):
             dil = True
         if s.startswith('Crit'): #This is a Critical keyword
             if 'spec' in s: #Critical species
-                crit_species_keyw = s
+                crit_spec_keyw = s
             if 'val' in s:
                 crit_val_keyw = s
                 critical_value = True
