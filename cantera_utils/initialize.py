@@ -24,14 +24,14 @@ def ign_initialize(name=None,
                    critical_denominator=None,
                    critical_rise=None,
                    value=None,
-                   uncertainty=None
+                   uncertainty=None,**kwargs
                   ):
     """Initialize a shock tube experiment
     """
     #initial_timestep = 1.0e-4
     fcn = None
     
-    kwargs = dict(loglevel=None)
+    kwargs = dict(loglevel=None,**kwargs)
     args = [T,Patm,fuels,ct.IdealGasReactor,chemistry_model]#,fcn)
     
     if name.startswith('ign'):
@@ -78,9 +78,9 @@ def fls_initialize(name=None,
                    fuels=None,
                    chemistry_model=None,
                    value=None,
-                   uncertainty=None
+                   uncertainty=None,**kwargs
                   ):
-    mdl = FlameSpeed(T,Patm,fuels,chemistry_model,domain_length=2,initial_points=20,loglevel=0,name=name)
+    mdl = FlameSpeed(T,Patm,fuels,chemistry_model,domain_length=2,initial_points=20,loglevel=0,name=name,**kwargs)
     meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,active_parameters=None,parameter_uncertainties=None)
     return meas
 def measurement_initialize(filename,chemistry_model):
@@ -188,7 +188,7 @@ def measurement_initialize(filename,chemistry_model):
             measurement_list += [meas]
     
     return measurement_list#temperature_list,pressure_list,fuel_string_list,critical_species_list
-def measurement_initialize_pd(filename,chemistry_model=None):
+def measurement_initialize_pd(filename,chemistry_model=None,**kwargs):
     """Read a database file in Excel into a Pandas dataframe, then process the dataframe into a batch of measurements
     
     :param filename: The file that contains the experimental database.
@@ -327,7 +327,7 @@ def measurement_initialize_pd(filename,chemistry_model=None):
                                   T=this_experiment[temp_keyw].values[0],
                                   Patm=this_experiment[pres_keyw].values[0],
                                   fuels=fuel_string,
-                                  chemistry_model=chem,
+                                  chemistry_model=chem,**kwargs
                                  )
         else:
             cv = None
@@ -348,7 +348,7 @@ def measurement_initialize_pd(filename,chemistry_model=None):
                                   chemistry_model=chem,
                                   critical_value=cv,
                                   critical_denominator=denom,
-                                  critical_rise=rise
+                                  critical_rise=rise,**kwargs
                                  )
         
         measurement_list += [meas]

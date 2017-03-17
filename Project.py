@@ -244,13 +244,13 @@ class Project(object):
     def optimize_parameters(self):
         pass
     
-    def measurement_initialize(self,filename):
+    def measurement_initialize(self,filename,**kwargs):
         """Calls :func:`self.initialize_function` to create the measurement list.
         
         :param filename: The file containing the experimental database
         :type filename: str
         """
-        self.measurement_list = self.initialize_function(filename,self.model)
+        self.measurement_list = self.initialize_function(filename,self.model,**kwargs)
         self.model_parameter_info = self.measurement_list[0].model.model_parameter_info
         return
     

@@ -23,9 +23,9 @@ class ShockTube(CanteraChemistryModel):
     """    
     def __init__(self,
                  T,Patm,composition,
-                 reactor_model,chemistry_model,loglevel=None):
+                 reactor_model,chemistry_model,loglevel=None,**kwargs):
         
-        super(ShockTube,self).__init__(T,Patm,composition,chemistry_model)
+        super(ShockTube,self).__init__(T,Patm,composition,chemistry_model,**kwargs)
         self.reactor_model = reactor_model #: The Cantera :py:class:`cantera.IdealGasReactor` class that will be instantiated by :py:func:`initalize_reactor`
         self.loglevel = loglevel
         

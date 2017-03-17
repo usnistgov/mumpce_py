@@ -34,9 +34,9 @@ class ShockTubeDelay(stb.ShockTube):
                  T,Patm,composition,
                  reactor_model,chemistry_model,
                  critical_function,crit_ID=None,critical_value=None,critical_rise=None,
-                 initial_timestep=1.0e-5,loglevel=None):
+                 initial_timestep=1.0e-5,loglevel=None,**kwargs):
         
-        super(ShockTubeDelay,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel)
+        super(ShockTubeDelay,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel,**kwargs)
         
         self.critical_ID = crit_ID
         #self.critical_denominator = crit_denom
@@ -194,9 +194,9 @@ class ShockTubeConcentration(stb.ShockTube):
     def __init__(self,
                  T,Patm,composition,
                  reactor_model,chemistry_model,crit_ID,
-                 integration_time=1.0e-4,loglevel=None):
+                 integration_time=1.0e-4,loglevel=None,**kwargs):
         
-        super(ShockTubeConcentration,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel)
+        super(ShockTubeConcentration,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel,**kwargs)
         
         self.critical_ID = crit_ID
         
@@ -261,9 +261,9 @@ class ShockTubeRatio(stb.ShockTube):
     def __init__(self,
                  T,Patm,composition,
                  reactor_model,chemistry_model,
-                 crit_numerator=None,crit_denom=None,integration_time=1.0e-4,loglevel=None):
+                 crit_numerator=None,crit_denom=None,integration_time=1.0e-4,loglevel=None,**kwargs):
         
-        super(ShockTubeRatio,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel)
+        super(ShockTubeRatio,self).__init__(T,Patm,composition,reactor_model,chemistry_model,loglevel,**kwargs)
         
         self.critical_numerator = crit_numerator
         self.critical_denominator = crit_denom

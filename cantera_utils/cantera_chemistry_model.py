@@ -51,7 +51,7 @@ class CanteraChemistryModel(mumpce.Model):
     
     def __init__(self,
                  T,Patm,composition,
-                 chemistry_model):
+                 chemistry_model,**kwargs):
         #Initialize the reactor's intial state
         self.initial = StateDefinition(T,Patm,composition)
         
@@ -62,7 +62,7 @@ class CanteraChemistryModel(mumpce.Model):
         self._sens_flag = False
         
         # Initialize the Cantera mixture, thermo, and chemical model
-        self.prepare_chemistry()
+        self.prepare_chemistry(**kwargs)
         self.tqfunc = tqdm.tqdm
         
         return
@@ -72,7 +72,7 @@ class CanteraChemistryModel(mumpce.Model):
 #        return modelstr
         
     
-    def prepare_chemistry(self):
+    def prepare_chemistry(self,no_efficiencies=True,no_energy=True,no_falloff=True,**kwargs):
         """Instantiate the Cantera chemistry model and get information about the reaction model. This is called during instantiation of the model and normally would not be called at any other time.
         """
         #Call the blank_chemistry function in order to create the chemistry and simulation attributes, initialized to None
@@ -82,7 +82,10 @@ class CanteraChemistryModel(mumpce.Model):
         self.initialize_chemistry()
         
         #Get the parameters that will be investigated for sensitivity analysis and find how many there are
-        self.model_parameter_info = self.get_model_parameter_info(no_efficiencies=True,no_energy=True,no_falloff=True)
+        #self.model_parameter_info = self.get_model_parameter_info(no_efficiencies=True,no_energy=True,no_falloff=True)
+        self.model_parameter_info = self.get_model_parameter_info(no_efficiencies=no_efficiencies,
+                                                                  no_energy=no_energy,
+                                                                  no_falloff=no_falloff)
         self.number_parameters = len(self.model_parameter_info)
         
         #Blank the chemistry so that the model can be pickled

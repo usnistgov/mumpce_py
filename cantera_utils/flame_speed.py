@@ -33,9 +33,9 @@ class FlameSpeed(CanteraChemistryModel):
               T,Patm,composition,
               chemistry_model,
               domain_length=1.0,initial_points=10,
-              loglevel=2,name='soln'):
+              loglevel=2,name='soln',**kwargs):
         
-        super(FlameSpeed,self).__init__(T,Patm,composition,chemistry_model)
+        super(FlameSpeed,self).__init__(T,Patm,composition,chemistry_model,**kwargs)
         
         self._initial_grid = np.linspace(0,domain_length,initial_points)
         
