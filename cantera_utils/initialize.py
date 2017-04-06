@@ -314,7 +314,7 @@ def measurement_initialize_pd(filename,chemistry_model=None,**kwargs):
         else:
             chem = chemistry_model            
         
-        print chem
+        print (chem)
         
         val = None
         unc = None

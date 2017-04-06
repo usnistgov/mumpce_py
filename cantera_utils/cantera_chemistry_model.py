@@ -11,8 +11,14 @@ sys.path.append('..')
 import mumpce_py as mumpce
 import numpy as np
 
-import tqdm
+def idfunc(x):
+    return x
 
+try:
+    import tqdm
+    tqfunc = tqdm.tqdm
+except ImportError:
+    tqfunc = idfunc
 
 class CanteraChemistryModel(mumpce.Model):
     """A class for Cantera chemistry models.
@@ -63,7 +69,7 @@ class CanteraChemistryModel(mumpce.Model):
         
         # Initialize the Cantera mixture, thermo, and chemical model
         self.prepare_chemistry(**kwargs)
-        self.tqfunc = tqdm.tqdm
+        self.tqfunc = tqfunc #tqdm.tqdm
         
         return
         

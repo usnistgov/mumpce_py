@@ -127,7 +127,7 @@ class ShockTubeDelay(stb.ShockTube):
                 time_so_far = max(time_so_far,0)
                 break_loop = False
                 if not(self.loglevel is None):
-                    print '--'
+                    print ('--')
         
         return time_so_far,reactor_temperature,reactor_pressure,reactor_contents
     

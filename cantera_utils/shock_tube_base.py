@@ -81,11 +81,11 @@ class ShockTube(CanteraChemistryModel):
         reaction_number = param_info['reaction_number']
         parameter_type = param_info['parameter_type']
         
-        print parameter
-        print param_info
+        print (parameter)
+        print (param_info)
         
         reaction = self.gas.reaction(reaction_number)
-        print reaction.rate
+        print (reaction.rate)
         rate = None
         efficiencies = None
         reactants = reaction.reactant_string

@@ -102,7 +102,7 @@ class toy_model(mumpce.Model):
         sensitivity_vector = np.zeros(len(parameter_list))
         
         value = self.evaluate()
-        if self.loglevel: print "Value = ", value
+        if self.loglevel: print ("Value = ", value)
         
         pos_mult = 1 + perturbation
         neg_mult = 1/pos_mult

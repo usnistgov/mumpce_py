@@ -184,7 +184,7 @@ class Project(object):
         """For each measurement in the measurement and application lists, evaluates and stores the sensitivity 
         """
         for meas in self.measurement_list + self.application_list:
-            print meas.name
+            print (meas.name)
             meas.evaluate_sensitivity()
         return
     
@@ -217,7 +217,7 @@ class Project(object):
         #Create an empty array of the active parameters
         self.active_parameters = np.array([],dtype=int)
         for meas in self.measurement_list:
-            print meas.name
+            print (meas.name)
             #Create the list of parameters for this measurement
             all_parameters = np.arange(meas.model.number_parameters,dtype=int)
             
@@ -337,7 +337,7 @@ class Project(object):
         measurement_list = self.measurement_list
         
         from scipy import optimize as spopt
-        print self.active_parameters.shape
+        print (self.active_parameters.shape)
         num_params = self.active_parameters.shape[0]#initial_guess.shape[0]
         num_expts = len(self.measurement_list)
         
@@ -383,7 +383,7 @@ class Project(object):
         opt_output = spopt.root(self.obj_fun,initial_guess,method='lm',jac=True)
         #solution = spopt.root(obj_fun,initial_guess,method='lm')
         
-        print opt_output.message
+        print (opt_output.message)
         
         optimal_parameters = np.array(opt_output.x)
         

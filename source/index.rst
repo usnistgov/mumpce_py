@@ -12,7 +12,8 @@ Method of Uncertainty Minimization using Polynomial Chaos Expansions
 
 *National Institute of Standards and Technology*
 
-*Last Revision February 16, 2016*
+*Last Revision* |today|
+
 
 `Download this software from GitHub <https://github.com/davidasheen/mumpce_py>`_
    

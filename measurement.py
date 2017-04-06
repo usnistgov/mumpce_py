@@ -1,6 +1,15 @@
 import numpy as np
 from response_surface import ResponseSurface
-import tqdm
+
+def idfunc(x):
+    return x
+
+try:
+    import tqdm
+    tqfunc = tqdm.tqdm
+except ImportError:
+    #tqdm is not available
+    tqfunc = idfunc
 
 class Measurement(object):
     """A top level class for a measurement object
@@ -136,7 +145,9 @@ class Measurement(object):
         sens_positive = np.zeros((number_params,number_params))
         sens_negative = np.zeros_like(sens_positive)
         
-        for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
+        #Changed this so that tqdm will be used if it is available, but otherwise not
+        #for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
+        for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
             self.model.reset_model()
             
             #print 'Parameter = ', parameter
@@ -300,7 +311,7 @@ class Measurement(object):
             locald = self.response.d
         
         outputfilename = self.name + '.npz'
-        print 'Saving to output file: {}'.format(outputfilename)
+        print ('Saving to output file: {}'.format(outputfilename))
         with open(outputfilename, 'w+') as outputfile:
             outputfile.seek(0)
             np.savez(outputfile,
@@ -322,7 +333,7 @@ class Measurement(object):
         file 'self.name'.npz
         """
         inputfilename = self.name + '.npz'
-        print 'Loading from output file: {}'.format(inputfilename)
+        print ('Loading from output file: {}'.format(inputfilename))
         with open(inputfilename, 'r') as inputfile:
             response_data = np.load(inputfile)
             
