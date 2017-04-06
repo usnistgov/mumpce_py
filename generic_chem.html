@@ -69,7 +69,7 @@
 
 <dl class="function">
 <dt id="cantera_utils.measurement_initialize_pd">
-<code class="descclassname">cantera_utils.</code><code class="descname">measurement_initialize_pd</code><span class="sig-paren">(</span><em>filename</em>, <em>chemistry_model=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cantera_utils.measurement_initialize_pd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">cantera_utils.</code><code class="descname">measurement_initialize_pd</code><span class="sig-paren">(</span><em>filename</em>, <em>chemistry_model=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cantera_utils.measurement_initialize_pd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a database file in Excel into a Pandas dataframe, then process the dataframe into a batch of measurements</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -111,7 +111,7 @@
 <tr class="row-even"><td><a class="reference internal" href="#cantera_chemistry_model.CanteraChemistryModel.get_model_parameter_info" title="cantera_chemistry_model.CanteraChemistryModel.get_model_parameter_info"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.get_model_parameter_info</span></code></a>([...])</td>
 <td>Gets the list of available parameters for this model</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.prepare_chemistry</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.prepare_chemistry</span></code></a>([...])</td>
 <td>Instantiate the Cantera chemistry model and get information about the reaction model.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#cantera_chemistry_model.CanteraChemistryModel.initialize_chemistry" title="cantera_chemistry_model.CanteraChemistryModel.initialize_chemistry"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.initialize_chemistry</span></code></a>()</td>
@@ -127,7 +127,7 @@
 <h2>Generic Cantera chemistry model class<a class="headerlink" href="#generic-cantera-chemistry-model-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cantera_chemistry_model.CanteraChemistryModel">
-<em class="property">class </em><code class="descclassname">cantera_chemistry_model.</code><code class="descname">CanteraChemistryModel</code><span class="sig-paren">(</span><em>T</em>, <em>Patm</em>, <em>composition</em>, <em>chemistry_model</em><span class="sig-paren">)</span><a class="headerlink" href="#cantera_chemistry_model.CanteraChemistryModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cantera_chemistry_model.</code><code class="descname">CanteraChemistryModel</code><span class="sig-paren">(</span><em>T</em>, <em>Patm</em>, <em>composition</em>, <em>chemistry_model</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cantera_chemistry_model.CanteraChemistryModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class for Cantera chemistry models.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -253,7 +253,7 @@
 
 <dl class="method">
 <dt id="cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry">
-<code class="descname">prepare_chemistry</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry" title="Permalink to this definition">¶</a></dt>
+<code class="descname">prepare_chemistry</code><span class="sig-paren">(</span><em>no_efficiencies=True</em>, <em>no_energy=True</em>, <em>no_falloff=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cantera_chemistry_model.CanteraChemistryModel.prepare_chemistry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiate the Cantera chemistry model and get information about the reaction model. This is called during instantiation of the model and normally would not be called at any other time.</p>
 </dd></dl>
 
