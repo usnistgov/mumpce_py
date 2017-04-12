@@ -55,7 +55,7 @@ class Model(object):
         pass
     @abstractmethod
     def perturb_parameter(self,parameter_id,new_value):
-        """Perturbs a model parameter's value by a specified amount.
+        """Replaces a model parameter's value by a new value.
         
         :param parameter_id: The parameter identifier. This might be an int or a str or possibly another type, which will depend on the model.
         :param new_value: The amount to change the parameters value.

@@ -11,8 +11,10 @@ sys.path.append('..')
 import mumpce_py as mumpce
 import numpy as np
 
-def idfunc(x):
-    return x
+def idfunc(*arg,**kwargs):
+    if len(arg) == 1:
+        return arg[0]
+    return arg
 
 try:
     import tqdm
@@ -154,8 +156,155 @@ class CanteraChemistryModel(mumpce.Model):
         This is a blank function intended as a placeholder for loading or saving restart files. It is defined here because :func:`sensitivity` calls these functions. The :func:`flame speed` class overrides this method with a more detailed method.
         """
         pass
+
+    def get_parameter(self,parameter_id):
+        """Retrieves a model parameter's value.
+
+        This will retrive the parameter specified by `parameter_id`, which will be either a reaction pre-exponential factor or an activation energy.
+
+        :param parameter_id: The parameter identifier. 
+        :type parameter_id: int
+        :returns: parameter_value
+        :rtype: float
+        """   
+        param_info = self.model_parameter_info[parameter_id]
+        reaction_number = param_info['reaction_number']
+        parameter_type = param_info['parameter_type']
+
+        #print param_info
+        #print parameter_type
+
+        reaction = self.gas.reaction(reaction_number)
+        rtype = reaction.reaction_type
+        #print rtype
+
+        pressurestring = 'pressure'
+        HasFallOff = False
+        if pressurestring in parameter_type:
+            HasFallOff = True
+        if HasFallOff:
+            highrate = reaction.high_rate
+            lowrate = reaction.low_rate
+            if 'High' in parameter_type:
+                if 'A' in parameter_type:
+                    parameter_value = highrate.pre_exponential_factor
+                if 'E' in parameter_type:
+                    parameter_value = highrate.activation_energy
+            if 'Low' in parameter_type:
+                if 'A' in parameter_type:
+                    parameter_value = lowrate.pre_exponential_factor
+                if 'E' in parameter_type:
+                    parameter_value = lowrate.activation_energy
+        else:
+            rate = reaction.rate
+            if 'A' in parameter_type:
+                parameter_value = rate.pre_exponential_factor
+            if 'E' in parameter_type:
+                parameter_value = rate.activation_energy        
+        return parameter_value    
+
+    def perturb_parameter(self,parameter_id,new_value):
+        """Replaces a model parameter's value by a new value.
+
+        This will replace a reaction's pre-exponential factor or activation energy with a new value
+
+        :param parameter_id: The parameter identifier. 
+        :type parameter_id: int
+        :param new_value: The amount to change the parameters value.
+        :type new_value: float
+        """
+        param_info = self.model_parameter_info[parameter_id]
+        reaction_number = param_info['reaction_number']
+        parameter_type = param_info['parameter_type']
+
+        #print param_info
+        #print parameter_type
+
+        reaction = self.gas.reaction(reaction_number)
+        rtype = reaction.reaction_type
+        #print rtype 
+        #print reaction.rate
+
+        rxn_eq = reaction.equation
+
+        pressurestring = 'pressure'
+        HasFallOff = False
+        if pressurestring in parameter_type:
+            HasFallOff = True
+        if HasFallOff:
+            highrate = reaction.high_rate
+            lowrate = reaction.low_rate
+            if rtype == 4:
+                cti_type = 'falloff_reaction'
+            if rtype == 8:
+                cti_type = 'chemically_activated_reaction'
+            high_A = highrate.pre_exponential_factor
+            high_b = highrate.temperature_exponent
+            high_E = highrate.activation_energy 
+            low_A = lowrate.pre_exponential_factor
+            low_b = lowrate.temperature_exponent
+            low_E = lowrate.activation_energy
+            if 'High' in parameter_type:
+                if 'A' in parameter_type:
+                    high_A = new_value#highrate.pre_exponential_factor * new_value
+                if 'E' in parameter_type:
+                    high_high_E = new_value#highrate.activation_energy * new_value
+            if 'Low' in parameter_type:
+                if 'A' in parameter_type:
+                    low_A = new_value#lowrate.pre_exponential_factor * new_value
+                if 'E' in parameter_type:
+                    low_high_E = new_value#lowrate.activation_energy * new_value
+            high_rate_string = 'kf=[{}, {} ,{}]'.format(high_A,
+                                                        high_b,
+                                                        high_E,)
+            low_rate_string = 'kf0=[{}, {} ,{}]'.format(low_A,
+                                                        low_b,
+                                                        low_E,)
+            eff_string = ''
+            for key in reaction.efficiencies:
+                eff_string += '{}:{} '.format(key,reaction.efficiencies[key])
+
+            rxn_string = '{}(\'{}\',{},{},efficiencies=\'{}\')'.format(cti_type,rxn_eq,high_rate_string,low_rate_string,eff_string)
+        else:
+            rate = reaction.rate
+            A = rate.pre_exponential_factor
+            b = rate.temperature_exponent
+            E = rate.activation_energy
+            if 'A' in parameter_type:
+                A = new_value#rate.pre_exponential_factor * new_value
+            if 'E' in parameter_type:
+                E = new_value#rate.activation_energy * new_value        
+            rate_string = '[{}, {}, {}]'.format(A,b,E)
+            if rtype == 2:
+                cti_type = 'three_body_reaction'
+                eff_string = ''
+                for key in reaction.efficiencies:
+                    eff_string += '{}:{} '.format(key,reaction.efficiencies[key])
+                rxn_string = '{}(\'{}\',{},efficiencies=\'{}\')'.format(cti_type,rxn_eq,rate_string,eff_string)
+            else:
+                cti_type = 'reaction'
+                rxn_string = '{}(\'{}\',{})'.format(cti_type,rxn_eq,rate_string)
+        #print rxn_string
+        newrxn = ct.Reaction.fromCti(rxn_string)
+
+        #print newrxn
+        self.gas.modify_reaction(reaction_number,newrxn)
+        #print cti_type
+        #print high_rate_string
+        #print low_rate_string
+        #print eff_string
+        #print rxn_string
+
+    def reset_model(self):
+        """Reset all model parameters to their original values
+        
+        This version works by erasing the chemistry and re-initializing it from the CTI file.
+        """
+        self.blank_chemistry()
+        self.initialize_chemistry()
+        return
     
-    def get_parameter(self,parameter):
+    def get_parameter_old(self,parameter):
         """Retrieves a model parameter's value
         
         :param parameter_id: The parameter identifier. 
@@ -168,7 +317,7 @@ class CanteraChemistryModel(mumpce.Model):
         parameter_value = self.gas.multiplier(reaction_number)
         return parameter_value
     
-    def perturb_parameter(self,parameter,factor):
+    def perturb_parameter_old(self,parameter,factor):
         """Perturbs a model parameter's value by a specified amount.
         
         :param parameter_id: The parameter identifier. 
@@ -182,7 +331,7 @@ class CanteraChemistryModel(mumpce.Model):
         #print param_info['parameter_name']
         return 
     
-    def reset_model(self):
+    def reset_model_old(self):
         """Reset all model parameters to their original values"""
         if self.gas is None:
             self.initialize_chemistry()
