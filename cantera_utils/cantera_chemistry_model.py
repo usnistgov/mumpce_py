@@ -1,6 +1,7 @@
 from state_definition import StateDefinition
 from abc import ABCMeta, abstractmethod
 import cantera as ct
+import time
 #import mumpce
 
 #This is added because mumpce may not be in the path and we know that mumpce exists upstairs from cantera_chemistry_model
@@ -478,13 +479,17 @@ class CanteraChemistryModel(mumpce.Model):
         #for (param_number,param_id) in enumerate(parameter_list):
             #pbar.update(1)
             
-
+            time_start = time.time()
+            
             mult_base = self.get_parameter(param_id)
-            #print mult_base
+            #time_get = time.time()
+            #print('time to retrieve ',time_get - time_start)
             pos_pert = pos_mult*mult_base
             #print pos_pert
             self.perturb_parameter(param_id,pos_pert)
-            #print "going into ignition delay problem"
+            #time_pert = time.time()
+            #print('time to perturb ',time_pert - time_get)
+            #print("going into ignition delay problem")
             valuep = self.evaluate()
             #for parmid in parameter_list:
             #    print parmid,self.get_parameter(parmid)

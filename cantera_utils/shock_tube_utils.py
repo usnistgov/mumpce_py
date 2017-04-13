@@ -241,7 +241,7 @@ class ShockTubeConcentration(stb.ShockTube):
 
         crit_X = float(self.reactor.thermo[self.critical_ID].X)
         
-        return crit_X[0]
+        return crit_X#[0]
     
 class ShockTubeRatio(stb.ShockTube):
     """A model for determining the mole fration ratios of two particular species after a certain integration time.
@@ -302,7 +302,7 @@ class ShockTubeRatio(stb.ShockTube):
         
         ratio = float(crit_numerator / crit_denominator)
         
-        return ratio[0]
+        return ratio#[0]
     
     
 def generic_critical_function(measurement,critical_last):
@@ -375,7 +375,7 @@ def pressure_rise(measurement,pressure_rise_last):
     return keep_going, pressure_rise
 
 def target_concentration(measurement,concentration_last):
-    crit_concentration = measurement.reactor.thermo[crit_spec].X
+    crit_concentration = measurement.reactor.thermo[measurement.critical_ID].X
     crit_val = measurement.critical_value
     
     if measurement.critical_rise == 'rise':
