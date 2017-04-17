@@ -19,7 +19,7 @@ def idfunc(*arg,**kwargs):
 
 try:
     import tqdm
-    tqfunc = tqdm.tqdm
+    tqfunc = tqdm.tqdm_notebook
 except ImportError:
     tqfunc = idfunc
 
@@ -227,7 +227,9 @@ class CanteraChemistryModel(mumpce.Model):
         #print reaction.rate
 
         rxn_eq = reaction.equation
-
+        
+        time_start = time.time()
+ 
         pressurestring = 'pressure'
         HasFallOff = False
         if pressurestring in parameter_type:
@@ -246,26 +248,25 @@ class CanteraChemistryModel(mumpce.Model):
             low_b = lowrate.temperature_exponent
             low_E = lowrate.activation_energy
             if 'High' in parameter_type:
+                A = highrate.pre_exponential_factor
+                b = highrate.temperature_exponent
+                E = highrate.activation_energy
                 if 'A' in parameter_type:
-                    high_A = new_value#highrate.pre_exponential_factor * new_value
+                    A = new_value#highrate.pre_exponential_factor * new_value
                 if 'E' in parameter_type:
-                    high_high_E = new_value#highrate.activation_energy * new_value
+                    E = new_value#highrate.activation_energy * new_value
+                reaction.high_rate = ct.Arrhenius(A,b,E)
             if 'Low' in parameter_type:
+                A = highrate.pre_exponential_factor
+                b = highrate.temperature_exponent
+                E = highrate.activation_energy
                 if 'A' in parameter_type:
-                    low_A = new_value#lowrate.pre_exponential_factor * new_value
+                    A = new_value#lowrate.pre_exponential_factor * new_value
                 if 'E' in parameter_type:
-                    low_high_E = new_value#lowrate.activation_energy * new_value
-            high_rate_string = 'kf=[{}, {} ,{}]'.format(high_A,
-                                                        high_b,
-                                                        high_E,)
-            low_rate_string = 'kf0=[{}, {} ,{}]'.format(low_A,
-                                                        low_b,
-                                                        low_E,)
-            eff_string = ''
-            for key in reaction.efficiencies:
-                eff_string += '{}:{} '.format(key,reaction.efficiencies[key])
-
-            rxn_string = '{}(\'{}\',{},{},efficiencies=\'{}\')'.format(cti_type,rxn_eq,high_rate_string,low_rate_string,eff_string)
+                    E = new_value#lowrate.activation_energy * new_value
+                reaction.low_rate = ct.Arrhenius(A,b,E)
+            
+            
         else:
             rate = reaction.rate
             A = rate.pre_exponential_factor
@@ -275,27 +276,23 @@ class CanteraChemistryModel(mumpce.Model):
                 A = new_value#rate.pre_exponential_factor * new_value
             if 'E' in parameter_type:
                 E = new_value#rate.activation_energy * new_value        
-            rate_string = '[{}, {}, {}]'.format(A,b,E)
-            if rtype == 2:
-                cti_type = 'three_body_reaction'
-                eff_string = ''
-                for key in reaction.efficiencies:
-                    eff_string += '{}:{} '.format(key,reaction.efficiencies[key])
-                rxn_string = '{}(\'{}\',{},efficiencies=\'{}\')'.format(cti_type,rxn_eq,rate_string,eff_string)
-            else:
-                cti_type = 'reaction'
-                rxn_string = '{}(\'{}\',{})'.format(cti_type,rxn_eq,rate_string)
-        #print rxn_string
-        newrxn = ct.Reaction.fromCti(rxn_string)
-
-        #print newrxn
-        self.gas.modify_reaction(reaction_number,newrxn)
+            reaction.rate = ct.Arrhenius(A,b,E)
+        
+        time_to_prep = time.time()
+        
+        #print('time to prepare reaction ',time_to_prep-time_start)
+        
+        
+        #print reaction.rate
+        self.gas.modify_reaction(reaction_number,reaction)
+        time_to_modify = time.time()
+        #print('time to modify reaction ',time_to_modify-time_to_prep)
         #print cti_type
         #print high_rate_string
         #print low_rate_string
         #print eff_string
         #print rxn_string
-
+        
     def reset_model(self):
         """Reset all model parameters to their original values
         
@@ -359,15 +356,19 @@ class CanteraChemistryModel(mumpce.Model):
         #Default assumption is that a reaction has no third body efficiencies or falloff behavior
         HasThirdBody = False #Default, no efficiencies
         HasFalloff = False #Default, no falloff behavior
+        cti_type = 'reaction'
         
         if reaction.reaction_type == 4:
             HasThirdBody = True
             HasFalloff = True
+            cti_type = 'falloff_reaction'
         if reaction.reaction_type == 8:
             HasThirdbody = True
             HasFalloff = True
+            cti_type = 'chemically_activated_reaction'
         if reaction.reaction_type ==2:
             HasThirdBody = True
+            cti_type = 'three_body_reaction'
         
         if HasFalloff:
             rate = reaction.high_rate
@@ -456,13 +457,14 @@ class CanteraChemistryModel(mumpce.Model):
         :rtype: float,ndarray
         """
         #Intialize the sensitivity vector
-        sensitivity_vector = np.zeros(len(parameter_list))
+        #sensitivity_vector = np.zeros(len(parameter_list))
+        sensitivity_list = []
         
         #Evaluate the model once and save the result in a restart file
         value = self.evaluate()
         self.save_restart()
         #print("Value = {: 10.5e}".format(value))
-        logfile.write("Value = {: 10.5e}".format(value))
+        logfile.write("Value = {: 10.5e}\n".format(value))
         
         pos_mult = 1 + perturbation
         neg_mult = 1/pos_mult
@@ -470,7 +472,7 @@ class CanteraChemistryModel(mumpce.Model):
         #print pos_mult
         #print neg_mult
         
-        logfile.write('Rxn  Value+       Value-           Sensitivi   Reaction Name')
+        logfile.write('Rxn  Value+       Value-           Sensitivi   Reaction Name\n')
         
         #pbar = tqdm.tqdm(total=len(parameter_list))
         
@@ -482,12 +484,12 @@ class CanteraChemistryModel(mumpce.Model):
             time_start = time.time()
             
             mult_base = self.get_parameter(param_id)
-            #time_get = time.time()
+            time_get = time.time()
             #print('time to retrieve ',time_get - time_start)
             pos_pert = pos_mult*mult_base
             #print pos_pert
             self.perturb_parameter(param_id,pos_pert)
-            #time_pert = time.time()
+            time_pert = time.time()
             #print('time to perturb ',time_pert - time_get)
             #print("going into ignition delay problem")
             valuep = self.evaluate()
@@ -504,7 +506,9 @@ class CanteraChemistryModel(mumpce.Model):
             
             #sensitivity = (delayp - delaym) / (2.0 * perturbation * delay)
             
-            sensitivity_vector[param_number] = (valuep - valuem) / (2.0 * perturbation * value)
+            #sensitivity_vector[param_number] = (valuep - valuem) / (2.0 * perturbation * value)
+            sensitivity = (valuep - valuem) / (2.0 * perturbation * value)
+            sensitivity_list += [sensitivity]
             
             #print (delayp - delaym)
             #print delay
@@ -518,11 +522,12 @@ class CanteraChemistryModel(mumpce.Model):
             #                                                      self.gas.reaction_equations([param_id])[0])
             #       )
             logfile.write('{: 4d} {: 10.5e}  {: 10.5e}  {: 10.4e}  {}\n'.format(param_id,
-                                                                  valuep,valuem,sensitivity_vector[param_number],
+                                                                  valuep,valuem,sensitivity,
                                                                   self.gas.reaction_equations([param_id])[0])
                    )
         #value = math.log(value/1.0e-6)
         self._sens_flag = False
+        sensitivity_vector = np.array(sensitivity_list)
         return value, sensitivity_vector
     
     def print_sens(self,sensitivity_vector,print_params=None):

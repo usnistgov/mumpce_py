@@ -1,12 +1,14 @@
 import numpy as np
 from response_surface import ResponseSurface
 
-def idfunc(x):
-    return x
+def idfunc(*arg,**kwargs):
+    if len(arg) == 1:
+        return arg[0]
+    return arg
 
 try:
     import tqdm
-    tqfunc = tqdm.tqdm
+    tqfunc = tqdm.tqdm_notebook
 except ImportError:
     #tqdm is not available
     tqfunc = idfunc
@@ -149,8 +151,10 @@ class Measurement(object):
         #for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
         for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
             self.model.reset_model()
+            base_value = self.model.get_parameter(parameter)
             
             #print 'Parameter = ', parameter
+            
             
             positive_perturbation = multipliers[parameter_number]
             negative_perturbation = 1/positive_perturbation
@@ -159,11 +163,14 @@ class Measurement(object):
             #print negative_perturbation
             
             #Positive perturbation
-            self.model.perturb_parameter(parameter,positive_perturbation)
+            response_logfile.write('\nParamter number = {: 4d}\n'.format(parameter))
+            response_logfile.write('Positive perturbation = {: 10.5e}\n'.format(positive_perturbation))
+            self.model.perturb_parameter(parameter,positive_perturbation*base_value)
             value_pos, sens_pos = self.model.sensitivity(*sensitivity_args)
             
             #Negative perturbation
-            self.model.perturb_parameter(parameter,negative_perturbation)
+            response_logfile.write('Negative perturbation = {: 10.5e}\n'.format(negative_perturbation))
+            self.model.perturb_parameter(parameter,negative_perturbation*base_value)
             value_neg, sens_neg = self.model.sensitivity(*sensitivity_args)
             
             perturbations[parameter_number,:] = [value_pos, value_neg]
