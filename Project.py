@@ -273,7 +273,7 @@ class Project(object):
             meas.make_response()
         return
     
-    def obj_fun(self,x):
+    def _obj_fun(self,x):
         num_params = self.active_parameters.shape[0]
         num_expts = len(self.measurement_list)
         
@@ -380,14 +380,14 @@ class Project(object):
         #        df[exp_num + num_params,:] = df_num*w
         #        
         #    return f,df
-        opt_output = spopt.root(self.obj_fun,initial_guess,method='lm',jac=True)
+        opt_output = spopt.root(self._obj_fun,initial_guess,method='lm',jac=True)
         #solution = spopt.root(obj_fun,initial_guess,method='lm')
         
         print (opt_output.message)
         
         optimal_parameters = np.array(opt_output.x)
         
-        residuals,final_jac = self.obj_fun(optimal_parameters)
+        residuals,final_jac = self._obj_fun(optimal_parameters)
         
         icov = np.dot(final_jac.T,final_jac)
         cov = np.linalg.inv(icov)
@@ -590,7 +590,7 @@ class Project(object):
     
     def _calculate_uncertainty(self,initial_covariance=None,initial_guess=None):
         
-        residuals,final_jac = self.obj_fun(self.solution.x)
+        residuals,final_jac = self._obj_fun(self.solution.x)
         
         #Calculate the covariance matrix
         icov = np.dot(final_jac.T,final_jac)
