@@ -602,7 +602,53 @@ class Project(object):
         #self.solution.alpha = np.linalg.cholesky(cov)
         return
     
-                
+    def interpret_model(self,measurement=1):
+        """Convert the information in Project.solution into meaningful parameter values.
+        
+        Convert the factorial variables :math:`x` and covariance matrix :math:`\Sigma` stored in :py:class:`Project.solution` into model parameters. By default, this function will operate on the first measurement in the measurement list
+        """
+        
+        meas = self[measurement]
+        
+        parameter_info = meas.model.model_parameter_info
+        
+        headname = 'Parameter name'
+        headv = 'Value'
+        headf = 'Uncert'
+        headx = 'FactVal'
+        heads = 'FactUnc'
+        headfs = 'NewVal'
+        headsig = 'Uncert'
+        
+        head_args = (headname,headv,headf,headx,heads,headfs,headsig)
+        
+        head_format = '{:30s}   {:7s} {:7s} {:7s} {:7s} {:7s} {:7s}'
+        
+        print(head_format.format(*head_args))
+        
+        for active_num,param in enumerate(self.active_parameters):
+            
+            param_name = parameter_info[param]['parameter_name']
+            
+            value = meas.model.get_parameter(param)[0]
+            
+            this_x = self.solution.x[active_num]
+            this_std = 2*np.sqrt(self.solution.cov[active_num,active_num])
+            this_unc = self.parameter_uncertainties[param]
+            
+            multiplier = this_unc ** this_x
+            new_value = value*multiplier
+            new_uncertainty = this_unc ** (this_std)
+            
+            print_args = (param_name,value,this_unc,this_x,this_std,new_value,new_uncertainty)
+            
+            print_string = '{:30s} : {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f}'
+            if abs(value) > 5000:
+                print_string = '{:30s} : {: 7.2e} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2e} {: 7.2f}'
+            
+            print(print_string.format(*print_args))
+            
+            
         
     def _single_pdf_plot(self,factors=[0,1],ax=None):
         
