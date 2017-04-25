@@ -610,7 +610,7 @@ class Project(object):
         meas = self[measurement]
         meas.print_model_values()
     
-    def _interpret_model(self,measurement=1):
+    def _interpret_model(self,measurement=0):
         """Convert the information in Project.solution into meaningful parameter values.
         
         Convert the factorial variables :math:`x` and covariance matrix :math:`\Sigma` stored in :py:class:`Project.solution` into model parameters. By default, this function will operate on the first measurement in the measurement list

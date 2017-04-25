@@ -397,7 +397,7 @@ class Measurement(object):
             
             param_name = parameter_info[param]['parameter_name']
             
-            value = self.model.get_parameter(param)[0]
+            value = self.model.get_parameter(param)
             this_unc = self.parameter_uncertainties[active_num]
             
             print_args = (param_name,value,this_unc)
@@ -429,7 +429,7 @@ class Measurement(object):
             
             param_name = parameter_info[param]['parameter_name']
             
-            value = self.model.get_parameter(param)[0]
+            value = self.model.get_parameter(param)
             
             this_x = x[active_num]
             this_std = 2*np.sqrt(cov[active_num,active_num])
@@ -449,7 +449,7 @@ class Measurement(object):
     
     def modify_model(self,x):
         for active_num,param in enumerate(self.active_parameters):
-            value = self.model.get_parameter(param)[0]
+            value = self.model.get_parameter(param)
             this_x = x[active_num]
             this_unc = self.parameter_uncertainties[active_num]
             

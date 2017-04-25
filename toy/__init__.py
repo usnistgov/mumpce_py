@@ -142,7 +142,7 @@ class toy_model(mumpce.Model):
         :returns: parameter_value
         :rtype: float
         """
-        parameter_value = np.exp(self.parameter_vector[parameter_id])
+        parameter_value = np.exp(self.parameter_vector[parameter_id])[0]
         return parameter_value
     
     def perturb_parameter(self,parameter_id,factor):
