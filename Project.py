@@ -603,6 +603,14 @@ class Project(object):
         return
     
     def interpret_model(self,measurement=1):
+        meas = self[measurement]
+        meas.interpret_model(self.solution.x,self.solution.cov)
+        
+    def print_model_values(self,measurement=1):
+        meas = self[measurement]
+        meas.print_model_values()
+    
+    def _interpret_model(self,measurement=1):
         """Convert the information in Project.solution into meaningful parameter values.
         
         Convert the factorial variables :math:`x` and covariance matrix :math:`\Sigma` stored in :py:class:`Project.solution` into model parameters. By default, this function will operate on the first measurement in the measurement list
@@ -648,7 +656,7 @@ class Project(object):
             
             print(print_string.format(*print_args))
             
-            
+    #def perturb_model(self,x):
         
     def _single_pdf_plot(self,factors=[0,1],ax=None):
         
@@ -696,6 +704,9 @@ class Project(object):
         
         ax.set_xlabel(params_info[0]['parameter_name'])
         ax.set_ylabel(params_info[1]['parameter_name'])
+        
+        ax.set_xticks([-2,-1,0,1,2])
+        ax.set_yticks([-2,-1,0,1,2])
         
         ax.axis('square')
         return

@@ -375,3 +375,87 @@ class Measurement(object):
             if self.parameter_uncertainties.any(): print('Parameter uncertainties loaded')
                 
         return
+    
+    def print_model_values(self):
+        parameter_info = self.model.model_parameter_info
+        
+        headname = 'Parameter name'
+        headv = 'Value'
+        headf = 'Uncert'
+        headx = 'FactVal'
+        heads = 'FactUnc'
+        headfs = 'NewVal'
+        headsig = 'Uncert'
+        
+        head_args = (headname,headv,headf)
+        
+        head_format = '{:30s}   {:7s} {:7s}'
+        
+        print(head_format.format(*head_args))
+        
+        for active_num,param in enumerate(self.active_parameters):
+            
+            param_name = parameter_info[param]['parameter_name']
+            
+            value = self.model.get_parameter(param)[0]
+            this_unc = self.parameter_uncertainties[active_num]
+            
+            print_args = (param_name,value,this_unc)
+            
+            print_string = '{:30s} : {: 7.2f} {: 7.2f}'
+            if abs(value) > 5000:
+                print_string = '{:30s} : {: 7.2e} {: 7.2f}'
+            
+            print(print_string.format(*print_args))
+    
+    def interpret_model(self,x,cov):
+        parameter_info = self.model.model_parameter_info
+        
+        headname = 'Parameter name'
+        headv = 'Value'
+        headf = 'Uncert'
+        headx = 'FactVal'
+        heads = 'FactUnc'
+        headfs = 'NewVal'
+        headsig = 'Uncert'
+        
+        head_args = (headname,headv,headf,headx,heads,headfs,headsig)
+        
+        head_format = '{:30s}   {:7s} {:7s} {:7s} {:7s} {:7s} {:7s}'
+        
+        print(head_format.format(*head_args))
+        
+        for active_num,param in enumerate(self.active_parameters):
+            
+            param_name = parameter_info[param]['parameter_name']
+            
+            value = self.model.get_parameter(param)[0]
+            
+            this_x = x[active_num]
+            this_std = 2*np.sqrt(cov[active_num,active_num])
+            this_unc = self.parameter_uncertainties[active_num]
+            
+            multiplier = this_unc ** this_x
+            new_value = value*multiplier
+            new_uncertainty = this_unc ** (this_std)
+            
+            print_args = (param_name,value,this_unc,this_x,this_std,new_value,new_uncertainty)
+            
+            print_string = '{:30s} : {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f}'
+            if abs(value) > 5000:
+                print_string = '{:30s} : {: 7.2e} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2e} {: 7.2f}'
+            
+            print(print_string.format(*print_args))
+    
+    def modify_model(self,x):
+        for active_num,param in enumerate(self.active_parameters):
+            value = self.model.get_parameter(param)[0]
+            this_x = x[active_num]
+            this_unc = self.parameter_uncertainties[active_num]
+            
+            multiplier = this_unc ** this_x
+            new_value = value*multiplier
+            
+            self.model.perturb_parameter(param,new_value)
+        return
+            
