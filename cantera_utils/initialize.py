@@ -188,10 +188,23 @@ def measurement_initialize(filename,chemistry_model):
             measurement_list += [meas]
     
     return measurement_list#temperature_list,pressure_list,fuel_string_list,critical_species_list
-def measurement_initialize_pd(filename,chemistry_model=None,**kwargs):
+
+def measurement_initialize_xl(filename,chemistry_model=None,**kwargs):
     """Read a database file in Excel into a Pandas dataframe, then process the dataframe into a batch of measurements
     
     :param filename: The file that contains the experimental database.
+    :key chemistry_model: The Cantera chemistry model. It must be a chemistry model that can be used to make a Cantera phase object
+    :type filename: str
+    """
+    
+    measurement_list = measurement_initialize_pd(filename,chemistry_model=chemistry_model,**kwargs)
+    
+    return measurement_list
+
+def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
+    """Read a database file in Excel into a Pandas dataframe, then process the dataframe into a batch of measurements
+    
+    :param source: The file that contains the experimental database.
     :key chemistry_model: The Cantera chemistry model. It must be a chemistry model that can be used to make a Cantera phase object
     :type filename: str
     """
@@ -199,7 +212,14 @@ def measurement_initialize_pd(filename,chemistry_model=None,**kwargs):
     measurement_list = []
     
     #Read the Excel data for this project
-    df = pd.read_excel(filename)
+    if type(source) == type(''):
+        #This is a string representing a filename, so read it from Excel into Pandas
+        df = pd.read_excel(source)
+    else:
+        #This is a Pandas datafram containing the data
+        df = source
+    
+    #df = pd.read_excel(filename)
     df_columns = df.columns.values
     
     #Find the columns that define the fuel species (this will be in order)
