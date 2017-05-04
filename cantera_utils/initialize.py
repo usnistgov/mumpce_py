@@ -24,7 +24,8 @@ def ign_initialize(name=None,
                    critical_denominator=None,
                    critical_rise=None,
                    value=None,
-                   uncertainty=None,**kwargs
+                   uncertainty=None,
+                   comment=None,**kwargs
                   ):
     """Initialize a shock tube experiment
     """
@@ -66,7 +67,7 @@ def ign_initialize(name=None,
     
     mdl = model(*args,**kwargs)
     meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
-                              active_parameters=None,parameter_uncertainties=None,
+                              active_parameters=None,parameter_uncertainties=None,comment=comment,
                               response_type='log'
                              )
     
@@ -78,10 +79,12 @@ def fls_initialize(name=None,
                    fuels=None,
                    chemistry_model=None,
                    value=None,
-                   uncertainty=None,**kwargs
+                   uncertainty=None,
+                   comment=None,**kwargs
                   ):
     mdl = FlameSpeed(T,Patm,fuels,chemistry_model,domain_length=2,initial_points=20,loglevel=0,name=name,**kwargs)
-    meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,active_parameters=None,parameter_uncertainties=None)
+    meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
+                              active_parameters=None,parameter_uncertainties=None,comment=comment)
     return meas
 def measurement_initialize(filename,chemistry_model):
     """Read a text file to initialize a batch of measurements
@@ -237,6 +240,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
     chemistry = None
     ox = None
     dil = None
+    commen = None
     #Check to see if critical_value exists (not all experiments will have one)
     if 'Crit_val' in df_columns:
         critical_value=True
@@ -271,6 +275,10 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
             if 'unc' in s:
                 exp_unc_keyw = s
                 uncertainty = True
+        if s.startswith('Com'): #This project includes comments
+            comment_keyw = s
+            commen = True
+            
     
     #If there is a measurement value, must have uncertainty
     if value is True and uncertainty is False:
@@ -279,8 +287,6 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
     #Check to see if the database specifies models per experiment (not all projects will need it)
     if 'Model' in df_columns:
         chemistry= True
-
-    
     
     #Group the experiments by unique ID so that we can iterate over them
     gb = df.groupby('ID')
@@ -329,7 +335,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
             try:
                 if np.isnan(this_chem): #Check to see if a chemistry model is specified 
                     chem = chemistry_model
-            except TypeError:
+            except TypeError: #np.isnan() will return an error if you try to give it a string, which means that Model is not blank
                 chem = this_chem
         else:
             chem = chemistry_model            
@@ -342,12 +348,25 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
             val = this_experiment[exp_val_keyw].values[0]
             unc = this_experiment[exp_unc_keyw].values[0]
         
+        comment = None
+        if commen:
+            this_comment = this_experiment[comment_keyw].values[0]
+            try:
+                if np.isnan(this_comment):
+                    comment = ''
+            except TypeError:
+                comment = this_comment
+        else:
+            comment = ''
+            
+        
         if this_experiment.Type.values[0] == 'fls':
             meas = fls_initialize(name=name,value=val,uncertainty=unc,
                                   T=this_experiment[temp_keyw].values[0],
                                   Patm=this_experiment[pres_keyw].values[0],
                                   fuels=fuel_string,
-                                  chemistry_model=chem,**kwargs
+                                  chemistry_model=chem,
+                                  comment=comment,**kwargs
                                  )
         else:
             cv = None
@@ -368,7 +387,8 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
                                   chemistry_model=chem,
                                   critical_value=cv,
                                   critical_denominator=denom,
-                                  critical_rise=rise,**kwargs
+                                  critical_rise=rise,
+                                  comment=comment,**kwargs
                                  )
         
         measurement_list += [meas]

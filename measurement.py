@@ -20,6 +20,7 @@ class Measurement(object):
     surface for optimization.
     
     :param name: The name of the measurement
+    :param comment: An arbitrary text string describing the measurement
     :param model: The simulation model
     :param value: The measured value from the experiment
     :param uncertainty: The uncertainty in the measured value
@@ -31,6 +32,7 @@ class Measurement(object):
     :param model_value: The computed value from the simulation model for this measurement
     :param sensitivity_list: The list of sensitivities of the model value to each parameter
     :type name: str
+    :type comment: str
     :type model: model object
     :type value: float
     :type uncertainty: float
@@ -54,11 +56,13 @@ class Measurement(object):
                  response_type='linear',
                  response_perturbation=0.3,
                  model_value=None,
-                 sensitivity_list=None
+                 sensitivity_list=None,
+                 comment=None
                 ):
         
         #Define the name
         self.name = name
+        self.comment = comment
         
         #Define the computer model that will be used to simulate this measurement
         self.model = model
@@ -100,7 +104,10 @@ class Measurement(object):
         """
         modelstr = str(self.model)
         
-        meas_str = "{} ({}): {}".format(self.name,self._status,modelstr)
+        meas_str = "{} ({}): {}".format(self.name,self._status,modelstr,)
+        
+        if self.comment:
+            meas_str = meas_str + "\n     {}".format(self.comment)
         
         return meas_str
         
