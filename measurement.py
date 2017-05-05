@@ -398,7 +398,14 @@ class Measurement(object):
         
         head_format = '{:30s}   {:7s} {:7s}'
         
-        print(head_format.format(*head_args))
+        #print(head_format.format(*head_args))
+        
+        header = head_format.format(*head_args)
+        
+        carriage_return = '\n'
+        output = ''
+        
+        output = carriage_return.join((output,header))
         
         for active_num,param in enumerate(self.active_parameters):
             
@@ -413,7 +420,11 @@ class Measurement(object):
             if abs(value) > 5000:
                 print_string = '{:30s} : {: 7.2e} {: 7.2f}'
             
-            print(print_string.format(*print_args))
+            #print(print_string.format(*print_args))
+            line = print_string.format(*print_args)
+            output = carriage_return.join((output,line))
+        
+        return output
     
     def interpret_model(self,x,cov):
         parameter_info = self.model.model_parameter_info
@@ -430,7 +441,13 @@ class Measurement(object):
         
         head_format = '{:30s}   {:7s} {:7s} {:7s} {:7s} {:7s} {:7s}'
         
-        print(head_format.format(*head_args))
+        #print(head_format.format(*head_args))
+        
+        carriage_return = '\n'
+        output = ''
+        
+        header = head_format.format(*head_args)
+        output = carriage_return.join((output,header))
         
         for active_num,param in enumerate(self.active_parameters):
             
@@ -451,8 +468,11 @@ class Measurement(object):
             print_string = '{:30s} : {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f}'
             if abs(value) > 5000:
                 print_string = '{:30s} : {: 7.2e} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2e} {: 7.2f}'
-            
-            print(print_string.format(*print_args))
+            line = print_string.format(*print_args)
+            output = carriage_return.join((output,line))
+            #print(print_string.format(*print_args))
+        
+        return output
     
     def modify_model(self,x):
         for active_num,param in enumerate(self.active_parameters):

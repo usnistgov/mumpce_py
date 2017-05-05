@@ -450,7 +450,14 @@ class Project(object):
                        'OptVal','OptUnc',
                        'MdlVal','MdlUnc'
                       )
-        print('{:20s}  {:6s} {:6s} {:6s} {:6s} {:6s} {:6s}'.format(*header_args))
+        #print('{:20s}  {:6s} {:6s} {:6s} {:6s} {:6s} {:6s}'.format(*header_args))
+        
+        carriage_return = '\n'
+        output = ''
+        
+        header = '{:20s}  {:6s} {:6s} {:6s} {:6s} {:6s} {:6s}'.format(*header_args)
+        output = carriage_return.join((output,header))
+        
         for (exp_num,meas) in enumerate(self):
             a = meas.response.a
             b = meas.response.b
@@ -481,13 +488,16 @@ class Project(object):
             #    print arg,type(arg)                
             #    if type(arg) == type(np.array([])): print arg.shape
             #    
-            print('{:20s}: {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} '.format(*print_args))
+            #print('{:20s}: {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} '.format(*print_args))
+            line = '{:20s}: {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} {: 6.2f} '.format(*print_args)
+            output = carriage_return.join((output,line))
         for (exp_num,meas) in enumerate(self.measurement_list):
             meas.consistency =  (meas.optimized_value - meas.value) / (2 * meas.uncertainty)
             uncertainty_ratio = meas.optimized_uncertainty / meas.uncertainty
             meas.weighted_consistency = abs(meas.consistency) * uncertainty_ratio ** 2
             
-        return
+        print(output)
+        return output
     
     def remove_inconsistent_measurements(self):
         """Finds and removes inconsistent measurements
@@ -630,13 +640,14 @@ class Project(object):
         #self.solution.alpha = np.linalg.cholesky(cov)
         return
     
-    def interpret_model(self,measurement=1):
+    def interpret_model(self,measurement=0):
         meas = self[measurement]
-        meas.interpret_model(self.solution.x,self.solution.cov)
+        return meas.interpret_model(self.solution.x,self.solution.cov)
         
-    def print_model_values(self,measurement=1):
+        
+    def print_model_values(self,measurement=0):
         meas = self[measurement]
-        meas.print_model_values()
+        return meas.print_model_values()
     
     def _interpret_model(self,measurement=0):
         """Convert the information in Project.solution into meaningful parameter values.
