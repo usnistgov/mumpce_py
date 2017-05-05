@@ -83,13 +83,19 @@ class Project(object):
         #: The model for this project, usually this is passed to the initialization function
         self.model = model
         
+        #: The list of uncertainties for the full model
+        self.parameter_uncertainties = parameter_uncertainties
+        
         #: The list of active parameters. Normally not defined at project creation.
         self.active_parameters = active_parameters
         #: The list of active parameter uncertainties. Normally not defined at project creation.
         self.active_parameter_uncertainties = active_parameter_uncertainties
         
-        #: The list of uncertainties for the full model
-        self.parameter_uncertainties = parameter_uncertainties
+        if self.active_parameters is not None: # This assumes that the user has predefined a set of active parameters, so pass that to the measurements
+            self.set_active_parameters(active_parameters=self.active_parameters,
+                                       active_parameter_uncertainties=self.active_parameter_uncertainties)
+                
+            
         
         #: A user-specified function that will read a database of experiments and create the measurement list. 
         self.initialize_function = initialize_function
@@ -188,9 +194,31 @@ class Project(object):
             meas.evaluate_sensitivity()
         return
     
-    def set_active_parameters(self):
+    def set_active_parameters(self,active_parameters=None,active_parameter_uncertainties=None):
         """For each measurement in the measurement and application lists, sets the active parameter and parameter uncertainty lists to be the same as the Project's. 
+        
+        If active_parameters is not None, then this function will change `func`self.active_parameters to be the same as active_parameters. Otherwise, this function will check to make sure that `func`self.active_parameters is defined. If func`self.active_parameters not defined, it will return an error.
+        
+        If active_parameter_uncertainties is not None, then this function will change `func`self.active_parameter_uncertainties to be equal to active_parameter_uncertainties
+        
+        
+        :key active_parameters: The list of active parameters to distribute to the measurements. If not None, sets `func`self.active_parameters to be equal to this. If this is not None, and active_parameter_uncertainties is None, then `func`self.active_parameter_uncertainties will be set to be equal to `func`self.parameter_uncertainties[self.active_parameters]
+        :key active_parameter_uncertainties: The active parameter uncertainties to distribute. If not None, `func`self.active_parameter_uncertainties will be set to this. If None, `func`self.active_parameter_uncertainties will be set depending on whether active_parameters is None.
+        
         """
+        if active_parameters is not None:
+            # Set Project.active_parameters to the active_parameters in the function call. If None, do not change Project.active_parameters
+            self.active_parameters = active_parameters
+            if active_parameter_uncertainties is not None: #Set parameter uncertainties according to user specification
+                self.active_parameter_uncertainties = active_parameter_uncertainties
+            else: #Set parameter uncertainties according to whatever is in self.parameter_uncertainties
+                self.active_parameter_uncertainties = self.parameter_uncertainties[self.active_parameters]
+        else:
+            if self.active_parameters is None:
+                raise AttributeError('self.active_parameters is not defined')
+            self.active_parameter_uncertainties = self.parameter_uncertainties[self.active_parameters]
+        
+        
         #Set the active parameter list for all measurements to the main active parameter list for this project
         for meas in self.measurement_list + self.application_list:
             meas.active_parameters = self.active_parameters
