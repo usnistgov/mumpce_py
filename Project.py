@@ -9,7 +9,7 @@ import math
 import matplotlib
 import matplotlib.pyplot as plt
 
-def load_project(name):
+def load_project(name='project'):
     """Loads a Project from a pickled representation on disk.
     
     :param name: The name of the project to be loaded. This function will load the project from <name>.save
