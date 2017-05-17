@@ -162,7 +162,7 @@ class FlameSpeed(CanteraChemistryModel):
         flame_speed_cm = self.simulation.u[0] / 1.0e-2
         return flame_speed_cm
     
-    def _sensitivity(self,perturbation,parameter_list,logfile):
+    def sensitivity(self,perturbation,parameter_list,logfile):
         
         value = self.evaluate()
         

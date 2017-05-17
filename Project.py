@@ -239,7 +239,7 @@ class Project(object):
         print('Project ' + name +' saved successfully')
         
         if save_meas:
-            self.save_meas
+            self.save_meas()
             print('Measurements saved successfully')
         
         return
