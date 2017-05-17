@@ -74,6 +74,8 @@ class CanteraChemistryModel(mumpce.Model):
         self.prepare_chemistry(**kwargs)
         self.tqfunc = tqfunc #tqdm.tqdm
         
+        self.prepare_for_save = self.blank_chemistry
+        
         return
         
 #    def __str__(self):

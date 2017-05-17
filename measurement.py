@@ -306,6 +306,19 @@ class Measurement(object):
         return response,response_uncertainty
     
     def save(self):
+        """Saves a pickled representation of the measurement
+        """
+        filename = name + '.save'
+        
+        with open(filename,'wb') as f:
+            pickle.dump(meas,f)
+        return
+    
+    def prepare_for_save(self):
+        self.model.prepare_for_save()
+        return
+    
+    def _save(self):
         """Saves the model value, sensitivity list, and response surface to disk. By default, they are saved to the file 
         'self.name'.npz
         """

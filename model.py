@@ -74,3 +74,6 @@ class Model(object):
         :rtype: list
         """
         pass
+    @abstractmethod
+    def prepare_for_save(self):
+        pass

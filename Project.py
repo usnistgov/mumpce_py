@@ -9,6 +9,20 @@ import math
 import matplotlib
 import matplotlib.pyplot as plt
 
+def load_project(name):
+    """Loads a Project from a pickled representation on disk.
+    
+    :param name: The name of the project to be loaded. This function will load the project from <name>.save
+    
+    """
+    import pickle
+    filename = name + '.save'
+    with open(filename,'rb') as f:
+        pj = pickle.load(f)
+    
+    return pj
+
+
 class Project(object):
     """This is the top level Project class for the MUM-PCE code. 
 
@@ -44,6 +58,7 @@ class Project(object):
     
     """
     def __init__(self,
+                 name=None,
                  measurement_list=None,
                  application_list=None,
                  model=None,
@@ -56,6 +71,12 @@ class Project(object):
                 ):
         """
         """
+        
+        if name:
+            self.name = name
+        else:
+            self.name = 'project'
+        
         #: The list of measurements that are part of this project
         self.measurement_list = measurement_list
         if measurement_list is None:
@@ -108,6 +129,22 @@ class Project(object):
         self.solution = solution
         
         return
+    
+    def __str__(self):
+        project_str = self.name + '\n'
+        
+        measurement_str = str(len(self)) + ' measurements\n'
+        
+        for meas in self:
+            measurement_str += str(meas) + '\n'
+        
+        solution_str = ''
+        
+        if self.solution:
+            solution_str = self.validate_solution() + '\n'
+            solution_str += self.interpret_model() + '\n'
+        
+        return project_str + measurement_str + solution_str
     
     @property
     def items(self):
@@ -174,7 +211,40 @@ class Project(object):
     def __iter__(self):
         return iter(self.items)
         
-    def save(self):
+    def save(self,project_name=None,save_meas=False):
+        """Pickles the project and saves the pickled representation to a binary file.
+        
+        This function will use the :py:module:`pickle` module to save the project's current state, including all measurements and project metadata.
+        
+        :key project_name: The name of the project. If not None, the project will be saved to <project_name>.save, otherwise <self.name>.save.
+        :key save_meas: Whether to save the measurements individually. If True, calls :py:func:`save_meas`.
+        """
+        
+        import pickle
+        
+        #
+        if project_name:
+            name = project_name
+        else:
+            name = self.name
+        
+        filename = name + '.save'
+        
+        for meas in self:
+            meas.prepare_for_save()
+        
+        with open(filename,'wb') as f:
+            pickle.dump(self,f)
+        
+        print('Project ' + name +' saved successfully')
+        
+        if save_meas:
+            self.save_meas
+            print('Measurements saved successfully')
+        
+        return
+    
+    def save_meas(self):
         """Saves all measurements that are part of this project to disk. Calls the :func:`save()` function for each measurement
         """
         for meas in self.measurement_list + self.application_list:
@@ -496,7 +566,7 @@ class Project(object):
             uncertainty_ratio = meas.optimized_uncertainty / meas.uncertainty
             meas.weighted_consistency = abs(meas.consistency) * uncertainty_ratio ** 2
             
-        print(output)
+        #print(output)
         return output
     
     def remove_inconsistent_measurements(self):
