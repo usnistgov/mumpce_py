@@ -10,7 +10,7 @@ import shock_tube_utils as stu
 import pandas as pd
 import cantera as ct
 import numpy as np
-
+import math
 
 def ign_initialize(name=None,
                    T=None,
@@ -42,6 +42,7 @@ def ign_initialize(name=None,
             #Critical species maximum production
             fcn = stu.critical_species_production
             if critical_species == 'PRES':
+                #Maximum pressure rise
                 fcn = stu.pressure_rise
         if critical_type == 'pres':
             #Maximum pressure rise
@@ -49,6 +50,12 @@ def ign_initialize(name=None,
         if critical_type == 'conc':
             fcn = stu.target_concentration
         args += [fcn]
+        if value: #An experimental value has been supplied. Calculate initial timestep based on 
+            base = 3 #hard-coded value, this seems to work well
+            delay = math.exp(value)
+            #print(delay)
+            log_optimal_timestep = math.floor(math.log(delay,base)) - 1
+            initial_timestep = (base ** log_optimal_timestep)/1.0e6
         kwargs = dict(crit_ID=critical_species,initial_timestep=initial_timestep,critical_rise=critical_rise,**kwargs)
         
     
@@ -340,7 +347,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
         else:
             chem = chemistry_model            
         
-        print (chem)
+        #print (chem)
         
         val = None
         unc = None

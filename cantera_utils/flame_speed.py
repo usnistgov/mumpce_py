@@ -162,6 +162,16 @@ class FlameSpeed(CanteraChemistryModel):
         flame_speed_cm = self.simulation.u[0] / 1.0e-2
         return flame_speed_cm
     
+    def _sensitivity(self,perturbation,parameter_list,logfile):
+        
+        value = self.evaluate()
+        
+        full_sensitivity = self.simulation.get_flame_speed_reaction_sensitivities()
+        sensitivity_vector = full_sensitivity[parameter_list]
+        
+        return value,sensitivity_vector
+        
+        
     def load_restart(self,filename=None,solution_name='restart'):
         """Load a solution from a restart file and set the self.restart flag so that the model knows that a restart has been read
         
