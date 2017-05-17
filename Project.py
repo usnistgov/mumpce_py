@@ -387,13 +387,16 @@ class Project(object):
         for exp_num,meas in enumerate(self.measurement_list):
             #for exp_num,resp in enumerate(response_list):
             #Evaluate 
-            f_num,df_num = meas.sensitivity_response(x)
+            
+            df_num = np.zeros(meas.model.number_parameters)
+            
+            f_num,df_num[meas.active_parameters] = meas.sensitivity_response(x)
             
             f_exp = meas.value
             w = 1/meas.uncertainty
             
             f[exp_num + num_params] = (f_num - f_exp)*w
-            df[exp_num + num_params,:] = df_num*w
+            df[exp_num + num_params,:] = df_num[self.active_parameters]*w
                 
         return f,df
     def run_optimization(self,initial_guess=None,initial_covariance=None):
