@@ -429,9 +429,9 @@ class Measurement(object):
             
             print_args = (param_name,value,this_unc)
             
-            print_string = '{:30s} : {: 7.2f} {: 7.2f}'
-            if abs(value) > 5000:
-                print_string = '{:30s} : {: 7.2e} {: 7.2f}'
+            print_string = '{:30s} : {: 7.2g} {: 7.2f}'
+            #if abs(value) > 5000:
+            #    print_string = '{:30s} : {: 7.2e} {: 7.2f}'
             
             #print(print_string.format(*print_args))
             line = print_string.format(*print_args)
@@ -478,9 +478,9 @@ class Measurement(object):
             
             print_args = (param_name,value,this_unc,this_x,this_std,new_value,new_uncertainty)
             
-            print_string = '{:30s} : {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2f}'
-            if abs(value) > 5000:
-                print_string = '{:30s} : {: 7.2e} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2e} {: 7.2f}'
+            print_string = '{:30s} : {: 7.2g} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2g} {: 7.2f}'
+            #if abs(value) > 5000:
+            #    print_string = '{:30s} : {: 7.2e} {: 7.2f} {: 7.2f} {: 7.2f} {: 7.2e} {: 7.2f}'
             line = print_string.format(*print_args)
             output = carriage_return.join((output,line))
             #print(print_string.format(*print_args))
