@@ -74,14 +74,15 @@ class CanteraChemistryModel(mumpce.Model):
         self.prepare_chemistry(**kwargs)
         self.tqfunc = tqfunc #tqdm.tqdm
         
-        self.prepare_for_save = self.blank_chemistry
-        
         return
         
 #    def __str__(self):
 #        modelstr = str(self.initial.T) + ' K, ' + str(self.initial.P) + ' Pa ' + str(self.initial.composition)
 #        return modelstr
         
+    def prepare_for_save(self):
+        self.blank_chemistry()
+        return
     
     def prepare_chemistry(self,no_efficiencies=True,no_energy=True,no_falloff=True,**kwargs):
         """Instantiate the Cantera chemistry model and get information about the reaction model. This is called during instantiation of the model and normally would not be called at any other time.

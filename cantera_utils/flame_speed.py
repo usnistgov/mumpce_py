@@ -202,3 +202,12 @@ class FlameSpeed(CanteraChemistryModel):
         """
         self._restart = None
     
+    def prepare_for_save(self):
+        try:
+            self.save_restart() #Save the current solution to restart, because we are about to erase the Cantera reactors
+        except:
+            print('No data saved from flame speed solution') #If there is an error, assume that there is no solution and proceed to blank the chemistry
+            
+        self.blank_chemistry() #blank out the chemistry so we can pickle the object
+        return
+    

@@ -62,7 +62,7 @@ class ShockTubeDelay(stb.ShockTube):
                         self.critical_ID,
                         critical_value*1.0e6,
                        )
-            modelstr = 'Ignition delay time: {:8.0f} K, {:5.2f} kPa, {}, delay until mole fraction of {} = {} '.format(*str_args)
+            modelstr = 'Ignition delay time: {:8.0f} K, {:5.2f} kPa, {}, delay until mole fraction of {} = {} ppm'.format(*str_args)
         
         #modelstr = 'Ignition delay time: {:8.0d} K, {:5.2d} kPa, {}, delay based on maximum d{}/dt'.format(*str_args)
         
@@ -124,12 +124,94 @@ class ShockTubeDelay(stb.ShockTube):
             else:
                 time = 0
                 time_so_far -= 2*timestep
-                time_so_far = max(time_so_far,0)
+                time_so_far = max(time_so_far,0) # This is needed to make sure we don't accidentally backtrack to negative times
                 break_loop = False
                 if not(self.loglevel is None):
                     print ('--')
         
         return time_so_far,reactor_temperature,reactor_pressure,reactor_contents
+    
+    def run_reactor(self,time_so_far,timestep,critical_last):
+        
+        time = 0.0
+        
+        #Initialize rollback variables
+        reactor_contents = copy.deepcopy(self.reactor.thermo.X)
+        reactor_temperature = copy.deepcopy(self.reactor.thermo.T)
+        reactor_pressure = copy.deepcopy(self.reactor.thermo.P)
+        
+        keep_going,crit = self.critical(self,critical_last)
+        if not(self.loglevel is None):
+            print ('%10.4e %10.4e %10.1f %10.1f %10.8e %10.3e' % (time_so_far,time, 
+                                                                  self.reactor.thermo.T, self.reactor.thermo.P, 
+                                                                  crit,timestep
+                                                                 )
+                  )
+        
+        #Force one timestep
+        #print('Forcing a timestep')
+        #Advance the simulation time by one timestep
+        new_time = time + timestep
+
+        time = new_time
+        time_so_far += timestep
+        
+        
+        
+       
+        
+        #Advance the reactor
+        self.simulation.advance(time)
+
+        #Evaluate the critical function. Make sure an ignition event is not occuring.
+        keep_going,crit = self.critical(self,critical_last)
+        #print('crit = ',crit,'crit_last = ',critical_last)
+        #critical_last = crit
+        
+        if not(self.loglevel is None):
+            print ('%10.4e %10.4e %10.1f %10.1f %10.8e %10.3e' % (time_so_far,time, 
+                                                                  self.reactor.thermo.T, self.reactor.thermo.P, 
+                                                                  crit,timestep
+                                                                 )
+                  )
+        
+        break_loop = True
+        
+        while break_loop:
+            
+            #Advance the simulation time by one timestep
+            new_time = time + timestep
+            
+            time = new_time
+            time_so_far += timestep
+            
+            #Advance the reactor
+            self.simulation.advance(time)
+            
+            #Evaluate the critical function. Make sure an ignition event is not occuring.
+            keep_going,crit = self.critical(self,critical_last)
+            #if self.loglevel is not None:  print('crit = ',crit,'crit_last = ',critical_last)
+            #critical_last = crit
+            
+            if keep_going: #A new ignition event is occuring
+                break_loop = False 
+                #print('new ignition event')
+            #if time_so_far > timestep : break_loop = False #Enough time has elapsed that a new ignition event will probably not occur
+            if time > timestep * 200 : break_loop = False
+            #Print the reactor state
+            if not(self.loglevel is None):
+                print ('%10.4e %10.4e %10.1f %10.1f %10.8e %10.3e' % (time_so_far,time, 
+                                                                      self.reactor.thermo.T, self.reactor.thermo.P, 
+                                                                      crit,timestep
+                                                                     )
+                      )
+            #Save reactor state for restoration purposes
+            reactor_contents = copy.deepcopy(self.reactor.thermo.X)
+            reactor_temperature = copy.deepcopy(self.reactor.thermo.T)
+            reactor_pressure = copy.deepcopy(self.reactor.thermo.P)
+        return time_so_far,reactor_temperature,reactor_pressure,reactor_contents
+                
+            
     
     def evaluate(self):
         """Finds the ignition delay time
@@ -154,17 +236,44 @@ class ShockTubeDelay(stb.ShockTube):
         
         #Start at zero time
         time_so_far = 0
-        while timestep > precision:
-            #Calculate the delay time
-            delay,current_T,current_P,current_X = self.find_delay(time_so_far,timestep)
+        
+        seeking_delay = True
+        
+        while seeking_delay:
+        
+            while timestep > precision:
+                #Calculate the delay time
+                delay,current_T,current_P,current_X = self.find_delay(time_so_far,timestep)
+
+                #Set the reactor to the conditions at which the calculation will be restarted and re-initialize the reactor
+                self.gas.TPX = current_T,current_P,current_X
+                self.initialize_reactor()
+                #reac1,shock1,gas = shock_tube_initialize(current_T,current_P,current_X,chemistry_model)
+
+                timestep = timestep / 2 # Shrink the timestep
+                time_so_far = delay #save the elapsed time 
+
+            #print('Delay found')
             
-            #Set the reactor to the conditions at which the calculation will be restarted and re-initialize the reactor
+            timestep = timestep*(2**14)
+            #timestep = self.initial_timestep
+            
+            keep_going,critical_at_delay,breakout = self.critical(self,0,check_breakout=True)
+            if breakout:
+                break #self.critical does not require us to keep searching for the delay, so just break out of the loop
+            #print(critical_at_delay)
+
+            time_so_far,current_T,current_P,current_X = self.run_reactor(time_so_far,timestep,critical_at_delay)
+            
+            keep_going,crit = self.critical(self,critical_at_delay)
+            
+            #print(crit)
+            
+            if keep_going is False: seeking_delay = False #The delay has been found after a sufficient search
             self.gas.TPX = current_T,current_P,current_X
             self.initialize_reactor()
-            #reac1,shock1,gas = shock_tube_initialize(current_T,current_P,current_X,chemistry_model)
             
-            timestep = timestep / 2 # Shrink the timestep
-            time_so_far = delay #save the elapsed time 
+            #seeking_delay = False 
         
         delay = float(delay / 1.0e-6) # Convert from seconds to microseconds
         
@@ -327,7 +436,7 @@ def generic_critical_function(measurement,critical_last):
     """
     
     return keep_going,crit
-def critical_species_production(measurement,crit_rop_last):
+def critical_species_production(measurement,crit_rop_last,**kwargs):
     
     crit_spec = measurement.critical_ID
     crit_index = measurement.reactor.thermo.kinetics_species_index(crit_spec)
@@ -345,7 +454,7 @@ def critical_species_production(measurement,crit_rop_last):
     
     return keep_going, crit_rop
 
-def pressure_rise(measurement,pressure_rise_last):
+def pressure_rise(measurement,pressure_rise_last,**kwargs):
     #roc = shock_tube.thermo.creation_rates
     #rod = shock_tube.thermo.destruction_rates
     rop = measurement.reactor.thermo.net_production_rates
@@ -374,7 +483,7 @@ def pressure_rise(measurement,pressure_rise_last):
     
     return keep_going, pressure_rise
 
-def target_concentration(measurement,concentration_last):
+def target_concentration(measurement,concentration_last,check_breakout=False,**kwargs):
     crit_concentration = measurement.reactor.thermo[measurement.critical_ID].X
     crit_val = measurement.critical_value
     
@@ -382,5 +491,7 @@ def target_concentration(measurement,concentration_last):
         keep_going = crit_concentration < crit_val
     else:
         keep_going = crit_concentration > crit_val
-        
+    if check_breakout:
+        breakout = True
+        return keep_going,crit_concentration,breakout
     return keep_going,crit_concentration

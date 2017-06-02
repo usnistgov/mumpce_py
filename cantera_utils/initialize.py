@@ -50,8 +50,8 @@ def ign_initialize(name=None,
         if critical_type == 'conc':
             fcn = stu.target_concentration
         args += [fcn]
-        if value: #An experimental value has been supplied. Calculate initial timestep based on 
-            base = 3 #hard-coded value, this seems to work well
+        if value: #An experimental value has been supplied. Calculate initial timestep based on this initial value
+            base = 10 #hard-coded value, this seems to work well
             delay = math.exp(value)
             #print(delay)
             log_optimal_timestep = math.floor(math.log(delay,base)) - 1
