@@ -484,6 +484,8 @@ class CanteraChemistryModel(mumpce.Model):
         #for (param_number,param_id) in enumerate(parameter_list):
             #pbar.update(1)
             
+            param_name = self.model_parameter_info[param_id]['parameter_name']
+            
             time_start = time.time()
             
             mult_base = self.get_parameter(param_id)
@@ -526,7 +528,8 @@ class CanteraChemistryModel(mumpce.Model):
             #       )
             logfile.write('{: 4d} {: 10.5e}  {: 10.5e}  {: 10.4e}  {}\n'.format(param_id,
                                                                   valuep,valuem,sensitivity,
-                                                                  self.gas.reaction_equations([param_id])[0])
+                                                                  param_name)
+            #                                                      self.gas.reaction_equations([param_id])[0])
                    )
         #value = math.log(value/1.0e-6)
         self._sens_flag = False

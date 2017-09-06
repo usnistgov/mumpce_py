@@ -32,12 +32,11 @@ The package is implemented in a way to be as general as possible, which means th
 Legal
 +++++
 
-This software is subject to the NIST Software License (revised as of May 2015). This license can be found in the GitHub repo in the file named LICENSE. The following is a hopefully-useful but not-legally-binding summary:
+This software is subject to the `NIST Software License <https://www.nist.gov/director/licensing>`_ (revised as of July 2017). This license can be found in the GitHub repo in the file named LICENSE. The following is a hopefully-useful but not-legally-binding summary:
 
   * NIST software authored by NIST employees is in the public domain (15 USC 105).
   * The software has NO WARRANTY.
-  * You may modify the software and distribute your modifications. If you do, you should note your changes and cite the original.
-  * If you use the software, you should cite the software and the papers documenting its development.
+
 
 Contents
 ++++++++

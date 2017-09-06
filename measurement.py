@@ -159,6 +159,7 @@ class Measurement(object):
         for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
             self.model.reset_model()
             base_value = self.model.get_parameter(parameter)
+            param_name = self.model.model_parameter_info[parameter]['parameter_name']
             
             #print 'Parameter = ', parameter
             
@@ -170,7 +171,7 @@ class Measurement(object):
             #print negative_perturbation
             
             #Positive perturbation
-            response_logfile.write('\nParamter number = {: 4d}\n'.format(parameter))
+            response_logfile.write('\nParamter number = {: 4d} {:30s}\n'.format(parameter,param_name))
             response_logfile.write('Positive perturbation = {: 10.5e}\n'.format(positive_perturbation))
             self.model.perturb_parameter(parameter,positive_perturbation*base_value)
             value_pos, sens_pos = self.model.sensitivity(*sensitivity_args)
@@ -189,7 +190,7 @@ class Measurement(object):
             #print "Negative sensitivity:", sens_neg
             #print ''
         
-        
+        self.model.reset_model()
         #First order terms of response surface
         if self.response_type == 'log':
             perturbations = np.log(perturbations)
