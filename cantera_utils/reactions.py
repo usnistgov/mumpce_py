@@ -2,6 +2,7 @@ from cantera_chemistry_model import CanteraChemistryModel
 import numpy as np
 import cantera as ct
 import mumpce_py as mumpce
+from mumpce.response_surface import ResponseSurface
 
 class RxnMeasurement(mumpce.Measurement):
     """A special class for optimizing reaction rate measurements.
@@ -12,9 +13,6 @@ class RxnMeasurement(mumpce.Measurement):
     def make_response(self):
         """Generates a sensitivity_analysis_based response surface for this measurement
         """
-        
-        response_logfile = open(logfile_name,'w')
-        
         #zero_term = self.evaluate
         self.model.reset_model()
         logfile_name = self.name + '_resp_log.out'
@@ -31,66 +29,18 @@ class RxnMeasurement(mumpce.Measurement):
 
         
         number_params = len(self.active_parameters)
+        a_terms = np.zeros((number_params,1))
+        b_terms = np.zeros((number_params,number_params))
+        d_terms = np.zeros_like(b_terms)
         
-        #Calculate the multipliers that will be used for the SAB sensitivity calculations
-        multipliers = self.parameter_uncertainties ** self.response_perturbation
-        #print multipliers
-        
-        perturbations = np.zeros((number_params,2))
-        sens_positive = np.zeros((number_params,number_params))
-        sens_negative = np.zeros_like(sens_positive)
-        
-        #Changed this so that tqdm will be used if it is available, but otherwise not
-        #for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
-        for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-            self.model.reset_model()
-            base_value = self.model.get_parameter(parameter)
-            param_name = self.model.model_parameter_info[parameter]['parameter_name']
-            
-            #print 'Parameter = ', parameter
-            
-            
-            positive_perturbation = multipliers[parameter_number]
-            negative_perturbation = 1/positive_perturbation
-            
-            #print positive_perturbation
-            #print negative_perturbation
-            
-            #Positive perturbation
-            response_logfile.write('\nParamter number = {: 4d} {:30s}\n'.format(parameter,param_name))
-            response_logfile.write('Positive perturbation = {: 10.5e}\n'.format(positive_perturbation))
-            self.model.perturb_parameter(parameter,positive_perturbation*base_value)
-            value_pos, sens_pos = self.model.sensitivity(*sensitivity_args)
-            
-            #Negative perturbation
-            response_logfile.write('Negative perturbation = {: 10.5e}\n'.format(negative_perturbation))
-            self.model.perturb_parameter(parameter,negative_perturbation*base_value)
-            value_neg, sens_neg = self.model.sensitivity(*sensitivity_args)
-            
-            perturbations[parameter_number,:] = [value_pos, value_neg]
-                
-            sens_positive[parameter_number,:] = sens_pos
-            sens_negative[parameter_number,:] = sens_neg
-            
-            #print "Positive sensitivity:", sens_pos
-            #print "Negative sensitivity:", sens_neg
-            #print ''
-        
-        self.model.reset_model()
-        #First order terms of response surface
-        if self.response_type == 'log':
-            perturbations = np.log(perturbations)
-        a_terms = (perturbations[:,0] - perturbations[:,1]) / (2 * self.response_perturbation)
-        #Second order terms of response surface
-        b_terms_first = (sens_positive - sens_negative) * np.log(self.parameter_uncertainties) / (4 * self.response_perturbation)
-        
-        if self.response_type == 'linear':
-            #a_terms = a_terms * zero_term
-            b_terms_first = b_terms_first * zero_term
-        
-        b_terms = (b_terms_first + b_terms_first.T)/2# - np.diag(np.diag(b_terms_first))
-        d_terms = (b_terms_first - b_terms_first.T)/2
-        
+        for parameter_number,(parameter,sens_val,uncert) in enumerate(zip(self.active_parameters,
+                                                                              sens_zero,
+                                                                              self.parameter_uncertainties)):
+            parameter_type = self.model.model_parameter_info[parameter]['parameter_type']
+            if 'A' in parameter_type:
+                a_terms[parameter_number] = sens_val * np.log(uncert)
+            if 'E' in parameter_type:
+                a_terms[parameter_number] = sens_val * (uncert - 1)
         
         self.response = ResponseSurface(zero_term=zero_term,
                                          a_terms=a_terms,

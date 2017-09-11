@@ -43,7 +43,7 @@ def rxn_initialize(name=None,
         model = rxns.ReactionEDiff
     
     mdl = model(*model_args,**model_keys)
-    meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
+    meas = rxns.RxnMeasurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
                               active_parameters=None,parameter_uncertainties=None,comment=comment,
                               response_type='log'
                              )
