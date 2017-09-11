@@ -205,7 +205,7 @@ class CanteraChemistryModel(mumpce.Model):
                 parameter_value = rate.pre_exponential_factor
             if 'E' in parameter_type:
                 parameter_value = rate.activation_energy        
-        return parameter_value    
+        return parameter_value
 
     def perturb_parameter(self,parameter_id,new_value):
         """Replaces a model parameter's value by a new value.
@@ -235,41 +235,42 @@ class CanteraChemistryModel(mumpce.Model):
  
         pressurestring = 'pressure'
         HasFallOff = False
+        PerturbLow = False
+        #Check if this is a falloff reaction
         if pressurestring in parameter_type:
             HasFallOff = True
         if HasFallOff:
             highrate = reaction.high_rate
             lowrate = reaction.low_rate
-            if rtype == 4:
-                cti_type = 'falloff_reaction'
-            if rtype == 8:
-                cti_type = 'chemically_activated_reaction'
-            high_A = highrate.pre_exponential_factor
-            high_b = highrate.temperature_exponent
-            high_E = highrate.activation_energy 
-            low_A = lowrate.pre_exponential_factor
-            low_b = lowrate.temperature_exponent
-            low_E = lowrate.activation_energy
+            #Check to see if this is the high-pressure rate constant
             if 'High' in parameter_type:
                 A = highrate.pre_exponential_factor
                 b = highrate.temperature_exponent
                 E = highrate.activation_energy
                 if 'A' in parameter_type:
-                    A = new_value#highrate.pre_exponential_factor * new_value
+                    A = new_value
+                    perturbation = new_value/A # We need to know what the perturbation is
                 if 'E' in parameter_type:
-                    E = new_value#highrate.activation_energy * new_value
+                    E = new_value
                 reaction.high_rate = ct.Arrhenius(A,b,E)
+            #Check to see if this is the low-pressure rate constant
             if 'Low' in parameter_type:
-                A = highrate.pre_exponential_factor
-                b = highrate.temperature_exponent
-                E = highrate.activation_energy
+                PerturbLow = True
+            #If we are not treating the high- and low-pressure rate constants separately, then perturb the low-pressure rate constant, too
+            if no_falloff:
+                PerturbLow = True
+            if PerturbLow:
+                A = lowrate.pre_exponential_factor
+                b = lowrate.temperature_exponent
+                E = lowrate.activation_energy
                 if 'A' in parameter_type:
-                    A = new_value#lowrate.pre_exponential_factor * new_value
+                    if 'Low' in parameter_type: #Just replace the A factor with the new value
+                        A = new_value
+                    else:
+                        A = perturbation*A
                 if 'E' in parameter_type:
-                    E = new_value#lowrate.activation_energy * new_value
-                reaction.low_rate = ct.Arrhenius(A,b,E)
-            
-            
+                    E = new_value
+                reaction.low_rate = ct.Arrhenius(A,b,E)    
         else:
             rate = reaction.rate
             A = rate.pre_exponential_factor
@@ -364,14 +365,11 @@ class CanteraChemistryModel(mumpce.Model):
         if reaction.reaction_type == 4:
             HasThirdBody = True
             HasFalloff = True
-            cti_type = 'falloff_reaction'
         if reaction.reaction_type == 8:
             HasThirdbody = True
             HasFalloff = True
-            cti_type = 'chemically_activated_reaction'
         if reaction.reaction_type ==2:
             HasThirdBody = True
-            cti_type = 'three_body_reaction'
         
         if HasFalloff:
             rate = reaction.high_rate
@@ -427,6 +425,7 @@ class CanteraChemistryModel(mumpce.Model):
             #        if not(param_info[2] > 0):
             #            include_this_parameter = False
             if no_energy:
+                #We are not perturbing activation energies, so don't consider anything that looks like an activation energy
                 if param_info['parameter_type'] == 'Energy':
                     include_this_parameter = False
                 if param_info['parameter_type'] == 'Low_pressure_E':
@@ -434,14 +433,13 @@ class CanteraChemistryModel(mumpce.Model):
                 if param_info['parameter_type'] == 'High_pressure_E':
                     include_this_parameter = False
             if no_falloff:
+                #We are not perturbing falloff parameters, so don't consider activation energies or low-pressure A factors (low-pressure A factor will be forced to perturb with the high-pressure A factor)
                 if param_info['parameter_type'] == 'Low_pressure_A':
                     include_this_parameter = False
                 if param_info['parameter_type'] == 'Low_pressure_E':
                     include_this_parameter = False
-                #if param_info['parameter_type'] == 'High_pressure_A':
-                #    include_this_parameter = False
-                #if param_info['parameter_type'] == 'High_pressure_E':
-                #    include_this_parameter = False
+                if param_info['parameter_type'] == 'High_pressure_E':
+                    include_this_parameter = False
             if include_this_parameter:
                 model_parameter_info += [param_info]
             #print param_info

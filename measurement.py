@@ -171,7 +171,7 @@ class Measurement(object):
             #print negative_perturbation
             
             #Positive perturbation
-            response_logfile.write('\nParamter number = {: 4d} {:30s}\n'.format(parameter,param_name))
+            response_logfile.write('\nParameter number = {: 4d} {:30s}\n'.format(parameter,param_name))
             response_logfile.write('Positive perturbation = {: 10.5e}\n'.format(positive_perturbation))
             self.model.perturb_parameter(parameter,positive_perturbation*base_value)
             value_pos, sens_pos = self.model.sensitivity(*sensitivity_args)
@@ -312,7 +312,7 @@ class Measurement(object):
         filename = name + '.save'
         
         with open(filename,'wb') as f:
-            pickle.dump(meas,f)
+            pickle.dump(self,f)
         return
     
     def prepare_for_save(self):

@@ -5,12 +5,52 @@ import mumpce_py as mumpce
 from flame_speed import FlameSpeed
 #from shock_tube import shock_tube
 import shock_tube_utils as stu
+import reactions as rxns
 #from shock_tube_utils import shock_tube_delay,shock_tube_concentration,shock_tube_ratio
 
 import pandas as pd
 import cantera as ct
 import numpy as np
 import math
+
+def rxn_initialize(name=None,
+                   T=None,
+                   Patm=None,
+                   fuels=None,
+                   chemistry_model=None,
+                   reaction=None,
+                   reaction_denominator=None,
+                   measurement_type=None,
+                   value=None,
+                   uncertainty=None,
+                   comment=None,**kwargs
+                  ):
+    """Initialize a reaction rate constant measurement"""
+    
+    model_args = [T,Patm,fuels,chemistry_model]
+    
+    if measurement_type == 'Single':
+        model_keys = dict(reaction_number=reaction,**kwargs)
+        model = rxns.ReactionRateAtCondition
+    if measurement_type == 'Ratio':
+        model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
+        model = rxns.ReactionRateRatioAtCondition
+    if measurement_type == 'Aratio':
+        model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
+        model = rxns.ReactionARatio
+    if measurement_type == 'Eratio':
+        model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
+        model = rxns.ReactionEDiff
+    
+    mdl = model(*model_args,**model_keys)
+    meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
+                              active_parameters=None,parameter_uncertainties=None,comment=comment,
+                              response_type='log'
+                             )
+    
+    return meas
+        
+    
 
 def ign_initialize(name=None,
                    T=None,
@@ -242,6 +282,8 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
     critical_denominator = None
     critical_value = None
     critical_rise = None
+    reaction_denominator = None
+    reaction_numerator = None
     value = None
     uncertainty = None
     chemistry = None
@@ -263,6 +305,13 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
         if s.startswith('Dil'): #Diluent specified
             dil_keyw = s
             dil = True
+        if s.startswith('Reac'): #This is a Reaction keyword
+            if 'denom' in s:
+                rxn_denom_keyw = s
+                reaction_denominator = True
+            else:
+                rxn_keyw = s
+                reaction_numerator = True
         if s.startswith('Crit'): #This is a Critical keyword
             if 'spec' in s: #Critical species
                 crit_spec_keyw = s
@@ -297,7 +346,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
     
     #Group the experiments by unique ID so that we can iterate over them
     gb = df.groupby('ID')
-    for name,this_experiment in gb:    
+    for nm,this_experiment in gb:    
         #Get the name of this experiment
         name = this_experiment.Type.values[0] + '_' + this_experiment.ID.values[0]
         #Get the fuels and fuel mole fractions for this experiment
@@ -373,6 +422,22 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
                                   Patm=this_experiment[pres_keyw].values[0],
                                   fuels=fuel_string,
                                   chemistry_model=chem,
+                                  comment=comment,**kwargs
+                                 )
+        elif this_experiment.Type.values[0] == 'rxn':
+            denom = None
+            if reaction_denominator:
+                denom = this_experiment[rxn_denom_keyw].values[0]
+                if not np.isnan(denom):
+                    denom = int(denom)
+            meas = rxn_initialize(name=name,value=val,uncertainty=unc,
+                                  T=this_experiment[temp_keyw].values[0],
+                                  Patm=this_experiment[pres_keyw].values[0],
+                                  fuels=fuel_string,
+                                  chemistry_model=chem,
+                                  measurement_type=this_experiment[sim_keyw].values[0],
+                                  reaction=int(this_experiment[rxn_keyw].values[0]),
+                                  reaction_denominator=denom,
                                   comment=comment,**kwargs
                                  )
         else:
