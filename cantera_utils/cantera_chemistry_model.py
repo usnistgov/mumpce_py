@@ -87,6 +87,12 @@ class CanteraChemistryModel(mumpce.Model):
     def prepare_chemistry(self,no_efficiencies=True,no_energy=True,no_falloff=True,**kwargs):
         """Instantiate the Cantera chemistry model and get information about the reaction model. This is called during instantiation of the model and normally would not be called at any other time.
         """
+        
+        #Flags telling whether we will be optimiziing
+        self.no_efficiencies = no_efficiencies
+        self.no_energy = no_energy
+        self.no_falloff = no_falloff
+        
         #Call the blank_chemistry function in order to create the chemistry and simulation attributes, initialized to None
         self.blank_chemistry()
         
@@ -257,7 +263,7 @@ class CanteraChemistryModel(mumpce.Model):
             if 'Low' in parameter_type:
                 PerturbLow = True
             #If we are not treating the high- and low-pressure rate constants separately, then perturb the low-pressure rate constant, too
-            if no_falloff:
+            if self.no_falloff:
                 PerturbLow = True
             if PerturbLow:
                 A = lowrate.pre_exponential_factor

@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 from response_surface import ResponseSurface
 
 def idfunc(*arg,**kwargs):
@@ -309,7 +310,7 @@ class Measurement(object):
     def save(self):
         """Saves a pickled representation of the measurement
         """
-        filename = name + '.save'
+        filename = self.name + '.save'
         
         with open(filename,'wb') as f:
             pickle.dump(self,f)
