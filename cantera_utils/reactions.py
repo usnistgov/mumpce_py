@@ -29,7 +29,7 @@ class RxnMeasurement(mumpce.Measurement):
 
         
         number_params = len(self.active_parameters)
-        a_terms = np.zeros((number_params,1))
+        a_terms = np.zeros((number_params))
         b_terms = np.zeros((number_params,number_params))
         d_terms = np.zeros_like(b_terms)
         
