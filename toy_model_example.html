@@ -193,12 +193,12 @@ div.nboutput  > :nth-child(2).stderr {
 <h1>Example usage and output<a class="headerlink" href="#Example-usage-and-output" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Permalink to this headline">¶</a></h2>
-<div class="nbinput nblast container">
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [1]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1">#import mumpce_py as mumpce</span>
@@ -213,19 +213,19 @@ div.nboutput  > :nth-child(2).stderr {
 <h2>Models<a class="headerlink" href="#Models" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Creating-a-model-directly">
 <h3>Creating a model directly<a class="headerlink" href="#Creating-a-model-directly" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [2]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">experiment_number</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">my_model</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">(</span><span class="n">experiment_number</span><span class="p">)</span>
 <span class="n">my_model</span><span class="o">.</span><span class="n">get_model_parameter_info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
+<div class="nboutput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>Out[2]:
 </pre></div>
@@ -244,17 +244,17 @@ div.nboutput  > :nth-child(2).stderr {
 </div>
 <div class="section" id="Evaluation-and-sensitivity-analysis">
 <h3>Evaluation and sensitivity analysis<a class="headerlink" href="#Evaluation-and-sensitivity-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [3]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
+<div class="nboutput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>Out[3]:
 </pre></div>
@@ -264,20 +264,20 @@ div.nboutput  > :nth-child(2).stderr {
 </pre></div>
 </div>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [4]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">V</span><span class="p">,</span><span class="n">S</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="mf">0.0000001</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 Value =  1.22140275816
 Param  Value+       Value-           Sensitivity
@@ -296,12 +296,12 @@ Param  Value+       Value-           Sensitivity
 <h2>Measurements<a class="headerlink" href="#Measurements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Initializing-measurements">
 <h3>Initializing measurements<a class="headerlink" href="#Initializing-measurements" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast container">
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [5]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">toy_measurements</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">)</span>
 <span class="n">toy_apps</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_apps.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_app</span><span class="p">)</span>
 </pre></div>
@@ -310,25 +310,25 @@ Param  Value+       Value-           Sensitivity
 </div>
 <div class="section" id="Sensitivity-analysis-with-Measurements">
 <h3>Sensitivity analysis with Measurements<a class="headerlink" href="#Sensitivity-analysis-with-Measurements" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [6]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">toy_measurements</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">meas</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">meas</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">(</span><span class="n">perturbation</span><span class="o">=</span><span class="mf">0.0000000001</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">toy_apps</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">meas</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">meas</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">(</span><span class="n">perturbation</span><span class="o">=</span><span class="mf">0.0000000001</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Value =  1.22140275816
@@ -398,12 +398,12 @@ Param  Value+       Value-           Sensitivity
 <h2>Projects<a class="headerlink" href="#Projects" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Create-the-Project">
 <h3>Create the Project<a class="headerlink" href="#Create-the-Project" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast container">
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [7]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">measurement_list</span><span class="o">=</span><span class="n">toy_measurements</span><span class="p">,</span>
                              <span class="n">application_list</span><span class="o">=</span><span class="n">toy_apps</span><span class="p">,</span>
                              <span class="n">model</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">,</span>
@@ -415,12 +415,12 @@ Param  Value+       Value-           Sensitivity
 </div>
 <div class="section" id="Initializing-Measurements-within-Projects">
 <h3>Initializing Measurements within Projects<a class="headerlink" href="#Initializing-Measurements-within-Projects" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast container">
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [8]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project_with_init</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">,</span>
                                       <span class="n">initialize_function</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">)</span>
 <span class="n">my_project_with_init</span><span class="o">.</span><span class="n">measurement_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">)</span>
@@ -432,24 +432,24 @@ Param  Value+       Value-           Sensitivity
 <p class="first admonition-title">Note</p>
 <p class="last">This is exactly equivalent to creating the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> with the measurement and application lists already created.</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [9]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
-<span></span><span class="k">print</span> <span class="n">my_project</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="k">print</span> <span class="n">my_project</span><span class="p">[</span><span class="s1">&#39;Experiment 1&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">[</span><span class="s1">&#39;Experiment 1&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
-Experiment 1         (Active         ): 0
-Experiment 1         (Active         ): 0
+Experiment 1 (Active): 0
+Experiment 1 (Active): 0
 </pre></div></div>
 </div>
 </div>
@@ -460,20 +460,20 @@ Experiment 1         (Active         ): 0
 <p class="first admonition-title">Note</p>
 <p class="last">Calling <code class="xref py py-func docutils literal"><span class="pre">Project.find_sensitivity()</span></code> is the same as calling <code class="xref py py-func docutils literal"><span class="pre">Measurement.evaluate_sensitivity()</span></code> for each measurement</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [10]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Value =  1.22140275816
@@ -537,21 +537,21 @@ Param  Value+       Value-           Sensitivity
      6  1.00049e+00   9.99512e-01   9.7580e-03
 </pre></div></div>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [11]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 Value =  1.22140275816
 Param  Value+       Value-           Sensitivity
@@ -618,20 +618,20 @@ Param  Value+       Value-           Sensitivity
 <h3>Response surface analysis<a class="headerlink" href="#Response-surface-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="Active-parameters">
 <h4>Active parameters<a class="headerlink" href="#Active-parameters" title="Permalink to this headline">¶</a></h4>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [12]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_active_parameters</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Experiment 2
@@ -640,32 +640,32 @@ Experiment 4
 Experiment 5
 </pre></div></div>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [13]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
-<span></span><span class="k">print</span> <span class="n">my_project</span><span class="o">.</span><span class="n">active_parameters</span>
-<span class="k">print</span> <span class="n">my_project</span><span class="o">.</span><span class="n">active_parameter_uncertainties</span>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">active_parameter_uncertainties</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 [0 1 2 4 6]
 [ 2.71828183  2.71828183  2.71828183  2.71828183  2.71828183]
 </pre></div></div>
 </div>
-<div class="nbinput nblast container">
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [14]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">set_active_parameters</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -673,46 +673,46 @@ Experiment 5
 </div>
 <div class="section" id="Response-surface-evaluation">
 <h4>Response surface evaluation<a class="headerlink" href="#Response-surface-evaluation" title="Permalink to this headline">¶</a></h4>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [15]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">loglevel</span><span class="o">=</span><span class="bp">False</span> <span class="c1"># Suppress output in sensitivity analysis</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">make_response</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="stderr container">
+<div class="docutils container">
 <div class="highlight"><pre>
-5it [00:00, 1482.40it/s]
-5it [00:00, 1551.72it/s]
-5it [00:00, 1568.43it/s]
-5it [00:00, 1434.34it/s]
-5it [00:00, 1717.71it/s]
-5it [00:00, 1478.43it/s]
+
+
+
+
+
+
 </pre></div></div>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [16]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">meas</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">a</span><span class="p">])</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">meas</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">a</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 [[ 1.    0.6   0.4   0.03  0.02]]
 [[ 0.02  0.6   1.    0.1   0.4 ]]
@@ -726,27 +726,27 @@ Experiment 5
 </div>
 <div class="section" id="Solving-the-Project">
 <h3>Solving the Project<a class="headerlink" href="#Solving-the-Project" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [17]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">run_optimization</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput container">
-<div class="container">
+<div class="nboutput docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 (5,)
 Both actual and predicted relative reductions in the sum of squares
   are at most 0.000000
 </pre></div></div>
 </div>
-<div class="nboutput nblast container">
+<div class="nboutput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>Out[17]:
 </pre></div>
@@ -765,12 +765,12 @@ Both actual and predicted relative reductions in the sum of squares
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</p>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [18]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -780,41 +780,34 @@ Both actual and predicted relative reductions in the sum of squares
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <img alt="_images/toy_model_example_36_0.png" src="_images/toy_model_example_36_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="Consistency-analysis">
 <h3>Consistency analysis<a class="headerlink" href="#Consistency-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [19]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">remove_inconsistent_measurements</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 (5,)
 Both actual and predicted relative reductions in the sum of squares
   are at most 0.000000
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 1        :   0.40   0.05   0.25   0.04   0.20   0.62
-Experiment 2        :   0.25   0.05   0.23   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.34   0.04   0.50   0.62
-Experiment 4        :   0.70   0.08   0.79   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80  -0.05   0.24   0.50   0.62
-Application 1       :   0.00   0.00  -0.37   0.10   0.00   0.51
 Experiment 1
     Uncertainty Ratio:   0.86
     Normalized Score:  -1.47
@@ -822,13 +815,6 @@ Experiment 1
 (5,)
 Both actual and predicted relative reductions in the sum of squares
   are at most 0.000000
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80   1.11   0.31   0.50   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.08   0.20   0.62
 No inconsistent measurements
 </pre></div></div>
 </div>
@@ -836,20 +822,20 @@ No inconsistent measurements
 <p class="first admonition-title">Note</p>
 <p class="last">Application 1 doesn&#8217;t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [20]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
-<span></span><span class="k">print</span> <span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span> <span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 [[ 0.12479468  0.          0.          0.          0.        ]
  [-0.12013267  0.22624567  0.          0.          0.        ]
@@ -862,12 +848,12 @@ No inconsistent measurements
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <p>The parameter values are much more reasonable with the outlier removed.</p>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [21]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -877,38 +863,31 @@ No inconsistent measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <img alt="_images/toy_model_example_42_0.png" src="_images/toy_model_example_42_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="Experimental-design">
 <h3>Experimental design<a class="headerlink" href="#Experimental-design" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [22]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">remove_low_information_measurements</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Experiment 5        :   0.40   0.80   1.11   0.31   0.50   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.08   0.20   0.62
 Experiment 2 Entropy flux   0.002021
 Experiment 3 Entropy flux   0.026705
 Experiment 4 Entropy flux   0.000073
@@ -916,12 +895,6 @@ Experiment 5 Entropy flux  -0.000179
 Application 1 Entropy flux  -0.028620
 Experiment 1 Entropy flux   0.000000
 Experiment 5 Entropy flux  -0.00
-Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
 Experiment 2 Entropy flux   0.001914
 Experiment 3 Entropy flux   0.026593
 Experiment 4 Entropy flux   0.000074
@@ -930,20 +903,20 @@ Experiment 1 Entropy flux   0.000000
 No low-information measurements
 </pre></div></div>
 </div>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [23]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
-<span></span><span class="k">print</span> <span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span> <span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <div class="highlight"><pre>
 [[ 0.12547508  0.          0.          0.          0.        ]
  [-0.13014049  0.24328481  0.          0.          0.        ]
@@ -955,12 +928,12 @@ No low-information measurements
 </div>
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput container">
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [24]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -970,19 +943,153 @@ No low-information measurements
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast container">
-<div class="container">
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
 </div>
-<div class="container">
+<div class="docutils container">
 <img alt="_images/toy_model_example_47_0.png" src="_images/toy_model_example_47_0.png" />
 </div>
 </div>
-<div class="nbinput nblast container">
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+                <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+               <span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">my_project</span><span class="o">.</span><span class="n">plot_pdfs</span><span class="p">(</span><span class="n">factors_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<img alt="_images/toy_model_example_48_0.png" src="_images/toy_model_example_48_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#my_project.interpret_model()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :    1.00    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :    1.00    2.72    0.26    0.55    1.30    1.74
+Parameter 3                    :    1.00    2.72    0.57    0.37    1.76    1.45
+Parameter 5                    :    1.00    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :    1.00    2.72    0.36    0.92    1.44    2.52
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">print_model_values</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert
+Parameter 1                    :    1.00    2.72
+Parameter 2                    :    1.00    2.72
+Parameter 3                    :    1.00    2.72
+Parameter 5                    :    1.00    2.72
+Parameter 7                    :    1.00    2.72
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">validate_solution</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
+Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
+Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+project
+5 measurements
+Experiment 2 (Active): 1
+Experiment 3 (Active): 2
+Experiment 4 (Active): 3
+Application 1 (Active): 0
+Experiment 1 (Inconsistent): 0
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
+Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
+Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :    1.00    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :    1.00    2.72    0.26    0.55    1.30    1.74
+Parameter 3                    :    1.00    2.72    0.57    0.37    1.76    1.45
+Parameter 5                    :    1.00    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :    1.00    2.72    0.36    0.92    1.44    2.52
+
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [ ]:
 </pre></div>
 </div>
-<div class="highlight-ipython2"><div class="highlight"><pre>
+<div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>

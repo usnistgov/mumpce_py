@@ -121,7 +121,7 @@
 <td>Evaluates the response surface for this measurement and compute its uncertainty</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#measurement.Measurement.save" title="measurement.Measurement.save"><code class="xref py py-obj docutils literal"><span class="pre">Measurement.save</span></code></a>()</td>
-<td>Saves the model value, sensitivity list, and response surface to disk.</td>
+<td>Saves a pickled representation of the measurement</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#measurement.Measurement.load" title="measurement.Measurement.load"><code class="xref py py-obj docutils literal"><span class="pre">Measurement.load</span></code></a>()</td>
 <td>Loads the model value, sensitivity list, and response surface from disk.</td>
@@ -153,7 +153,7 @@
 <td>Retrieves a model parameter&#8217;s value</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#model.Model.perturb_parameter" title="model.Model.perturb_parameter"><code class="xref py py-obj docutils literal"><span class="pre">Model.perturb_parameter</span></code></a>(parameter_id,&nbsp;new_value)</td>
-<td>Perturbs a model parameter&#8217;s value by a specified amount.</td>
+<td>Replaces a model parameter&#8217;s value by a new value.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#model.Model.get_model_parameter_info" title="model.Model.get_model_parameter_info"><code class="xref py py-obj docutils literal"><span class="pre">Model.get_model_parameter_info</span></code></a>(number_parameters)</td>
 <td>Gets information about the parameters, which will go up to the hosting measurement.</td>
@@ -186,7 +186,7 @@
 <h2>Measurement class<a class="headerlink" href="#measurement-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="measurement.Measurement">
-<em class="property">class </em><code class="descclassname">measurement.</code><code class="descname">Measurement</code><span class="sig-paren">(</span><em>name=None</em>, <em>model=None</em>, <em>value=None</em>, <em>uncertainty=None</em>, <em>active_parameters=None</em>, <em>parameter_uncertainties=None</em>, <em>response=None</em>, <em>response_type='linear'</em>, <em>response_perturbation=0.3</em>, <em>model_value=None</em>, <em>sensitivity_list=None</em><span class="sig-paren">)</span><a class="headerlink" href="#measurement.Measurement" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">measurement.</code><code class="descname">Measurement</code><span class="sig-paren">(</span><em>name=None</em>, <em>model=None</em>, <em>value=None</em>, <em>uncertainty=None</em>, <em>active_parameters=None</em>, <em>parameter_uncertainties=None</em>, <em>response=None</em>, <em>response_type='linear'</em>, <em>response_perturbation=0.3</em>, <em>model_value=None</em>, <em>sensitivity_list=None</em>, <em>comment=None</em><span class="sig-paren">)</span><a class="headerlink" href="#measurement.Measurement" title="Permalink to this definition">¶</a></dt>
 <dd><p>A top level class for a measurement object</p>
 <p>This class is intended to contain metadata for the measurement it defines as well as a simulation model and a response 
 surface for optimization.</p>
@@ -196,6 +196,7 @@ surface for optimization.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>name</strong> (<em>str</em>) &#8211; The name of the measurement</li>
+<li><strong>comment</strong> (<em>str</em>) &#8211; An arbitrary text string describing the measurement</li>
 <li><strong>model</strong> (<em>model object</em>) &#8211; The simulation model</li>
 <li><strong>value</strong> (<em>float</em>) &#8211; The measured value from the experiment</li>
 <li><strong>uncertainty</strong> (<em>float</em>) &#8211; The uncertainty in the measured value</li>
@@ -308,8 +309,7 @@ surface for optimization.</p>
 <dl class="method">
 <dt id="measurement.Measurement.save">
 <code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#measurement.Measurement.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Saves the model value, sensitivity list, and response surface to disk. By default, they are saved to the file 
-&#8216;self.name&#8217;.npz</p>
+<dd><p>Saves a pickled representation of the measurement</p>
 </dd></dl>
 
 <dl class="method">
@@ -402,7 +402,7 @@ implemented as a subclass of model.</p>
 <dl class="method">
 <dt id="model.Model.perturb_parameter">
 <code class="descname">perturb_parameter</code><span class="sig-paren">(</span><em>parameter_id</em>, <em>new_value</em><span class="sig-paren">)</span><a class="headerlink" href="#model.Model.perturb_parameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perturbs a model parameter&#8217;s value by a specified amount.</p>
+<dd><p>Replaces a model parameter&#8217;s value by a new value.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

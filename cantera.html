@@ -57,27 +57,29 @@
           <div class="body" role="main">
             
   <div class="section" id="the-cantera-interface-to-mum-pce">
-<h1><a class="toc-backref" href="#id1">The Cantera interface to MUM-PCE</a><a class="headerlink" href="#the-cantera-interface-to-mum-pce" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id2">The Cantera interface to MUM-PCE</a><a class="headerlink" href="#the-cantera-interface-to-mum-pce" title="Permalink to this headline">¶</a></h1>
 <p>The Cantera model is designed to demonstrate a real-world example of MUM-PCE. Like the toy model, it consists of a set of experimental measurements that will be used to constrain a chemistry model.</p>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#the-cantera-interface-to-mum-pce" id="id1">The Cantera interface to MUM-PCE</a><ul>
-<li><a class="reference internal" href="#the-initialization-function" id="id2">The initialization function</a><ul>
-<li><a class="reference internal" href="#example-data-file" id="id3">Example data file</a></li>
-<li><a class="reference internal" href="#columns-of-the-data-file" id="id4">Columns of the data file</a></li>
+<li><a class="reference internal" href="#the-cantera-interface-to-mum-pce" id="id2">The Cantera interface to MUM-PCE</a><ul>
+<li><a class="reference internal" href="#the-initialization-function" id="id3">The initialization function</a><ul>
+<li><a class="reference internal" href="#example-data-file" id="id4">Example data file</a></li>
+<li><a class="reference internal" href="#columns-of-the-data-file" id="id5">Columns of the data file</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#model-classes-in-the-cantera-interface" id="id5">Model classes in the Cantera interface</a><ul>
-<li><a class="reference internal" href="#generic-interface" id="id6">Generic interface</a></li>
-<li><a class="reference internal" href="#laminar-flame-speeds" id="id7">Laminar flame speeds</a></li>
-<li><a class="reference internal" href="#shock-tubes" id="id8">Shock tubes</a></li>
+<li><a class="reference internal" href="#model-classes-in-the-cantera-interface" id="id6">Model classes in the Cantera interface</a><ul>
+<li><a class="reference internal" href="#generic-interface" id="id7">Generic interface</a></li>
+<li><a class="reference internal" href="#laminar-flame-speeds" id="id8">Laminar flame speeds</a></li>
+<li><a class="reference internal" href="#shock-tubes" id="id9">Shock tubes</a></li>
+<li><a class="reference internal" href="#reaction-rate-measurements" id="id10">Reaction rate measurements</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#function-summary" id="id9">Function summary</a><ul>
-<li><a class="reference internal" href="#generic-chemistry-model-summary" id="id10">Generic chemistry model summary</a></li>
-<li><a class="reference internal" href="#laminar-flame-speed-summary" id="id11">Laminar flame speed summary</a></li>
-<li><a class="reference internal" href="#shock-tube-summary" id="id12">Shock tube summary</a></li>
+<li><a class="reference internal" href="#function-summary" id="id11">Function summary</a><ul>
+<li><a class="reference internal" href="#generic-chemistry-model-summary" id="id12">Generic chemistry model summary</a></li>
+<li><a class="reference internal" href="#laminar-flame-speed-summary" id="id13">Laminar flame speed summary</a></li>
+<li><a class="reference internal" href="#shock-tube-summary" id="id14">Shock tube summary</a></li>
+<li><a class="reference internal" href="#reaction-rate-summary" id="id15">Reaction rate summary</a></li>
 </ul>
 </li>
 </ul>
@@ -103,17 +105,26 @@
 <li class="toctree-l2"><a class="reference internal" href="flame.html#laminar-flame-speed-model">Laminar flame speed model</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="reactions.html">Reaction Rate Measurements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#base-reaction-rate-measurement">Base reaction rate measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#base-reaction-rate-class">Base reaction rate class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#reaction-rate-at-specified-condition">Reaction rate at specified condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#id1">Reaction rate at specified condition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#reaction-rate-a-factor-ratio">Reaction rate A-factor ratio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html#reaction-rate-activation-energy-difference">Reaction rate activation energy difference</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="the-initialization-function">
-<h2><a class="toc-backref" href="#id2">The initialization function</a><a class="headerlink" href="#the-initialization-function" title="Permalink to this headline">¶</a></h2>
-<p>The function <a class="reference internal" href="generic_chem.html#cantera_utils.measurement_initialize_pd" title="cantera_utils.measurement_initialize_pd"><code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_pd()</span></code></a> reads an Excel file to determine the experimental database. The header row gives the name of each column, which will be parsed by <a class="reference internal" href="generic_chem.html#cantera_utils.measurement_initialize_pd" title="cantera_utils.measurement_initialize_pd"><code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_pd()</span></code></a>. The order of the columns does not matter. Two examples are given below.</p>
+<h2><a class="toc-backref" href="#id3">The initialization function</a><a class="headerlink" href="#the-initialization-function" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_xl()</span></code> reads an Excel file to determine the experimental database. The header row gives the name of each column, which will be parsed by <code class="xref py py-func docutils literal"><span class="pre">measurement_initialize_xl()</span></code>. The order of the columns does not matter. Two examples are given below. Other examples are given in the repository.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">The columns can be in any order. If a column is not used by any measurement in the list, it can be omitted. If a column is not used by a particular measurement, it can be left blank; the parser will ignore it.</p>
 </div>
 <div class="section" id="example-data-file">
-<h3><a class="toc-backref" href="#id3">Example data file</a><a class="headerlink" href="#example-data-file" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Example data file</a><a class="headerlink" href="#example-data-file" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="example-1">
 <h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
 <table border="1" class="docutils">
@@ -436,7 +447,7 @@
 </div>
 </div>
 <div class="section" id="columns-of-the-data-file">
-<h3><a class="toc-backref" href="#id4">Columns of the data file</a><a class="headerlink" href="#columns-of-the-data-file" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id5">Columns of the data file</a><a class="headerlink" href="#columns-of-the-data-file" title="Permalink to this headline">¶</a></h3>
 <p>The data file contains the following options. Columns with names marked with an asterisk are required, and all others are optional. Text enclosed in (parentheses) is optional. For instance, the parser will recognize Temp, Temper, and Temperature as valid keywords for specifying the unburned gas temperature.</p>
 <blockquote>
 <div><ul>
@@ -447,6 +458,7 @@
 <li>pro: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a></li>
 <li>pul: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a></li>
 <li>fls: <a class="reference internal" href="flame.html#flame_speed.FlameSpeed" title="flame_speed.FlameSpeed"><code class="xref py py-class docutils literal"><span class="pre">FlameSpeed</span></code></a></li>
+<li>rxn: <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a></li>
 </ul>
 </dd>
 </dl>
@@ -502,7 +514,7 @@
 <dt>Model: The Cantera chemistry model used for this measurement.</dt>
 <dd><div class="first admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The value of chemistry_model used in the function call is used as a default for all measurements. If this column is not provided, chemistry_model is used for all measurements. If this column is provided, a value needs to be specified only for those experiments that use a different model</p>
+<p class="last">The value of <code class="docutils literal"><span class="pre">chemistry_model</span></code> used in the function call is used as a default for all measurements. If this column is not provided, <code class="docutils literal"><span class="pre">chemistry_model</span></code> is used for all measurements. If this column is provided, a value needs to be specified only for those experiments that use a different model</p>
 </div>
 <div class="last admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -512,11 +524,15 @@
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Sim(ulation): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments, defines how the delay time is determined.</dt>
+<dt>Sim(ulation): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments, defines how the delay time is determined. For <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> experiments, defines which sub-measurement will be done.</dt>
 <dd><ul class="first last simple">
 <li>crit: Ignition delay time measured by maximum critical species production</li>
 <li>pres: Ignition delay time measured by maximum pressure rise</li>
 <li>conc: Delay time until a certain critical species concentration</li>
+<li>Single: A single rate constant, <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a></li>
+<li>Ratio: The ratio of two rate constants, <a class="reference internal" href="reactions.html#reactions.ReactionRateRatioAtCondition" title="reactions.ReactionRateRatioAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateRatioAtCondition</span></code></a></li>
+<li>ARatio: The ratio of two reaction rate A factors, <a class="reference internal" href="reactions.html#reactions.ReactionARatio" title="reactions.ReactionARatio"><code class="xref py py-class docutils literal"><span class="pre">ReactionARatio</span></code></a></li>
+<li>ERatio: The ratio of two reaction rate activation energies, <a class="reference internal" href="reactions.html#reactions.ReactionEDiff" title="reactions.ReactionEDiff"><code class="xref py py-class docutils literal"><span class="pre">ReactionEDiff</span></code></a></li>
 </ul>
 </dd>
 </dl>
@@ -536,6 +552,10 @@
 </li>
 <li><p class="first">Crit(ical_)val(ue): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a> and <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the integration time in seconds. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments with Simulation=&#8217;conc&#8217;, this is the critical species mole fraction at which the delay occurs.</p>
 </li>
+<li><p class="first">Reac(tion): For <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a> experiments, the reaction whose rate constant is measured. For other experiments based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> experiments, the reaction whose rate constant appears in the numerator.</p>
+</li>
+<li><p class="first">Reac(tion_)denom(inator): For For other experiments based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a>, the reaction whose rate constant appears in the denominator.</p>
+</li>
 <li><p class="first">Exp(erimental_)val(ue): The measured value for this experiment.</p>
 </li>
 <li><dl class="first docutils">
@@ -552,17 +572,17 @@
 </div>
 </div>
 <div class="section" id="model-classes-in-the-cantera-interface">
-<h2><a class="toc-backref" href="#id5">Model classes in the Cantera interface</a><a class="headerlink" href="#model-classes-in-the-cantera-interface" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Model classes in the Cantera interface</a><a class="headerlink" href="#model-classes-in-the-cantera-interface" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="generic-interface">
-<h3><a class="toc-backref" href="#id6">Generic interface</a><a class="headerlink" href="#generic-interface" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Generic interface</a><a class="headerlink" href="#generic-interface" title="Permalink to this headline">¶</a></h3>
 <p>The generic chemistry interface for Cantera, <a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel" title="cantera_chemistry_model.CanteraChemistryModel"><code class="xref py py-class docutils literal"><span class="pre">CanteraChemistryModel</span></code></a>, defines a number of common methods that are used for all Cantera-based simulations. These methods create and modify Cantera phase objects for sensitivity analysis. It defines all of the methods required by a <a class="reference internal" href="measurement.html#model.Model" title="model.Model"><code class="xref py py-class docutils literal"><span class="pre">Model</span></code></a> except for <code class="xref py py-func docutils literal"><span class="pre">evaluate()</span></code>.</p>
 </div>
 <div class="section" id="laminar-flame-speeds">
-<h3><a class="toc-backref" href="#id7">Laminar flame speeds</a><a class="headerlink" href="#laminar-flame-speeds" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Laminar flame speeds</a><a class="headerlink" href="#laminar-flame-speeds" title="Permalink to this headline">¶</a></h3>
 <p>This model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/onedim.html#cantera.FreeFlame" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code></a> to determine the propagation speed of a freely-propagating laminar flame.</p>
 </div>
 <div class="section" id="shock-tubes">
-<h3><a class="toc-backref" href="#id8">Shock tubes</a><a class="headerlink" href="#shock-tubes" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Shock tubes</a><a class="headerlink" href="#shock-tubes" title="Permalink to this headline">¶</a></h3>
 <p>This class of model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
 <div class="section" id="shock-tube-ignition-delay-time">
 <h4>Shock tube ignition delay time<a class="headerlink" href="#shock-tube-ignition-delay-time" title="Permalink to this headline">¶</a></h4>
@@ -593,11 +613,31 @@
 <p>where <span class="math">\(X_{\text{num}}(t)\)</span> and <span class="math">\(X_{\text{denom}}(t)\)</span> are the mole fractions of the numerator and denominator species in the reactor and <span class="math">\(tau_{\text{crit}}\)</span> is the integration time. Specified with Type = &#8216;pul&#8217;.</p>
 </div>
 </div>
+<div class="section" id="reaction-rate-measurements">
+<h3><a class="toc-backref" href="#id10">Reaction rate measurements</a><a class="headerlink" href="#reaction-rate-measurements" title="Permalink to this headline">¶</a></h3>
+<p>This class of model will directly query the Cantera model for rate constant values and optimize the rate paramters to match that value. There is no Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a> model, but there is a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/importing.html#cantera.Solution" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Solution</span></code></a> model that represents the chemistry model.</p>
+<div class="section" id="reaction-rate-at-specified-condition">
+<h4>Reaction rate at specified condition<a class="headerlink" href="#reaction-rate-at-specified-condition" title="Permalink to this headline">¶</a></h4>
+<p>This model specifies the measurement of a rate constant at a particular condition, <span class="math">\(k(T,P,X)\)</span>.</p>
+</div>
+<div class="section" id="id1">
+<h4>Reaction rate at specified condition<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>This model specifies the ratio of two rates at a particular condition, <span class="math">\(k_{num}(T,P,X)/k_{den}(T,P,X)\)</span></p>
+</div>
+<div class="section" id="reaction-rate-a-factor-ratio">
+<h4>Reaction rate A-factor ratio<a class="headerlink" href="#reaction-rate-a-factor-ratio" title="Permalink to this headline">¶</a></h4>
+<p>This model specifies the ratio of two reaction rate A factors, regardless of condition, <span class="math">\(A_{num}/A_{den}\)</span></p>
+</div>
+<div class="section" id="reaction-rate-activation-energy-difference">
+<h4>Reaction rate activation energy difference<a class="headerlink" href="#reaction-rate-activation-energy-difference" title="Permalink to this headline">¶</a></h4>
+<p>This model specifies the differnece between two reaction rate A factors, regardless of condition, <span class="math">\(A_{num}/A_{den}\)</span></p>
+</div>
+</div>
 </div>
 <div class="section" id="function-summary">
-<h2><a class="toc-backref" href="#id9">Function summary</a><a class="headerlink" href="#function-summary" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Function summary</a><a class="headerlink" href="#function-summary" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="generic-chemistry-model-summary">
-<h3><a class="toc-backref" href="#id10">Generic chemistry model summary</a><a class="headerlink" href="#generic-chemistry-model-summary" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id12">Generic chemistry model summary</a><a class="headerlink" href="#generic-chemistry-model-summary" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
@@ -610,11 +650,11 @@
 <tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.sensitivity" title="cantera_chemistry_model.CanteraChemistryModel.sensitivity"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.sensitivity</span></code></a>(...)</td>
 <td>Evaluates the sensitivity of the model value with respect to the model parameters</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.get_parameter" title="cantera_chemistry_model.CanteraChemistryModel.get_parameter"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.get_parameter</span></code></a>(parameter)</td>
-<td>Retrieves a model parameter&#8217;s value</td>
+<tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.get_parameter" title="cantera_chemistry_model.CanteraChemistryModel.get_parameter"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.get_parameter</span></code></a>(parameter_id)</td>
+<td>Retrieves a model parameter&#8217;s value.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.perturb_parameter" title="cantera_chemistry_model.CanteraChemistryModel.perturb_parameter"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.perturb_parameter</span></code></a>(...)</td>
-<td>Perturbs a model parameter&#8217;s value by a specified amount.</td>
+<td>Replaces a model parameter&#8217;s value by a new value.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="generic_chem.html#cantera_chemistry_model.CanteraChemistryModel.reset_model" title="cantera_chemistry_model.CanteraChemistryModel.reset_model"><code class="xref py py-obj docutils literal"><span class="pre">CanteraChemistryModel.reset_model</span></code></a>()</td>
 <td>Reset all model parameters to their original values</td>
@@ -646,7 +686,7 @@
 </table>
 </div>
 <div class="section" id="laminar-flame-speed-summary">
-<h3><a class="toc-backref" href="#id11">Laminar flame speed summary</a><a class="headerlink" href="#laminar-flame-speed-summary" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">Laminar flame speed summary</a><a class="headerlink" href="#laminar-flame-speed-summary" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
@@ -666,7 +706,7 @@
 </table>
 </div>
 <div class="section" id="shock-tube-summary">
-<h3><a class="toc-backref" href="#id12">Shock tube summary</a><a class="headerlink" href="#shock-tube-summary" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Shock tube summary</a><a class="headerlink" href="#shock-tube-summary" title="Permalink to this headline">¶</a></h3>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
@@ -736,6 +776,55 @@
 </table>
 </div>
 </div>
+<div class="section" id="reaction-rate-summary">
+<h3><a class="toc-backref" href="#id15">Reaction rate summary</a><a class="headerlink" href="#reaction-rate-summary" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="base-reaction-rate-class">
+<h4>Base reaction rate class<a class="headerlink" href="#base-reaction-rate-class" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="reactions.html#reactions.RxnMeasurement" title="reactions.RxnMeasurement"><code class="xref py py-obj docutils literal"><span class="pre">RxnMeasurement</span></code></a>([name,&nbsp;model,&nbsp;value,&nbsp;...])</td>
+<td>A special class for optimizing reaction rate measurements.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.RxnMeasurement.make_response" title="reactions.RxnMeasurement.make_response"><code class="xref py py-obj docutils literal"><span class="pre">RxnMeasurement.make_response</span></code></a>()</td>
+<td>Generates a sensitivity_analysis_based response surface for this measurement</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-obj docutils literal"><span class="pre">ReactionRateBase</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...)</td>
+<td>The base class for optimizing reaction rates.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.ReactionRateBase.sensitivity" title="reactions.ReactionRateBase.sensitivity"><code class="xref py py-obj docutils literal"><span class="pre">ReactionRateBase.sensitivity</span></code></a>(perturbation,&nbsp;...)</td>
+<td>Evaluates the sensitivity of the reaction rate with respect to the model parameters</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reaction-rate-subclasses">
+<h4>Reaction rate subclasses<a class="headerlink" href="#reaction-rate-subclasses" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-obj docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a>(T,&nbsp;Patm,&nbsp;...[,&nbsp;...])</td>
+<td>A class that will specify a rate constant at a particular temperature and pressure.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.ReactionRateRatioAtCondition" title="reactions.ReactionRateRatioAtCondition"><code class="xref py py-obj docutils literal"><span class="pre">ReactionRateRatioAtCondition</span></code></a>(T,&nbsp;Patm,&nbsp;...[,&nbsp;...])</td>
+<td>A class that will specify a ratio of two rate constants at a particular temperature and pressure.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="reactions.html#reactions.ReactionARatio" title="reactions.ReactionARatio"><code class="xref py py-obj docutils literal"><span class="pre">ReactionARatio</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
+<td>A class that will specify the ratio of A-factors for two reactions</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.ReactionEDiff" title="reactions.ReactionEDiff"><code class="xref py py-obj docutils literal"><span class="pre">ReactionEDiff</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
+<td>A class that will specify the difference between activation energies for two reactions</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 
@@ -754,6 +843,7 @@
 <li class="toctree-l2"><a class="reference internal" href="generic_chem.html">Generic chemistry interface for Cantera</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shock.html">Shock tube models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html">Laminar flame speeds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reactions.html">Reaction Rate Measurements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-initialization-function">The initialization function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#model-classes-in-the-cantera-interface">Model classes in the Cantera interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#function-summary">Function summary</a></li>

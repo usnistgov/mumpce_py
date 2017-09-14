@@ -154,7 +154,7 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#Project.Project" title="Project.Project"><code class="xref py py-obj docutils literal"><span class="pre">Project</span></code></a>([measurement_list,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#Project.Project" title="Project.Project"><code class="xref py py-obj docutils literal"><span class="pre">Project</span></code></a>([name,&nbsp;measurement_list,&nbsp;...])</td>
 <td>This is the top level Project class for the MUM-PCE code.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#Project.Project.measurement_initialize" title="Project.Project.measurement_initialize"><code class="xref py py-obj docutils literal"><span class="pre">Project.measurement_initialize</span></code></a>(filename,&nbsp;...)</td>
@@ -169,7 +169,7 @@
 <tr class="row-odd"><td><a class="reference internal" href="#Project.Project.find_active_parameters" title="Project.Project.find_active_parameters"><code class="xref py py-obj docutils literal"><span class="pre">Project.find_active_parameters</span></code></a>(...)</td>
 <td>Determines the active parameters for this project based on the sensitivities of the measurements to the model</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Project.set_active_parameters</span></code>()</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">Project.set_active_parameters</span></code>([...])</td>
 <td>For each measurement in the measurement and application lists, sets the active parameter and parameter uncertainty lists to be the same as the Project&#8217;s.</td>
 </tr>
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Project.make_response</span></code>()</td>
@@ -200,7 +200,7 @@
 <h2>Project class<a class="headerlink" href="#project-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Project.Project">
-<em class="property">class </em><code class="descclassname">Project.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>measurement_list=None</em>, <em>application_list=None</em>, <em>model=None</em>, <em>active_parameters=None</em>, <em>active_parameter_uncertainties=None</em>, <em>parameter_uncertainties=None</em>, <em>initialize_function=None</em>, <em>app_initialize_function=None</em>, <em>solution=None</em><span class="sig-paren">)</span><a class="headerlink" href="#Project.Project" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">Project.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>name=None</em>, <em>measurement_list=None</em>, <em>application_list=None</em>, <em>model=None</em>, <em>active_parameters=None</em>, <em>active_parameter_uncertainties=None</em>, <em>parameter_uncertainties=None</em>, <em>initialize_function=None</em>, <em>app_initialize_function=None</em>, <em>solution=None</em><span class="sig-paren">)</span><a class="headerlink" href="#Project.Project" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the top level Project class for the MUM-PCE code.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
