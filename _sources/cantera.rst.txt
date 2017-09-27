@@ -12,14 +12,12 @@ The Cantera model is designed to demonstrate a real-world example of MUM-PCE. Li
    generic_chem
    shock
    flame
-   reactions
-   cantera_examples
 
 
 The initialization function
 ===========================
 
-The function :py:func:`.measurement_initialize_xl` reads an Excel file to determine the experimental database. The header row gives the name of each column, which will be parsed by :py:func:`.measurement_initialize_xl`. The order of the columns does not matter. Two examples are given below. Other examples are given in the repository.
+The function :py:func:`.measurement_initialize_pd` reads an Excel file to determine the experimental database. The header row gives the name of each column, which will be parsed by :py:func:`.measurement_initialize_pd`. The order of the columns does not matter. Two examples are given below.
 
 .. tip:: The columns can be in any order. If a column is not used by any measurement in the list, it can be omitted. If a column is not used by a particular measurement, it can be left blank; the parser will ignore it.
 
@@ -29,17 +27,30 @@ Example data file
 Example 1
 ---------
 
-.. csv-table:: 
-   :widths: auto
-   :file: Flame speeds example.csv
-
+==== === ===== ======= ====== ======= ===== ======== ===== === ==== ==== ============ ========= ===== ======= =======
+Type ID  Fuel1 X_fuel1 Fuel2  X_fuel2 Fuel3 X_fuel3  Ox    Dil Temp Pres Model        Crit_spec Sim   Exp_unc Exp_val
+==== === ===== ======= ====== ======= ===== ======== ===== === ==== ==== ============ ========= ===== ======= =======
+ign  1a1 CH4   0.091   C2H6   0       C3H8  0        0.182 AR  1771 1.8  gri30.xml    OH        crit    0.2     4.28
+ign  1a2 CH4   0.091   C2H6   0       C3H8  0        0.182 AR  1426 1.8  gri30.xml    OH        crit    0.2     7.46
+ign  1a3 CH4   0.333   C2H6   0       C3H8  0        0.133 AR  1734 3.8  gri30.xml    OH        crit    0.1     4.09
+ign  1a4 CH4   0.333   C2H6   0       C3H8  0        0.133 AR  1509 3.8  gri30.xml    OH        crit    0.1     6.49
+ign  1a5 CH4   0.048   C2H6   0       C3H8  0        0.191 AR  1594 1.6  gri30.xml    OH        crit    0.2     4.41
+ign  1a6 CH4   0.048   C2H6   0       C3H8  0        0.191 AR  1347 1.6  gri30.xml    OH        crit    0.2     7.19
+fls  11a CH4   0.71    N2     0       N2    0        2     Air  298 1    gri30.xml                      1       17.6
+fls  11b CH4   0.98    N2     0       N2    0        2     Air  298 1    gri30.xml                      1       36.72
+fls  11c CH4   1.24    N2     0       N2    0        2     Air  298 1    gri30.xml                      1       29.58
+fls  11d CH4   1.5     N2     0       N2    0        2     Air  298 1    gri30.xml                      1        9.86
+==== === ===== ======= ====== ======= ===== ======== ===== === ==== ==== ============ ========= ===== ======= =======
 
 Example 2
 ---------
 
-.. csv-table:: 
-   :widths: auto
-   :file: Ignition delay example.csv
+==== === ===== ======= ====== ======= ===== ======== ===== ====== === ==== ==== ======= ========= ===== ======== ========== ======= =======
+Type ID  Fuel1 X_fuel1 Fuel2  X_fuel2 Fuel3 X_fuel3  Fuel4 Xfuel4 Dil Temp Pres Model   Crit_spec Sim   Crit_val Crit_denom Exp_unc Exp_val
+==== === ===== ======= ====== ======= ===== ======== ===== ====== === ==== ==== ======= ========= ===== ======== ========== ======= =======
+pul  31a pC3H4 0.005   TMBENZ 0.005   tBPO  0.000025 H2    0.2    AR  1053 3    js2.cti MXYLENE   ratio  500     C2H2       0.05    0.87
+pul  31b pC3H4 0.005   TMBENZ 0.005   tBPO  0.000025 H2    0.2    AR  1000 3    js2.cti MXYLENE   ratio  500     C2H2       0.05    0.92
+==== === ===== ======= ====== ======= ===== ======== ===== ====== === ==== ==== ======= ========= ===== ======== ========== ======= =======
 
 Columns of the data file
 ++++++++++++++++++++++++
@@ -47,11 +58,10 @@ Columns of the data file
 The data file contains the following options. Columns with names marked with an asterisk are required, and all others are optional. Text enclosed in (parentheses) is optional. For instance, the parser will recognize Temp, Temper, and Temperature as valid keywords for specifying the unburned gas temperature.
 
    * Type*: The type of measurement, which determines which Cantera model will be used
-      * ign: Shock tube, :py:class:`.ShockTube` and its subclasses
-      * pro: Alias for Sim=tau, :py:class:`.ShockTubeConcentration`
-      * pul: Alias for Sim=ratio, :py:class:`.ShockTubeRatio`
-      * fls: Laminar flame, :py:class:`.FlameSpeed`
-      * rxn: Reaction rate measurement, :py:class:`.ReactionRateBase` and its subclasses
+      * ign: :py:class:`.ShockTubeDelay`
+      * pro: :py:class:`.ShockTubeConcentration`
+      * pul: :py:class:`.ShockTubeRatio`
+      * fls: :py:class:`.FlameSpeed`
    * ID*: A free-form text identifier
       .. note:: The 'name' of the experiment will be generated from Type and ID
    * Reactant definitions*:
@@ -69,29 +79,19 @@ The data file contains the following options. Columns with names marked with an 
    * Temp(erature)*: The temperature of the unburned gas in Kelvins
    * Pres(sure)*: The pressure of the unburned gas in standard atmospheres
    * Model: The Cantera chemistry model used for this measurement. 
-      .. tip:: The value of ``chemistry_model`` used in the function call is used as a default for all measurements. If this column is not provided, ``chemistry_model`` is used for all measurements. If this column is provided, a value needs to be specified only for those experiments that use a different model
+      .. tip:: The value of chemistry_model used in the function call is used as a default for all measurements. If this column is not provided, chemistry_model is used for all measurements. If this column is provided, a value needs to be specified only for those experiments that use a different model
       
       .. warning:: Different models for different measurements is only intended to be used if some measurements are conducted under conditions where rate constants may change (e.g. certain kinds of pressure dependencies). All models should have exactly the same reactions and corresponding parameters, although they can take different values.
-   * Sim(ulation): For :py:class:`.ShockTube` and :py:class:`.ReactionRateBase` measurements, defines which sub-measurement will be done.
-      * crit: :py:class:`.ShockTubeDelay`, ignition delay time measured by maximum critical species production
-      * pres: :py:class:`.ShockTubeDelay`, ignition delay time measured by maximum pressure rise
-      * conc: :py:class:`.ShockTubeDelay`, delay time until a certain critical species concentration
-      * tau: :py:class:`.ShockTubeConcentration`, concentration of the critical species after a certain time
-      * ratio: Behavior depends on whether this is a :py:class:`.ShockTube` or :py:class:`.ReactionRateBase`
-         * :py:class:`.ShockTubeRatio`, ratio of two concentrations after a certain time
-         * :py:class:`.ReactionRateRatioAtCondition`, the ratio of two rate constants 
-      * single: :py:class:`.ReactionRateAtCondition`, a single rate constant 
-      * ARatio: :py:class:`.ReactionARatio`, the ratio of two reaction rate A factors 
-      * ERatio: :py:class:`.ReactionEDiff`, The ratio of two reaction rate activation energies 
-   * Time: For :py:class:`.ShockTubeConcentration` and :py:class:`.ShockTubeRatio` experiments, this is the integration time in microseconds.
-   * Crit(ical\_)spec(ies): The species whose mole fraction is to be tracked. If the value in this column is PRES, then pressure is tracked in the simulation, otherwise it must be a species in the Cantera chemistry model. For :py:class:`.ShockTubeRatio` measurements, this is the species whose concentration appears in the numerator.
+   * Sim(ulation): For :py:class:`.ShockTubeDelay` experiments, defines how the delay time is determined.
+      * crit: Ignition delay time measured by maximum critical species production
+      * pres: Ignition delay time measured by maximum pressure rise
+      * conc: Delay time until a certain critical species concentration
+   * Crit(ical\_)spec(ies): The species whose mole fraction is to be tracked. If the value in this column is PRES, then pressure is tracked in the simulation, otherwise it must be a species in the Cantera chemistry model. For :py:class:`.ShockTubeRatio` experiments, this is the species whose concentration appears in the numerator.
       .. note:: For backwards compatibility with previous database implementations, Simulation='crit' and Critical_species='PRES' is equivalent to Simulation='pres'
-   * Crit(ical\_)denom(inator): For :py:class:`.ShockTubeRatio` measurements, this is the species whose concentration appears in the denominator.
-   * Crit(ical\_)rise: For :py:class:`.ShockTubeDelay` measurements with Simulation='conc', this determines if the critical species concentration should be rising or falling through the critical value
-   * Crit(ical\_)val(ue):  For :py:class:`.ShockTubeDelay` measurements with Simulation='conc', this is the critical species mole fraction at which the delay occurs.
-   * Reac(tion): For :py:class:`.ReactionRateAtCondition` measurements, the reaction whose rate constant is measured. For other measurements based on :py:class:`.ReactionRateBase` experiments, the reaction whose rate constant appears in the numerator.
-   * Reac(tion\_)denom(inator): For other measurements based on :py:class:`.ReactionRateBase`, the reaction whose rate constant appears in the denominator.
-   * Exp(erimental\_)val(ue): The measured value for this measurement.
+   * Crit(ical\_)denom(inator): For :py:class:`.ShockTubeRatio` experiments, this is the species whose concentration appears in the denominator.
+   * Crit(ical\_)rise: For :py:class:`.ShockTubeDelay` experiments with Simulation='conc', this determines if the critical species concentration should be rising or falling through the critical value
+   * Crit(ical\_)val(ue): For :py:class:`.ShockTubeConcentration` and :py:class:`.ShockTubeRatio` experiments, this is the integration time in seconds. For :py:class:`.ShockTubeDelay` experiments with Simulation='conc', this is the critical species mole fraction at which the delay occurs.
+   * Exp(erimental\_)val(ue): The measured value for this experiment.
    * Exp(erimental\_)unc(ertainty): The uncertainty in the experimentally-measured value
       .. warning:: If Exp_val is present, Exp_unc must also be preseint
 
@@ -161,31 +161,6 @@ This model finds the critical species mole fraction ratio :math:`r_{\text{crit}}
 
 where :math:`X_{\text{num}}(t)` and :math:`X_{\text{denom}}(t)` are the mole fractions of the numerator and denominator species in the reactor and :math:`tau_{\text{crit}}` is the integration time. Specified with Type = 'pul'.
 
-Reaction rate measurements
-++++++++++++++++++++++++++
-
-This class of model will directly query the Cantera model for rate constant values and optimize the rate paramters to match that value. There is no Cantera :class:`cantera.Reactor` model, but there is a Cantera :class:`cantera.Solution` model that represents the chemistry model.
-
-Reaction rate at specified condition
-------------------------------------
-
-This model specifies the measurement of a rate constant at a particular condition, :math:`k(T,P,X)`.
-
-Reaction rate at specified condition
-------------------------------------
-
-This model specifies the ratio of two rates at a particular condition, :math:`k_{num}(T,P,X)/k_{den}(T,P,X)`
-
-Reaction rate A-factor ratio
-----------------------------
-
-This model specifies the ratio of two reaction rate A factors, regardless of condition, :math:`A_{num}/A_{den}`
-
-Reaction rate activation energy difference
-------------------------------------------
-
-This model specifies the difference between two reaction rate activation energies, regardless of condition, :math:`E_{num} - E_{den}`
-
 Function summary
 ================
 
@@ -252,26 +227,3 @@ Shock tube concentration ratio summary
 .. autosummary::
    ShockTubeRatio
    ShockTubeRatio.evaluate
-
-Reaction rate summary
-+++++++++++++++++++++
-
-Base reaction rate class
-------------------------
-
-.. currentmodule:: reactions
-
-.. autosummary::
-   RxnMeasurement
-   RxnMeasurement.make_response
-   ReactionRateBase
-   ReactionRateBase.sensitivity
-
-Reaction rate subclasses
-------------------------
-
-.. autosummary::
-   ReactionRateAtCondition
-   ReactionRateRatioAtCondition
-   ReactionARatio
-   ReactionEDiff
