@@ -30,6 +30,10 @@ class CanteraChemistryModel(mumpce.Model):
     :param Patm: The pressure in atmospheres (will be converted internally to Pa)
     :param composition: The composition of the unburned gas. Can be a float array or a Cantera composition string
     :param chemistry_model: The chemistry model for the flame. Must be a chemistry model that can be used to make a Cantera phase object
+    
+    :key no_falloff: If False, the falloff parameters for reactions will be available as active parameters (default True)
+    :key no_energies: if False, the activation energies will be available as active parameters. (default True)
+    
     :type T: float
     :type Patm: float
     :type composition: str,ndarray(float)
@@ -86,6 +90,7 @@ class CanteraChemistryModel(mumpce.Model):
     
     def prepare_chemistry(self,no_efficiencies=True,no_energy=True,no_falloff=True,**kwargs):
         """Instantiate the Cantera chemistry model and get information about the reaction model. This is called during instantiation of the model and normally would not be called at any other time.
+        
         """
         
         #Flags telling whether we will be optimiziing

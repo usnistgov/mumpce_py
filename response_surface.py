@@ -46,8 +46,6 @@ class ResponseSurface(object):
     def evaluate(self,x,cov_x=None):#x_full,exp_value,weight):
         """ Evaluates the response surface
         
-        
-        
         Computes the response value :math:`y = z + a^{\\text{T}}x + x^{\\text{T}}bx`
         If cov_x is supplied, returns the uncertainty :math:`\\sigma^2 = a^{\\text{T}}\\Sigma a + 2\\text{tr}((b\\Sigma)^2)``
         

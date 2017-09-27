@@ -400,7 +400,7 @@ class ShockTubeRatio(stb.ShockTube):
                     self.integration_time * 1.0e3
                    )
         
-        modelstr = 'Concentration ratio: {:8.0f} K, {:5.2f} kPa, {}, [{}]/[]{} at {} ms'.format(*str_args)
+        modelstr = 'Concentration ratio: {:8.0f} K, {:5.2f} kPa, {}, [{}]/[{}] at {} ms'.format(*str_args)
         
 #        modelstr = 'Concentration ratio: ' + str(self.initial.T) + ' K, ' + str(self.initial.P) + ' Pa ' + str(self.initial.composition) + ', [' + self.critical_numerator +']/[' + self.critical_denominator + '] at ' + self.integration_time + ' seconds'
         return modelstr
