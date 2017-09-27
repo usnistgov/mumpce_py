@@ -8,7 +8,7 @@
     
     <title>Method of Uncertainty Minimization using Polynomial Chaos Expansions &#8212; mumpce 0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/NISTPages" type="text/css" />
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -57,7 +57,8 @@
 <h1>Method of Uncertainty Minimization using Polynomial Chaos Expansions<a class="headerlink" href="#method-of-uncertainty-minimization-using-polynomial-chaos-expansions" title="Permalink to this headline">¶</a></h1>
 <p><em>David A. Sheen</em></p>
 <p><em>National Institute of Standards and Technology</em></p>
-<p><em>Last Revision</em> September 20, 2017</p>
+<p><em>Last Revision February 16, 2016</em>
+<em>Last Revision |today|</em></p>
 <p><a class="reference external" href="https://github.com/davidasheen/mumpce_py">Download this software from GitHub</a></p>
 <p>Welcome to the home page for the Method of Uncertainty Minimization using Polynomial Chaos Expansions (MUM-PCE). This software is a Python package that implements the methodology presented in <a class="reference external" href="http://dx.doi.org/10.1016/j.combustflame.2011.05.010">Sheen &amp; Wang (2011)</a>, <a class="reference external" href="http://dx.doi.org/10.1016/j.pecs.2014.10.002">Wang &amp; Sheen (2015)</a>, and <a class="reference external" href="http://dx.doi.org/10.1021/jp5041844">Sheen &amp; Manion (2014)</a>. The software does the following things:</p>
 <blockquote>
@@ -73,7 +74,15 @@
 <p>The package is implemented in a way to be as general as possible, which means that efficiency is often sacrificed in order to implement this generality. Expert users may be able to modify the code in such a way as to make it more efficient for their particular application. No support is provided for this adventure, but please let me know if you are successful.</p>
 <div class="section" id="legal">
 <h2>Legal<a class="headerlink" href="#legal" title="Permalink to this headline">¶</a></h2>
-<p>This software is subject to the <a class="reference external" href="https://www.nist.gov/director/licensing">NIST Software License</a> (revised as of July 2017). This license can be found in the GitHub repo in the file named LICENSE.</p>
+<p>This software is subject to the NIST Software License (revised as of May 2015). This license can be found in the GitHub repo in the file named LICENSE. The following is a hopefully-useful but not-legally-binding summary:</p>
+<blockquote>
+<div><ul class="simple">
+<li>NIST software authored by NIST employees is in the public domain (15 USC 105).</li>
+<li>The software has NO WARRANTY.</li>
+<li>You may modify the software and distribute your modifications. If you do, you should note your changes and cite the original.</li>
+<li>If you use the software, you should cite the software and the papers documenting its development.</li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
@@ -109,8 +118,6 @@
 <li class="toctree-l2"><a class="reference internal" href="generic_chem.html">Generic chemistry interface for Cantera</a></li>
 <li class="toctree-l2"><a class="reference internal" href="shock.html">Shock tube models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html">Laminar flame speeds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reactions.html">Reaction Rate Measurements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cantera_examples.html">Examples input for the Cantera interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cantera.html#the-initialization-function">The initialization function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cantera.html#model-classes-in-the-cantera-interface">Model classes in the Cantera interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cantera.html#function-summary">Function summary</a></li>

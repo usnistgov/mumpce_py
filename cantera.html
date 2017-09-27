@@ -8,7 +8,7 @@
     
     <title>The Cantera interface to MUM-PCE &#8212; mumpce 0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/NISTPages" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -114,6 +114,12 @@
 <li class="toctree-l2"><a class="reference internal" href="reactions.html#reaction-rate-activation-energy-difference">Reaction rate activation energy difference</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="cantera_examples.html">Examples input for the Cantera interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cantera_examples.html#Imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cantera_examples.html#Creating-the-Measurements">Creating the Measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cantera_examples.html#Creating-the-Projects">Creating the Projects</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="the-initialization-function">
@@ -127,159 +133,45 @@
 <h3><a class="toc-backref" href="#id4">Example data file</a><a class="headerlink" href="#example-data-file" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="example-1">
 <h4>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h4>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-auto docutils">
 <colgroup>
-<col width="4%" />
-<col width="3%" />
-<col width="5%" />
 <col width="7%" />
-<col width="6%" />
 <col width="7%" />
-<col width="5%" />
-<col width="8%" />
-<col width="5%" />
-<col width="3%" />
-<col width="4%" />
-<col width="4%" />
-<col width="12%" />
-<col width="9%" />
-<col width="5%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
 <col width="7%" />
 <col width="7%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Type</th>
-<th class="head">ID</th>
-<th class="head">Fuel1</th>
-<th class="head">X_fuel1</th>
-<th class="head">Fuel2</th>
-<th class="head">X_fuel2</th>
-<th class="head">Fuel3</th>
-<th class="head">X_fuel3</th>
-<th class="head">Ox</th>
-<th class="head">Dil</th>
-<th class="head">Temp</th>
-<th class="head">Pres</th>
-<th class="head">Model</th>
-<th class="head">Crit_spec</th>
-<th class="head">Sim</th>
-<th class="head">Exp_unc</th>
-<th class="head">Exp_val</th>
-</tr>
-</thead>
 <tbody valign="top">
-<tr class="row-even"><td>ign</td>
-<td>1a1</td>
-<td>CH4</td>
-<td>0.091</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.182</td>
-<td>AR</td>
-<td>1771</td>
-<td>1.8</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.2</td>
-<td>4.28</td>
-</tr>
-<tr class="row-odd"><td>ign</td>
-<td>1a2</td>
-<td>CH4</td>
-<td>0.091</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.182</td>
-<td>AR</td>
-<td>1426</td>
-<td>1.8</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.2</td>
-<td>7.46</td>
-</tr>
-<tr class="row-even"><td>ign</td>
-<td>1a3</td>
-<td>CH4</td>
-<td>0.333</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.133</td>
-<td>AR</td>
-<td>1734</td>
-<td>3.8</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.1</td>
-<td>4.09</td>
-</tr>
-<tr class="row-odd"><td>ign</td>
-<td>1a4</td>
-<td>CH4</td>
-<td>0.333</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.133</td>
-<td>AR</td>
-<td>1509</td>
-<td>3.8</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.1</td>
-<td>6.49</td>
-</tr>
-<tr class="row-even"><td>ign</td>
-<td>1a5</td>
-<td>CH4</td>
-<td>0.048</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.191</td>
-<td>AR</td>
-<td>1594</td>
-<td>1.6</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.2</td>
-<td>4.41</td>
-</tr>
-<tr class="row-odd"><td>ign</td>
-<td>1a6</td>
-<td>CH4</td>
-<td>0.048</td>
-<td>C2H6</td>
-<td>0</td>
-<td>C3H8</td>
-<td>0</td>
-<td>0.191</td>
-<td>AR</td>
-<td>1347</td>
-<td>1.6</td>
-<td>gri30.xml</td>
-<td>OH</td>
-<td>crit</td>
-<td>0.2</td>
-<td>7.19</td>
+<tr class="row-odd"><td>Type</td>
+<td>ID</td>
+<td>Fuel1</td>
+<td>X_fuel1</td>
+<td>Fuel2</td>
+<td>X_fuel2</td>
+<td>Fuel3</td>
+<td>X_fuel3</td>
+<td>Ox</td>
+<td>Dil</td>
+<td>Temp</td>
+<td>Pres</td>
+<td>Model</td>
+<td>Exp_val</td>
+<td>Exp_unc</td>
 </tr>
 <tr class="row-even"><td>fls</td>
-<td>11a</td>
+<td>ecl90_b01</td>
 <td>CH4</td>
-<td>0.71</td>
+<td>0.5461</td>
 <td>N2</td>
 <td>0</td>
 <td>N2</td>
@@ -288,16 +180,14 @@
 <td>Air</td>
 <td>298</td>
 <td>1</td>
-<td>gri30.xml</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>scheme.uscmech2-base.1atm.cti</td>
+<td>6.76</td>
 <td>1</td>
-<td>17.6</td>
 </tr>
 <tr class="row-odd"><td>fls</td>
-<td>11b</td>
+<td>ecl90_b02</td>
 <td>CH4</td>
-<td>0.98</td>
+<td>0.5973</td>
 <td>N2</td>
 <td>0</td>
 <td>N2</td>
@@ -306,16 +196,14 @@
 <td>Air</td>
 <td>298</td>
 <td>1</td>
-<td>gri30.xml</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>scheme.uscmech2-base.1atm.cti</td>
+<td>12.2</td>
 <td>1</td>
-<td>36.72</td>
 </tr>
 <tr class="row-even"><td>fls</td>
-<td>11c</td>
+<td>ecl90_b03</td>
 <td>CH4</td>
-<td>1.24</td>
+<td>0.6948</td>
 <td>N2</td>
 <td>0</td>
 <td>N2</td>
@@ -324,16 +212,14 @@
 <td>Air</td>
 <td>298</td>
 <td>1</td>
-<td>gri30.xml</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>scheme.uscmech2-base.1atm.cti</td>
+<td>20.3</td>
 <td>1</td>
-<td>29.58</td>
 </tr>
 <tr class="row-odd"><td>fls</td>
-<td>11d</td>
+<td>ecl90_b04</td>
 <td>CH4</td>
-<td>1.5</td>
+<td>0.7482</td>
 <td>N2</td>
 <td>0</td>
 <td>N2</td>
@@ -342,105 +228,125 @@
 <td>Air</td>
 <td>298</td>
 <td>1</td>
-<td>gri30.xml</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
+<td>scheme.uscmech2-base.1atm.cti</td>
+<td>24.3</td>
 <td>1</td>
-<td>9.86</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="example-2">
 <h4>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h4>
-<table border="1" class="docutils">
+<table border="1" class="colwidths-auto docutils">
 <colgroup>
-<col width="3%" />
-<col width="3%" />
-<col width="4%" />
 <col width="6%" />
-<col width="5%" />
 <col width="6%" />
-<col width="4%" />
-<col width="7%" />
-<col width="4%" />
-<col width="5%" />
-<col width="3%" />
-<col width="3%" />
-<col width="3%" />
 <col width="6%" />
-<col width="8%" />
-<col width="4%" />
-<col width="7%" />
-<col width="8%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
+<col width="6%" />
 <col width="6%" />
 <col width="6%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Type</th>
-<th class="head">ID</th>
-<th class="head">Fuel1</th>
-<th class="head">X_fuel1</th>
-<th class="head">Fuel2</th>
-<th class="head">X_fuel2</th>
-<th class="head">Fuel3</th>
-<th class="head">X_fuel3</th>
-<th class="head">Fuel4</th>
-<th class="head">Xfuel4</th>
-<th class="head">Dil</th>
-<th class="head">Temp</th>
-<th class="head">Pres</th>
-<th class="head">Model</th>
-<th class="head">Crit_spec</th>
-<th class="head">Sim</th>
-<th class="head">Crit_val</th>
-<th class="head">Crit_denom</th>
-<th class="head">Exp_unc</th>
-<th class="head">Exp_val</th>
-</tr>
-</thead>
 <tbody valign="top">
-<tr class="row-even"><td>pul</td>
-<td>31a</td>
-<td>pC3H4</td>
-<td>0.005</td>
-<td>TMBENZ</td>
-<td>0.005</td>
-<td>tBPO</td>
-<td>0.000025</td>
-<td>H2</td>
-<td>0.2</td>
-<td>AR</td>
-<td>1053</td>
-<td>3</td>
-<td>js2.cti</td>
-<td>MXYLENE</td>
-<td>ratio</td>
-<td>500</td>
-<td>C2H2</td>
-<td>0.05</td>
-<td>0.87</td>
+<tr class="row-odd"><td>Type</td>
+<td>ID</td>
+<td>Fuel1</td>
+<td>X_fuel1</td>
+<td>Fuel2</td>
+<td>X_fuel2</td>
+<td>Fuel3</td>
+<td>X_fuel3</td>
+<td>Ox</td>
+<td>Dil</td>
+<td>Temp</td>
+<td>Pres</td>
+<td>Model</td>
+<td>Crit_spec</td>
+<td>Sim</td>
+<td>Exp_val</td>
+<td>Exp_unc</td>
 </tr>
-<tr class="row-odd"><td>pul</td>
-<td>31b</td>
-<td>pC3H4</td>
-<td>0.005</td>
-<td>TMBENZ</td>
-<td>0.005</td>
-<td>tBPO</td>
-<td>0.000025</td>
+<tr class="row-even"><td>ign</td>
+<td>lif77_1a01</td>
+<td>CH4</td>
+<td>0.01</td>
+<td>C3H8</td>
+<td>0</td>
 <td>H2</td>
-<td>0.2</td>
+<td>0</td>
+<td>0.02</td>
 <td>AR</td>
-<td>1000</td>
-<td>3</td>
-<td>js2.cti</td>
-<td>MXYLENE</td>
-<td>ratio</td>
-<td>500</td>
-<td>C2H2</td>
-<td>0.05</td>
-<td>0.92</td>
+<td>2020.20202020202</td>
+<td>10.0</td>
+<td>scheme.uscmech2-base.10atm.cti</td>
+<td>OH</td>
+<td>crit</td>
+<td>3.69</td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>ign</td>
+<td>lif77_1a02</td>
+<td>CH4</td>
+<td>0.01</td>
+<td>C3H8</td>
+<td>0</td>
+<td>H2</td>
+<td>0</td>
+<td>0.02</td>
+<td>AR</td>
+<td>1992.0318725099603</td>
+<td>10.0</td>
+<td>scheme.uscmech2-base.10atm.cti</td>
+<td>OH</td>
+<td>crit</td>
+<td>3.68</td>
+<td>0.1</td>
+</tr>
+<tr class="row-even"><td>ign</td>
+<td>lif77_1a03</td>
+<td>CH4</td>
+<td>0.01</td>
+<td>C3H8</td>
+<td>0</td>
+<td>H2</td>
+<td>0</td>
+<td>0.02</td>
+<td>AR</td>
+<td>1904.7619047619048</td>
+<td>10.0</td>
+<td>scheme.uscmech2-base.10atm.cti</td>
+<td>OH</td>
+<td>crit</td>
+<td>4.24</td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>ign</td>
+<td>lif77_1a04</td>
+<td>CH4</td>
+<td>0.01</td>
+<td>C3H8</td>
+<td>0</td>
+<td>H2</td>
+<td>0</td>
+<td>0.02</td>
+<td>AR</td>
+<td>1876.172607879925</td>
+<td>10.0</td>
+<td>scheme.uscmech2-base.10atm.cti</td>
+<td>OH</td>
+<td>crit</td>
+<td>4.34</td>
+<td>0.1</td>
 </tr>
 </tbody>
 </table>
@@ -454,11 +360,11 @@
 <li><dl class="first docutils">
 <dt>Type*: The type of measurement, which determines which Cantera model will be used</dt>
 <dd><ul class="first last simple">
-<li>ign: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a></li>
-<li>pro: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a></li>
-<li>pul: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a></li>
-<li>fls: <a class="reference internal" href="flame.html#flame_speed.FlameSpeed" title="flame_speed.FlameSpeed"><code class="xref py py-class docutils literal"><span class="pre">FlameSpeed</span></code></a></li>
-<li>rxn: <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a></li>
+<li>ign: Shock tube, <a class="reference internal" href="shock.html#shock_tube_base.ShockTube" title="shock_tube_base.ShockTube"><code class="xref py py-class docutils literal"><span class="pre">ShockTube</span></code></a> and its subclasses</li>
+<li>pro: Alias for Sim=tau, <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a></li>
+<li>pul: Alias for Sim=ratio, <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a></li>
+<li>fls: Laminar flame, <a class="reference internal" href="flame.html#flame_speed.FlameSpeed" title="flame_speed.FlameSpeed"><code class="xref py py-class docutils literal"><span class="pre">FlameSpeed</span></code></a></li>
+<li>rxn: Reaction rate measurement, <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> and its subclasses</li>
 </ul>
 </dd>
 </dl>
@@ -524,21 +430,32 @@
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Sim(ulation): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments, defines how the delay time is determined. For <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> experiments, defines which sub-measurement will be done.</dt>
+<dt>Sim(ulation): For <a class="reference internal" href="shock.html#shock_tube_base.ShockTube" title="shock_tube_base.ShockTube"><code class="xref py py-class docutils literal"><span class="pre">ShockTube</span></code></a> and <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> measurements, defines which sub-measurement will be done.</dt>
 <dd><ul class="first last simple">
-<li>crit: Ignition delay time measured by maximum critical species production</li>
-<li>pres: Ignition delay time measured by maximum pressure rise</li>
-<li>conc: Delay time until a certain critical species concentration</li>
-<li>Single: A single rate constant, <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a></li>
-<li>Ratio: The ratio of two rate constants, <a class="reference internal" href="reactions.html#reactions.ReactionRateRatioAtCondition" title="reactions.ReactionRateRatioAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateRatioAtCondition</span></code></a></li>
-<li>ARatio: The ratio of two reaction rate A factors, <a class="reference internal" href="reactions.html#reactions.ReactionARatio" title="reactions.ReactionARatio"><code class="xref py py-class docutils literal"><span class="pre">ReactionARatio</span></code></a></li>
-<li>ERatio: The ratio of two reaction rate activation energies, <a class="reference internal" href="reactions.html#reactions.ReactionEDiff" title="reactions.ReactionEDiff"><code class="xref py py-class docutils literal"><span class="pre">ReactionEDiff</span></code></a></li>
+<li>crit: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a>, ignition delay time measured by maximum critical species production</li>
+<li>pres: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a>, ignition delay time measured by maximum pressure rise</li>
+<li>conc: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a>, delay time until a certain critical species concentration</li>
+<li>tau: <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a>, concentration of the critical species after a certain time</li>
+<li><dl class="first docutils">
+<dt>ratio: Behavior depends on whether this is a <a class="reference internal" href="shock.html#shock_tube_base.ShockTube" title="shock_tube_base.ShockTube"><code class="xref py py-class docutils literal"><span class="pre">ShockTube</span></code></a> or <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a></dt>
+<dd><ul class="first last">
+<li><a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a>, ratio of two concentrations after a certain time</li>
+<li><a class="reference internal" href="reactions.html#reactions.ReactionRateRatioAtCondition" title="reactions.ReactionRateRatioAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateRatioAtCondition</span></code></a>, the ratio of two rate constants</li>
 </ul>
 </dd>
 </dl>
 </li>
+<li>single: <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a>, a single rate constant</li>
+<li>ARatio: <a class="reference internal" href="reactions.html#reactions.ReactionARatio" title="reactions.ReactionARatio"><code class="xref py py-class docutils literal"><span class="pre">ReactionARatio</span></code></a>, the ratio of two reaction rate A factors</li>
+<li>ERatio: <a class="reference internal" href="reactions.html#reactions.ReactionEDiff" title="reactions.ReactionEDiff"><code class="xref py py-class docutils literal"><span class="pre">ReactionEDiff</span></code></a>, The ratio of two reaction rate activation energies</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Time: For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a> and <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the integration time in microseconds.</p>
+</li>
 <li><dl class="first docutils">
-<dt>Crit(ical_)spec(ies): The species whose mole fraction is to be tracked. If the value in this column is PRES, then pressure is tracked in the simulation, otherwise it must be a species in the Cantera chemistry model. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the species whose concentration appears in the numerator.</dt>
+<dt>Crit(ical_)spec(ies): The species whose mole fraction is to be tracked. If the value in this column is PRES, then pressure is tracked in the simulation, otherwise it must be a species in the Cantera chemistry model. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> measurements, this is the species whose concentration appears in the numerator.</dt>
 <dd><div class="first last admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">For backwards compatibility with previous database implementations, Simulation=&#8217;crit&#8217; and Critical_species=&#8217;PRES&#8217; is equivalent to Simulation=&#8217;pres&#8217;</p>
@@ -546,17 +463,17 @@
 </dd>
 </dl>
 </li>
-<li><p class="first">Crit(ical_)denom(inator): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the species whose concentration appears in the denominator.</p>
+<li><p class="first">Crit(ical_)denom(inator): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> measurements, this is the species whose concentration appears in the denominator.</p>
 </li>
-<li><p class="first">Crit(ical_)rise: For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments with Simulation=&#8217;conc&#8217;, this determines if the critical species concentration should be rising or falling through the critical value</p>
+<li><p class="first">Crit(ical_)rise: For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> measurements with Simulation=&#8217;conc&#8217;, this determines if the critical species concentration should be rising or falling through the critical value</p>
 </li>
-<li><p class="first">Crit(ical_)val(ue): For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeConcentration" title="shock_tube_utils.ShockTubeConcentration"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeConcentration</span></code></a> and <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeRatio" title="shock_tube_utils.ShockTubeRatio"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeRatio</span></code></a> experiments, this is the integration time in seconds. For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> experiments with Simulation=&#8217;conc&#8217;, this is the critical species mole fraction at which the delay occurs.</p>
+<li><p class="first">Crit(ical_)val(ue):  For <a class="reference internal" href="shock.html#shock_tube_utils.ShockTubeDelay" title="shock_tube_utils.ShockTubeDelay"><code class="xref py py-class docutils literal"><span class="pre">ShockTubeDelay</span></code></a> measurements with Simulation=&#8217;conc&#8217;, this is the critical species mole fraction at which the delay occurs.</p>
 </li>
-<li><p class="first">Reac(tion): For <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a> experiments, the reaction whose rate constant is measured. For other experiments based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> experiments, the reaction whose rate constant appears in the numerator.</p>
+<li><p class="first">Reac(tion): For <a class="reference internal" href="reactions.html#reactions.ReactionRateAtCondition" title="reactions.ReactionRateAtCondition"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateAtCondition</span></code></a> measurements, the reaction whose rate constant is measured. For other measurements based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a> experiments, the reaction whose rate constant appears in the numerator.</p>
 </li>
-<li><p class="first">Reac(tion_)denom(inator): For For other experiments based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a>, the reaction whose rate constant appears in the denominator.</p>
+<li><p class="first">Reac(tion_)denom(inator): For other measurements based on <a class="reference internal" href="reactions.html#reactions.ReactionRateBase" title="reactions.ReactionRateBase"><code class="xref py py-class docutils literal"><span class="pre">ReactionRateBase</span></code></a>, the reaction whose rate constant appears in the denominator.</p>
 </li>
-<li><p class="first">Exp(erimental_)val(ue): The measured value for this experiment.</p>
+<li><p class="first">Exp(erimental_)val(ue): The measured value for this measurement.</p>
 </li>
 <li><dl class="first docutils">
 <dt>Exp(erimental_)unc(ertainty): The uncertainty in the experimentally-measured value</dt>
@@ -630,7 +547,7 @@
 </div>
 <div class="section" id="reaction-rate-activation-energy-difference">
 <h4>Reaction rate activation energy difference<a class="headerlink" href="#reaction-rate-activation-energy-difference" title="Permalink to this headline">¶</a></h4>
-<p>This model specifies the differnece between two reaction rate A factors, regardless of condition, <span class="math">\(A_{num}/A_{den}\)</span></p>
+<p>This model specifies the difference between two reaction rate activation energies, regardless of condition, <span class="math">\(E_{num} - E_{den}\)</span></p>
 </div>
 </div>
 </div>
@@ -844,6 +761,7 @@
 <li class="toctree-l2"><a class="reference internal" href="shock.html">Shock tube models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flame.html">Laminar flame speeds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reactions.html">Reaction Rate Measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cantera_examples.html">Examples input for the Cantera interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-initialization-function">The initialization function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#model-classes-in-the-cantera-interface">Model classes in the Cantera interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#function-summary">Function summary</a></li>
