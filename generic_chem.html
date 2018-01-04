@@ -6,9 +6,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Generic chemistry interface for Cantera &#8212; mumpce 0.1 documentation</title>
+    <title>Generic chemistry interface for Cantera &#8212; MUM-PCE 0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/NISTPages" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css" type="text/css" />
     
@@ -37,7 +37,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="index.html">mumpce 0.1 documentation</a></div>
+          href="index.html">MUM-PCE</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="cantera.html" title="The Cantera interface to MUM-PCE"
              accesskey="P">previous</a> |
@@ -136,12 +136,19 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>T</strong> (<em>float</em>) &#8211; The unburned gas temperature in Kelvins</li>
 <li><strong>Patm</strong> (<em>float</em>) &#8211; The pressure in atmospheres (will be converted internally to Pa)</li>
 <li><strong>composition</strong> (<em>str</em><em>,</em><em>ndarray</em><em>(</em><em>float</em><em>)</em><em></em>) &#8211; The composition of the unburned gas. Can be a float array or a Cantera composition string</li>
 <li><strong>chemistry_model</strong> (<em>str</em>) &#8211; The chemistry model for the flame. Must be a chemistry model that can be used to make a Cantera phase object</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Key no_falloff:</th><td class="field-body"><p class="first">If False, the falloff parameters for reactions will be available as active parameters (default True)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Key no_energies:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">if False, the activation energies will be available as active parameters. (default True)</p>
 </td>
 </tr>
 </tbody>
