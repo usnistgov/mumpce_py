@@ -6,10 +6,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Examples input for the Cantera interface &#8212; mumpce 0.1 documentation</title>
+    <title>Examples input for the Cantera interface &#8212; MUM-PCE 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/NISTPages" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,6 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -33,7 +36,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="index.html">mumpce 0.1 documentation</a></div>
+          href="index.html">MUM-PCE</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="reactions.html" title="Reaction Rate Measurements"
              accesskey="P">previous</a> |
@@ -190,7 +193,7 @@ div.nboutput  > :nth-child(2).stderr {
 <h1>Examples input for the Cantera interface<a class="headerlink" href="#Examples-input-for-the-Cantera-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Permalink to this headline">¶</a></h2>
-<p>Import the mumpce interface as well as the interface to Cantera.</p>
+<p>Import the mumpce interface and the interface to Cantera.</p>
 <div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [1]:
@@ -199,8 +202,29 @@ div.nboutput  > :nth-child(2).stderr {
 <div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">mumpce_py</span> <span class="kn">as</span> <span class="nn">mumpce</span>
 <span class="kn">import</span> <span class="nn">mumpce_py.cantera_utils</span> <span class="kn">as</span> <span class="nn">mpct</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<p>Import Numerical Python and Pandas</p>
+<div class="nbinput nblast docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+<p>Import the</p>
+<div class="nbinput nblast docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span>
 </pre></div>
 </div>
 </div>
@@ -211,7 +235,7 @@ div.nboutput  > :nth-child(2).stderr {
 <h3>Reading the experimental data file<a class="headerlink" href="#Reading-the-experimental-data-file" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<span></span>In [3]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -227,7 +251,7 @@ div.nboutput  > :nth-child(2).stderr {
 <p>Use each DataFrame in the data dictionary to initialize a measurement list.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<span></span>In [4]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -245,16 +269,46 @@ div.nboutput  > :nth-child(2).stderr {
 </div>
 <div class="docutils container">
 <div class="highlight"><pre>
-Ignition delay
 Flame speeds
-Single-pulse shock tube
+Ignition delay
 Reactions
+Single-pulse shock tube
 </pre></div></div>
 </div>
-Including activation energies as active parameters
---------------------------------------------------<div class="nbinput docutils container">
+<p>Write out comma-separated versions of the DataFrames for use in other parts of the documentation.</p>
+<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">df_dict</span><span class="p">:</span>
+    <span class="n">csv_file</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
+    <span class="n">csv_example_file</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39; example.csv&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Comment&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_example_file</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+Flame speeds.csv
+Ignition delay.csv
+Reactions.csv
+Single-pulse shock tube.csv
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Including-activation-energies-as-active-parameters">
+<h3>Including activation energies as active parameters<a class="headerlink" href="#Including-activation-energies-as-active-parameters" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -276,6 +330,23 @@ Reactions
 </pre></div></div>
 </div>
 </div>
+<div class="section" id="Parameter-uncertainties">
+<h3>Parameter uncertainties<a class="headerlink" href="#Parameter-uncertainties" title="Permalink to this headline">¶</a></h3>
+<p>Read the parameter uncertainties, which we will use when we conduct a full MUM-PCE analysis later</p>
+<div class="nbinput nblast docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">read_uncertainties</span> <span class="kn">import</span> <span class="n">read_uncertainties</span>
+
+<span class="n">mpct_model</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;Single-pulse shock tube&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">model</span>
+<span class="n">parameter_uncertainties</span> <span class="o">=</span> <span class="n">read_uncertainties</span><span class="p">(</span><span class="n">uncertainty_file</span><span class="o">=</span><span class="s1">&#39;uncert.txt&#39;</span><span class="p">,</span><span class="n">mumpce_cantera_model</span><span class="o">=</span><span class="n">mpct_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="Creating-the-Projects">
 <h2>Creating the Projects<a class="headerlink" href="#Creating-the-Projects" title="Permalink to this headline">¶</a></h2>
@@ -284,7 +355,7 @@ Reactions
 <p>Each measurement list can be used to create an independent project.</p>
 <div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<span></span>In [8]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -296,7 +367,7 @@ Reactions
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<span></span>In [9]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -347,7 +418,7 @@ pul_Cc6 (Active): Concentration ratio:     1150 K, 220.34 kPa, C4H10:0.001020921
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<span></span>In [10]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -363,23 +434,23 @@ pul_Cc6 (Active): Concentration ratio:     1150 K, 220.34 kPa, C4H10:0.001020921
 <div class="highlight"><pre>
 Reactions
 9 measurements
-rxn_632_297 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      297 K, 303.98 kPa
+rxn_632_297 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:E:      297 K, 303.98 kPa
      K.R. Jennings, R.J. Cvetanovic, J. Chem. Phys. 35 (1961), 1233-1240.
-rxn_632_329 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      329 K, 303.98 kPa
+rxn_632_329 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:E:      329 K, 303.98 kPa
      K. Yang, J. Phys. Chem. 67 (1963), 562-566.
-rxn_632_513 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      513 K, 303.98 kPa
+rxn_632_513 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:E:      513 K, 303.98 kPa
      K. Yang, J. Phys. Chem. 67 (1963), 562-566.
-rxn_63r_318 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      318 K, 303.98 kPa
+rxn_63r_318 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      318 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_325 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      325 K, 303.98 kPa
+rxn_63r_325 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      325 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_350 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      350 K, 303.98 kPa
+rxn_63r_350 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      350 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_375 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      375 K, 303.98 kPa
+rxn_63r_375 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      375 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_400 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      400 K, 303.98 kPa
+rxn_63r_400 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      400 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      413 K, 303.98 kPa
+rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      413 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
 
 </pre></div></div>
@@ -387,10 +458,10 @@ rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H
 </div>
 <div class="section" id="Projects-from-a-combined-list">
 <h3>Projects from a combined list<a class="headerlink" href="#Projects-from-a-combined-list" title="Permalink to this headline">¶</a></h3>
-<p>Measurements from different lists can be split and combined to create a custom measurement list for a bigger project. In this case, we want to create a study of H-atom abstraction from butane by H atoms, a subset of the study by <a href="#id1"><span class="problematic" id="id2">`Manion, Sheen, &amp; Awan&lt;http://dx.doi.org/10.1021/acs.jpca.5b01004&gt;`_</span></a>. We start by building the project&#8217;s application list, which is going to be all of the single-pulse shock tube measurements where H-atom attack is the primary process. These measurements have names of the form &#8216;pul_Cxx&#8217;</p>
+<p>Measurements from different lists can be split and combined to create a custom measurement list for a bigger project. In this case, we want to create a study of H-atom abstraction from butane by H atoms, a subset of the study by <a class="reference external" href="http://dx.doi.org/10.1021/acs.jpca.5b01004">Manion, Sheen, &amp; Awan</a>. We start by building the project&#8217;s application list, which is going to be all of the single-pulse shock tube measurements where H-atom attack is the primary process. These measurements have names of the form &#8216;pul_Cxx&#8217;.</p>
 <div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [8]:
+<span></span>In [11]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -398,26 +469,39 @@ rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H
 </pre></div>
 </div>
 </div>
-<p>Then we create the measurement list by using python&#8217;s <code class="xref py py-func docutils literal"><span class="pre">list.pop()</span></code> method, which lets us pull the 0 and 4 elements from the applist. We create the measurement list as a new list with these items, and then attach the reaction rate measurements.</p>
+<p>Then we create the reaction list by pulling the experimental rate ratios from the list. We don&#8217;t include the low-temperature rate constant measurements because we already know from <a class="reference external" href="http://dx.doi.org/10.1021/acs.jpca.5b01004">Manion, Sheen, &amp; Awan</a> that JetSurF is inconsistent with those measurements. The rate ratio measurements have names of the form &#8216;rxn_63r_xxx&#8217;.</p>
 <div class="nbinput nblast docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [9]:
+<span></span>In [12]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="n">mlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">applist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="n">applist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">+</span> <span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;Reactions&#39;</span><span class="p">]</span>
+<span></span><span class="n">rxnlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">measurements</span><span class="p">[</span><span class="s1">&#39;Reactions&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;r_&#39;</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Then we create the measurement list by using python&#8217;s <code class="xref py py-func docutils literal"><span class="pre">list.pop()</span></code> method, which lets us pull the 1 and 5 elements from the applist. We create the measurement list as a new list with these items, and then attach the reaction rate ratio measurements.</p>
+<div class="nbinput nblast docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">mlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">applist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="n">applist</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span> <span class="o">+</span> <span class="n">rxnlist</span>
 </pre></div>
 </div>
 </div>
 <p>Now with the measurement and application lists created, we initialize a new <code class="xref py py-class docutils literal"><span class="pre">Project</span></code> with these lists. Notice that the application list has all of the &#8216;pul_Cxx&#8217; except for those we added to the measurement list.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [10]:
+<span></span>In [14]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
 <span></span><span class="n">project_Habs</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">measurement_list</span><span class="o">=</span><span class="n">mlist</span><span class="p">,</span><span class="n">application_list</span><span class="o">=</span><span class="n">applist</span><span class="p">,</span>
-                              <span class="n">name</span><span class="o">=</span><span class="s1">&#39;H_abstraction_from_butane_by_H&#39;</span><span class="p">)</span>
+                              <span class="n">name</span><span class="o">=</span><span class="s1">&#39;H_abstraction_from_butane_by_H&#39;</span><span class="p">,</span>
+                              <span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">parameter_uncertainties</span>
+                             <span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">project_Habs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -428,54 +512,41 @@ rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H
 <div class="docutils container">
 <div class="highlight"><pre>
 H_abstraction_from_butane_by_H
-15 measurements
-pul_Cc5 (Active): Concentration ratio:     1100 K, 206.82 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
+12 measurements
+pul_Cc6 (Active): Concentration ratio:     1150 K, 220.34 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
-pul_Cc1 (Active): Concentration ratio:      900 K, 137.66 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
+pul_Cc2 (Active): Concentration ratio:      950 K, 157.68 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
-rxn_632_297 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      297 K, 303.98 kPa
-     K.R. Jennings, R.J. Cvetanovic, J. Chem. Phys. 35 (1961), 1233-1240.
-rxn_632_329 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      329 K, 303.98 kPa
-     K. Yang, J. Phys. Chem. 67 (1963), 562-566.
-rxn_632_513 (Active): Reaction C4H10 + H &lt;=&gt; H2 + pC4H9:      513 K, 303.98 kPa
-     K. Yang, J. Phys. Chem. 67 (1963), 562-566.
-rxn_63r_318 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      318 K, 303.98 kPa
+rxn_63r_318 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      318 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_325 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      325 K, 303.98 kPa
+rxn_63r_325 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      325 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_350 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      350 K, 303.98 kPa
+rxn_63r_350 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      350 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_375 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      375 K, 303.98 kPa
+rxn_63r_375 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      375 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_400 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      400 K, 303.98 kPa
+rxn_63r_400 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      400 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9]:      413 K, 303.98 kPa
+rxn_63r_413 (Active): Rate ratio k_[C4H10 + H &lt;=&gt; H2 + sC4H9:E]/k_[C4H10 + H &lt;=&gt; H2 + pC4H9:E]:      413 K, 303.98 kPa
      J.M. Campbell, O.P. Strausz, H.E. Gunning, Can. J. Chem. 47 (1969), 3759-3762
-pul_Cc2 (Application): Concentration ratio:      950 K, 157.68 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
+pul_Cc1 (Application): Concentration ratio:      900 K, 137.66 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
 pul_Cc3 (Application): Concentration ratio:     1000 K, 175.70 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
 pul_Cc4 (Application): Concentration ratio:     1050 K, 192.00 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
-pul_Cc6 (Application): Concentration ratio:     1150 K, 220.34 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
+pul_Cc5 (Application): Concentration ratio:     1100 K, 206.82 kPa, C4H10:0.001020921,HME:5.73e-05,O2:0,AR:0.998921779, [C2H4]/[C3H6] at 0.5 ms
      J. A. Manion, D. A. Sheen, I. A. Awan, J. Phys. Chem. A 119 (2015), 7637-7658.
 
 </pre></div></div>
 </div>
-project_Habs.find_sensitivity()<p>Write out comma-separated versions of the DataFrames for use in other parts of the documentation.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [11]:
+<span></span>In [15]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">df_dict</span><span class="p">:</span>
-    <span class="n">csv_file</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span>
-    <span class="n">csv_example_file</span> <span class="o">=</span> <span class="n">key</span> <span class="o">+</span> <span class="s1">&#39; example.csv&#39;</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Comment&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_example_file</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span></span><span class="n">project_Habs</span><span class="o">.</span><span class="n">find_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -484,10 +555,272 @@ project_Habs.find_sensitivity()<p>Write out comma-separated versions of the Data
 </div>
 <div class="docutils container">
 <div class="highlight"><pre>
-Ignition delay.csv
-Flame speeds.csv
-Single-pulse shock tube.csv
-Reactions.csv
+pul_Cc6
+
+pul_Cc2
+
+rxn_63r_318
+rxn_63r_325
+rxn_63r_350
+rxn_63r_375
+rxn_63r_400
+rxn_63r_413
+pul_Cc1
+
+pul_Cc3
+
+pul_Cc4
+
+pul_Cc5
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">project_Habs</span><span class="o">.</span><span class="n">find_active_parameters</span><span class="p">(</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+pul_Cc6
+pul_Cc2
+rxn_63r_318
+rxn_63r_325
+rxn_63r_350
+rxn_63r_375
+rxn_63r_400
+rxn_63r_413
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sensitivity_cutoff</span> <span class="o">=</span> <span class="mf">0.02</span>
+
+<span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">project_Habs</span><span class="p">:</span>
+    <span class="n">all_parameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">number_parameters</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">uncertainties_this</span> <span class="o">=</span> <span class="n">project_Habs</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">[:</span><span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">number_parameters</span><span class="p">]</span>
+
+    <span class="n">impact_factor_list</span> <span class="o">=</span> <span class="n">meas</span><span class="o">.</span><span class="n">sensitivity_list</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">uncertainties_this</span><span class="p">)</span>
+    <span class="n">max_sens</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">impact_factor_list</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">*</span><span class="n">sensitivity_cutoff</span>
+    <span class="n">active_parameters_this</span> <span class="o">=</span> <span class="n">all_parameters</span><span class="p">[</span><span class="nb">abs</span><span class="p">(</span><span class="n">impact_factor_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_sens</span><span class="p">]</span>
+
+    <span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">union1d</span><span class="p">(</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">,</span><span class="n">active_parameters_this</span><span class="p">)</span>
+<span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameter_uncertainties</span> <span class="o">=</span> <span class="n">project_Habs</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">[</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+[ 377  540  541  877  878  879  880  881  898  914  915  942  968  988  989
+  990  991  992 1009 1312]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">project_Habs</span><span class="o">.</span><span class="n">set_active_parameters</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">project_Habs</span><span class="o">.</span><span class="n">make_response</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+
+
+
+
+
+
+
+
+
+
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">project_Habs</span><span class="o">.</span><span class="n">run_optimization</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+(20,)
+Both actual and predicted relative reductions in the sum of squares
+  are at most 0.000000
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+C2H4 + H (+M) &lt;=&gt; C2H5 (+M):HpA :  1.4e+06    3.00    0.63    0.79  2.7e+06    2.38
+C3H6 + H &lt;=&gt; C2H4 + CH3:A      :   8e+18    2.00   -0.10    0.99  7.5e+18    1.99
+C3H6 + H &lt;=&gt; C2H4 + CH3:E      :  4.7e+07    1.12    0.09    0.99  4.7e+07    1.12
+C4H81 + H (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.3e+10    3.00   -0.05    0.98  1.3e+10    2.93
+C4H81 + H &lt;=&gt; C2H4 + C2H5:A    :  1.6e+19    3.00   -0.08    1.00  1.5e+19    2.99
+C4H81 + H &lt;=&gt; C2H4 + C2H5:E    :  4.7e+07    1.20    0.06    1.00  4.7e+07    1.19
+C4H81 + H &lt;=&gt; C3H6 + CH3:A     :  3.2e+19    5.00    0.22    0.97  4.6e+19    4.77
+C4H81 + H &lt;=&gt; C3H6 + CH3:E     :  4.7e+07    1.20   -0.12    0.99  4.6e+07    1.20
+C4H82 + H (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.3e+10    3.00    0.06    0.98  1.4e+10    2.93
+H + iC4H8 &lt;=&gt; C3H6 + CH3:A     :   8e+18    3.00    0.15    0.99  9.4e+18    2.96
+H + iC4H8 &lt;=&gt; C3H6 + CH3:E     :  4.7e+07    1.20   -0.11    0.99  4.6e+07    1.19
+C3H6 + CH3 (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.7e+08    2.00    0.19    0.95  1.9e+08    1.93
+tC4H9 (+M) &lt;=&gt; H + iC4H8 (+M):HpA :  8.3e+13    2.00   -0.09    1.00  7.8e+13    1.99
+2 C2H5 (+M) &lt;=&gt; C4H10 (+M):HpA :  1.9e+11    2.00    0.25    0.97  2.2e+11    1.96
+C4H10 + H &lt;=&gt; H2 + pC4H9:A     :  9.2e+02    3.00   -0.09    0.73  8.3e+02    2.24
+C4H10 + H &lt;=&gt; H2 + pC4H9:E     :  2.8e+07    1.20    0.06    0.54  2.9e+07    1.10
+C4H10 + H &lt;=&gt; H2 + sC4H9:A     :  2.4e+03    3.00   -0.03    0.71  2.3e+03    2.19
+C4H10 + H &lt;=&gt; H2 + sC4H9:E     :  1.9e+07    1.20    0.21    0.83  1.9e+07    1.16
+C4H10 + CH3 &lt;=&gt; CH4 + pC4H9:A  :  0.0009    3.00   -0.00    1.00  0.0009    3.00
+HME &lt;=&gt; 2 tC4H9:E              :  2.9e+08    1.02    0.11    0.99  2.9e+08    1.02
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">project_Habs</span><span class="o">.</span><span class="n">remove_inconsistent_measurements</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+(20,)
+Both actual and predicted relative reductions in the sum of squares
+  are at most 0.000000
+No inconsistent measurements
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">validate_solution</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+pul_Cc6             :   0.20   0.05   0.24   0.06   0.30   0.75
+pul_Cc2             :  -0.14   0.05  -0.18   0.07  -0.24   0.86
+rxn_63r_318         :   3.61   0.13   3.65   0.07   3.77   1.50
+rxn_63r_325         :   3.55   0.13   3.58   0.06   3.69   1.48
+rxn_63r_350         :   3.32   0.13   3.33   0.05   3.42   1.40
+rxn_63r_375         :   3.13   0.13   3.11   0.05   3.20   1.34
+rxn_63r_400         :   2.97   0.13   2.92   0.05   2.99   1.28
+rxn_63r_413         :   2.88   0.13   2.83   0.05   2.90   1.26
+pul_Cc1             :  -0.25   0.05   2.80   3.55  -0.47  10.77
+pul_Cc3             :  -0.04   0.05  -0.07   0.19  -0.09   0.96
+pul_Cc4             :   0.05   0.05   0.00   0.07   0.03   0.82
+pul_Cc5             :   0.13   0.05   0.12   0.06   0.16   0.80
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">project_Habs</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+C2H4 + H (+M) &lt;=&gt; C2H5 (+M):HpA :  1.4e+06    3.00    0.63    0.79  2.7e+06    2.38
+C3H6 + H &lt;=&gt; C2H4 + CH3:A      :   8e+18    2.00   -0.10    0.99  7.5e+18    1.99
+C3H6 + H &lt;=&gt; C2H4 + CH3:E      :  4.7e+07    1.12    0.09    0.99  4.7e+07    1.12
+C4H81 + H (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.3e+10    3.00   -0.05    0.98  1.3e+10    2.93
+C4H81 + H &lt;=&gt; C2H4 + C2H5:A    :  1.6e+19    3.00   -0.08    1.00  1.5e+19    2.99
+C4H81 + H &lt;=&gt; C2H4 + C2H5:E    :  4.7e+07    1.20    0.06    1.00  4.7e+07    1.19
+C4H81 + H &lt;=&gt; C3H6 + CH3:A     :  3.2e+19    5.00    0.22    0.97  4.6e+19    4.77
+C4H81 + H &lt;=&gt; C3H6 + CH3:E     :  4.7e+07    1.20   -0.12    0.99  4.6e+07    1.20
+C4H82 + H (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.3e+10    3.00    0.06    0.98  1.4e+10    2.93
+H + iC4H8 &lt;=&gt; C3H6 + CH3:A     :   8e+18    3.00    0.15    0.99  9.4e+18    2.96
+H + iC4H8 &lt;=&gt; C3H6 + CH3:E     :  4.7e+07    1.20   -0.11    0.99  4.6e+07    1.19
+C3H6 + CH3 (+M) &lt;=&gt; sC4H9 (+M):HpA :  1.7e+08    2.00    0.19    0.95  1.9e+08    1.93
+tC4H9 (+M) &lt;=&gt; H + iC4H8 (+M):HpA :  8.3e+13    2.00   -0.09    1.00  7.8e+13    1.99
+2 C2H5 (+M) &lt;=&gt; C4H10 (+M):HpA :  1.9e+11    2.00    0.25    0.97  2.2e+11    1.96
+C4H10 + H &lt;=&gt; H2 + pC4H9:A     :  9.2e+02    3.00   -0.09    0.73  8.3e+02    2.24
+C4H10 + H &lt;=&gt; H2 + pC4H9:E     :  2.8e+07    1.20    0.06    0.54  2.9e+07    1.10
+C4H10 + H &lt;=&gt; H2 + sC4H9:A     :  2.4e+03    3.00   -0.03    0.71  2.3e+03    2.19
+C4H10 + H &lt;=&gt; H2 + sC4H9:E     :  1.9e+07    1.20    0.21    0.83  1.9e+07    1.16
+C4H10 + CH3 &lt;=&gt; CH4 + pC4H9:A  :  0.0009    3.00   -0.00    1.00  0.0009    3.00
+HME &lt;=&gt; 2 tC4H9:E              :  2.9e+08    1.02    0.11    0.99  2.9e+08    1.02
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
