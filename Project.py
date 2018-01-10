@@ -98,6 +98,7 @@ class Project(object):
         self.application_list = application_list
         if application_list is None:
             self.application_list = []
+        else:
             for meas in self.application_list:
                 meas._status = 'Application'
         

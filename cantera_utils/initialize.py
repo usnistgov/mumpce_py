@@ -29,16 +29,16 @@ def rxn_initialize(name=None,
     
     model_args = [T,Patm,fuels,chemistry_model]
     
-    if measurement_type == 'Single':
+    if measurement_type.lower() == 'single':
         model_keys = dict(reaction_number=reaction,**kwargs)
         model = rxns.ReactionRateAtCondition
-    if measurement_type == 'Ratio':
+    if measurement_type.lower() == 'ratio':
         model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
         model = rxns.ReactionRateRatioAtCondition
-    if measurement_type == 'Aratio':
+    if measurement_type.lower() == 'aratio':
         model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
         model = rxns.ReactionARatio
-    if measurement_type == 'Eratio':
+    if measurement_type.lower() == 'eratio':
         model_keys = dict(reaction_numerator=reaction,reaction_denominator=reaction_denominator,**kwargs)
         model = rxns.ReactionEDiff
     
@@ -57,6 +57,7 @@ def ign_initialize(name=None,
                    Patm=None,
                    fuels=None,
                    initial_timestep=1.0e-5,
+                   integration_time=500,
                    critical_value=None,
                    critical_species=None,
                    critical_type=None,
@@ -75,7 +76,23 @@ def ign_initialize(name=None,
     kwargs = dict(loglevel=None,**kwargs)
     args = [T,Patm,fuels,ct.IdealGasReactor,chemistry_model]#,fcn)
     
-    if name.startswith('ign'):
+    #if name.startswith('pro') or critical_type == 'tau':
+    if critical_type == 'tau':
+        #Species concentration at specific time
+        integration_time = integration_time/1e6 #Convert from microseconds to seconds        
+        model = stu.ShockTubeConcentration
+        kwargs = dict(crit_ID=critical_species,integration_time=integration_time,**kwargs)
+        
+    #elif name.startswith('pul') or critical_type == 'ratio':
+    elif critical_type == 'ratio':
+        #Concentration ratio at specific time
+        integration_time = integration_time/1e6 #Convert from microseconds to seconds
+        model = stu.ShockTubeRatio
+        kwargs = dict(crit_numerator=critical_species,
+                      crit_denom=critical_denominator,
+                      integration_time=integration_time,
+                      **kwargs)
+    else:
         #This is a problem that is finding the delay of something
         model = stu.ShockTubeDelay
         if critical_type == 'crit':
@@ -97,20 +114,6 @@ def ign_initialize(name=None,
             log_optimal_timestep = math.floor(math.log(delay,base)) - 1
             initial_timestep = (base ** log_optimal_timestep)/1.0e6
         kwargs = dict(crit_ID=critical_species,initial_timestep=initial_timestep,critical_rise=critical_rise,**kwargs)
-        
-    
-    if name.startswith('pro') or critical_type == 'tau':
-        #Species concentration at specific time
-        model = stu.ShockTubeConcentration
-        kwargs = dict(crit_ID=critical_species,integration_time=critical_value,**kwargs)
-        
-    if name.startswith('pul') or critical_type == 'ratio':
-        #Concentration ratio at specific time
-        model = stu.ShockTubeRatio
-        kwargs = dict(crit_numerator=critical_species,
-                      crit_denom=critical_denominator,
-                      integration_time=critical_value,
-                      **kwargs)
     
     mdl = model(*args,**kwargs)
     meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
@@ -284,6 +287,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
     critical_rise = None
     reaction_denominator = None
     reaction_numerator = None
+    time = None
     value = None
     uncertainty = None
     chemistry = None
@@ -299,6 +303,9 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
         if s.startswith('Temp'): temp_keyw = s #Temperature
         if s.startswith('Pres'): pres_keyw = s #Pressure
         if s.startswith('Sim'): sim_keyw = s #Simulation name
+        if s.startswith('Time'): #Integration time
+            time_keyw = s 
+            time = True
         if s.startswith('Ox'): #Oxygen specified
             ox_keyw = s
             ox = True
@@ -444,8 +451,14 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
             cv = None
             rise = None
             denom = None
+            tim = None
+            if time:
+                tim = this_experiment[time_keyw].values[0]
+                if tim < 1.0:
+                    print('Specified integration time is very small ({} microseconds). ')
+                    raise ValueError
             if critical_value:
-                cv = this_experiment.Critical_value.values[0]
+                cv = this_experiment[crit_val_keyw].values[0]
             if critical_denominator:
                 denom = this_experiment[crit_denom_keyw].values[0]
             if critical_rise:
@@ -458,6 +471,7 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
                                   critical_type=this_experiment[sim_keyw].values[0],
                                   chemistry_model=chem,
                                   critical_value=cv,
+                                  integration_time=tim,
                                   critical_denominator=denom,
                                   critical_rise=rise,
                                   comment=comment,**kwargs

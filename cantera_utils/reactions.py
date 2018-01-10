@@ -8,10 +8,36 @@ class RxnMeasurement(mumpce.Measurement):
     """A special class for optimizing reaction rate measurements.
     
     Since there is an analytic expression for the sensitivities, creating the response surfaces is more straigtforward than it would be for a normal experiment. The call signature for this measurement is the same as for :py:class:`mumpce.Measurement`.
+    
     """
     
     def make_response(self):
         """Generates a sensitivity_analysis_based response surface for this measurement
+        
+        Because there is an analytical solution, perturbations are not necessary for most reaction rate parameters. If the reaction rate is  given by:
+        
+        .. math::
+           
+           k = A T^b \exp \\left( \\frac{-E}{RT} \\right)
+        
+        then
+        
+        .. math::
+           
+           \\frac{d \log k}{d \log A} = 1
+           
+        .. math::
+           
+           \\frac{d \log k}{d \log E} = \\frac{-E}{RT}
+        
+        The response surface derivatives are given by 
+        
+        .. math::
+           
+           a_i = \\frac{d \log y}{d \log p_i} \log f_i
+           
+        where :math:`f_i` is the uncertainty factor of parameter :math:`p_i`. In the case of activation energies, :math:`\log f_i` is approximated by  :math:`f_i - 1`
+        
         """
         #zero_term = self.evaluate
         self.model.reset_model()
@@ -52,7 +78,7 @@ class RxnMeasurement(mumpce.Measurement):
 class ReactionRateBase(CanteraChemistryModel):
     """The base class for optimizing reaction rates.
     
-    This class defines some shared attributes across all ReactionRate type classes.
+    This class defines some shared attributes across all ReactionRate type classes and a shared sensitivity method.
     
     :param T: The temperature at which to evaluate the rate constant in Kelvins
     :param Patm: The pressure in atmospheres (will be converted internally to Pa)
@@ -77,6 +103,32 @@ class ReactionRateBase(CanteraChemistryModel):
         return
     
     def sensitivity(self,perturbation,parameter_list,logfile):
+        """Evaluates the sensitivity of the reaction rate with respect to the model parameters
+        
+        Because there is an analytical solution, perturbations are not necessary for most reaction rate parameters. If the reaction rate is  given by:
+        
+        .. math::
+           
+           k = A T^b \exp \\left( \\frac{-E}{RT} \\right)
+        
+        then
+        
+        .. math::
+           
+           \\frac{d \log k}{d \log A} = 1
+           \\frac{d \log k}{d \log E} = \\frac{-E}{RT}
+        
+        For rate ratios, the denominator sensitivities differ by a factor of -1. For falloff reactions, the sensitivity must be calculated by perturbation, since the rate expression is potentially very complicated.
+        
+        :param perturbation: The amount to perturb each parameter during the sensitivity analysis
+        :param parameter_list: The list of parameters to perturb. This will be a list of parameter identifiers, which are usually ints or strs.
+        :param logfile: The logging file that will contain the sensitivity calculation output.
+        :type perturbation: float
+        :type parameter_list: array_like
+        :type logfile: str
+        :returns: model_value,sensitivity_vector
+        :rtype: float,ndarray
+        """
         sensitivity_list = []
         
         value = self.evaluate()
@@ -85,7 +137,7 @@ class ReactionRateBase(CanteraChemistryModel):
         pos_mult = 1 + perturbation
         neg_mult = 1/pos_mult
         
-        for (param_number,param_id) in enumerate(self.tqfunc(parameter_list,desc=logfile.name)):
+        for (param_number,param_id) in enumerate(parameter_list):
             
             #Default value for sensitivity is 0, because most parameters are rate parameters for other reactions
             sensitivity = 0.0
@@ -159,7 +211,7 @@ class ReactionRateAtCondition(ReactionRateBase):
         self.rxn_num = reaction_number
         self.rxn_name = ''
         
-        for (param_number,param_info) in enumerate(self.tqfunc(self.model_parameter_info)):
+        for (param_number,param_info) in enumerate(self.model_parameter_info):
             if param_info['reaction_number'] == reaction_number:
                 self.parameter_list += [param_number]
                 self.rxn_name = param_info['parameter_name']
@@ -209,12 +261,12 @@ class ReactionRateRatioAtCondition(ReactionRateBase):
         self.rxn_num = reaction_numerator
         self.rxn_den = reaction_denominator
         
-        for (param_number,param_info) in enumerate(self.tqfunc(self.model_parameter_info)):
+        for (param_number,param_info) in enumerate(self.model_parameter_info):
             if param_info['reaction_number'] == reaction_numerator:
                 self.numerator_list += [param_number]
                 self.numer_name = param_info['parameter_name']
         
-        for (param_number,param_info) in enumerate(self.tqfunc(self.model_parameter_info)):
+        for (param_number,param_info) in enumerate(self.model_parameter_info):
             if param_info['reaction_number'] == reaction_denominator:
                 self.denominator_list += [param_number]
                 self.denom_name = param_info['parameter_name']
@@ -229,7 +281,7 @@ class ReactionRateRatioAtCondition(ReactionRateBase):
                     self.initial.P/1.0e3,
                    )
         
-        modelstr = 'Rate ratio {}/{}: {:8.0f} K, {:5.2f} kPa'.format(*str_args)
+        modelstr = 'Rate ratio k_[{}]/k_[{}]: {:8.0f} K, {:5.2f} kPa'.format(*str_args)
         return modelstr
     
     def evaluate(self):
@@ -241,7 +293,7 @@ class ReactionRateRatioAtCondition(ReactionRateBase):
         return numer/denom   
     
 class ReactionARatio(ReactionRateBase):
-    """A class that will fix the ratio of A-factors for two reactions
+    """A class that will specify the ratio of A-factors for two reactions
     
     :param T: The temperature at which to evaluate the rate constant in Kelvins
     :param Patm: The pressure in atmospheres (will be converted internally to Pa)
@@ -265,14 +317,14 @@ class ReactionARatio(ReactionRateBase):
         self.rxn_num = reaction_numerator
         self.rxn_den = reaction_denominator
         
-        print(reaction_numerator,reaction_denominator)
+        #print(reaction_numerator,reaction_denominator)
         
         #self.rxn = 
         
         self.numerator_num = []
         self.denominator_list = []
         
-        for (param_number,param_info) in enumerate(self.tqfunc(self.model_parameter_info)):
+        for (param_number,param_info) in enumerate(self.model_parameter_info):
             if 'A' in param_info['parameter_type']:
                 if param_info['reaction_number'] == reaction_numerator:
                     self.numer_num = param_number
@@ -303,7 +355,7 @@ class ReactionARatio(ReactionRateBase):
         return numer/denom
 
 class ReactionEDiff(ReactionRateBase):
-    """A class that will fix the difference between activation energies for two reactions
+    """A class that will specify the difference between activation energies for two reactions
     
     :param T: The temperature at which to evaluate the rate constant in Kelvins
     :param Patm: The pressure in atmospheres (will be converted internally to Pa)
@@ -329,14 +381,14 @@ class ReactionEDiff(ReactionRateBase):
         self.rxn_num = reaction_numerator
         self.rxn_den = reaction_denominator
         
-        print(reaction_numerator,reaction_denominator)
+        #print(reaction_numerator,reaction_denominator)
         
         #self.rxn = 
         
         self.numerator_num = []
         self.denominator_list = []
         
-        for (param_number,param_info) in enumerate(self.tqfunc(self.model_parameter_info)):
+        for (param_number,param_info) in enumerate(self.model_parameter_info):
             if 'E' in param_info['parameter_type']:
                 if param_info['reaction_number'] == reaction_numerator:
                     self.numer_num = param_number
