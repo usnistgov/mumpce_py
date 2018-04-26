@@ -373,7 +373,9 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
                 fuel_total = fuel_total + moles
     
         #Oxidizer
-        if ox: fuel_string = fuel_string + ',O2:' + str(this_experiment.Ox.values[0])
+        if ox:
+            if not np.isnan(this_experiment.Ox.values[0]): #If the ox value is blank, this experiment doesn't use it
+                fuel_string = fuel_string + ',O2:' + str(this_experiment.Ox.values[0])
         
         #Bath gas
         if dil:
@@ -389,8 +391,12 @@ def measurement_initialize_pd(source,chemistry_model=None,**kwargs):
                 fuel_string = fuel_string + ',' + 'AR' +':' + str(dil_concentration)
             # If there is any other bath gas specified, it is assumed that the mole fractions sum to 1 and the bath gas is "whatever is left"
             else:
-                dil_concentration = 1.0 - float(fuel_total) - this_experiment[ox_keyw].values[0]
-                fuel_string = fuel_string + ',' + this_experiment[dil_keyw].values[0] +':' + str(dil_concentration)
+                try:
+                    if np.isnan(this_experiment[dil_keyw].values[0]): #If the dil value is blank, don't do anything
+                        pass
+                except TypeError: #np.isnan() will return an error if you try to give it a string, which means that Dil is not blank
+                    dil_concentration = 1.0 - float(fuel_total) - this_experiment[ox_keyw].values[0]
+                    fuel_string = fuel_string + ',' + this_experiment[dil_keyw].values[0] +':' + str(dil_concentration)
     
         #chem_ext = this_experiment.Model.values[0]
         if chemistry:

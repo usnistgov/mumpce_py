@@ -292,8 +292,15 @@ class Project(object):
         
         #Set the active parameter list for all measurements to the main active parameter list for this project
         for meas in self.measurement_list + self.application_list:
-            meas.active_parameters = self.active_parameters
-            meas.parameter_uncertainties=self.active_parameter_uncertainties
+            a_params = []
+            a_uncerts = []
+            for parameter,uncertainty in zip(self.active_parameters,self.active_parameter_uncertainties):
+                #Check to make sure this parameter doesn't exceed the number of parameters for this measurement
+                if parameter < meas.model.number_parameters: 
+                    a_params += [parameter]
+                    a_uncerts += [uncertainty]
+            meas.active_parameters = np.array(a_params)
+            meas.parameter_uncertainties=np.array(a_uncerts)
         return
     
     def find_active_parameters(self,sensitivity_cutoff):
@@ -325,7 +332,7 @@ class Project(object):
             if meas.sensitivity_list is None:
                 meas.evaluate_sensitivity()
                 
-            impact_factor_list = meas.sensitivity_list * np.log(self.parameter_uncertainties    )
+            impact_factor_list = meas.sensitivity_list * np.log(self.parameter_uncertainties[:meas.model.number_parameters]    )
             
             #Get the sensitivities for this measurement
             #computed_val,sensitivity_list = meas.model.sensitivity(perturbation=0.1,parameter_list=all_parameters)
@@ -381,17 +388,21 @@ class Project(object):
         
         inv_covar = self.solution.alpha_i
         initial_guess = self.solution.x_i
+        
+        full_shape = self.active_parameters[-1] + 1
+        x_full = np.zeros(full_shape) #Make a full x that has placeholder values for all parameters
+        x_full[self.active_parameters] = x #Put the active x values into x_full
 
         #Set the parts of the objective function that depend on x
         f[0:num_params] = np.dot(inv_covar,(x - initial_guess))
         df[0:num_params,0:num_params] = inv_covar
         for exp_num,meas in enumerate(self.measurement_list):
-            #for exp_num,resp in enumerate(response_list):
-            #Evaluate 
+
+            df_num = np.zeros(full_shape) #Full derivative vector
             
-            df_num = np.zeros(meas.model.number_parameters)
+            x_in = x_full[meas.active_parameters] #Pass an x to the 
             
-            f_num,df_num[meas.active_parameters] = meas.sensitivity_response(x)
+            f_num,df_num[meas.active_parameters] = meas.sensitivity_response(x_in)
             
             f_exp = meas.value
             w = 1/meas.uncertainty
@@ -532,12 +543,24 @@ class Project(object):
         header = '{:20s}  {:6s} {:6s} {:6s} {:6s} {:6s} {:6s}'.format(*header_args)
         output = carriage_return.join((output,header))
         
+        full_shape = self.active_parameters[-1] + 1
+        
+        x_full = np.zeros(full_shape) #Make a full x that has placeholder values for all parameters
+        x_full[self.active_parameters] = self.solution.x #Put the active x values into x_full
+        cov_full = np.zeros((full_shape,full_shape))
+        for c_x,p_x in enumerate(self.active_parameters):
+            for c_y,p_y in enumerate(self.active_parameters):
+                cov_full[p_x,p_y] = self.solution.cov[c_x,c_y]
+        
         for (exp_num,meas) in enumerate(self):
             a = meas.response.a
             b = meas.response.b
             
+            x_in = x_full[meas.active_parameters]
+            cov_in = cov_full[meas.active_parameters][:,meas.active_parameters]
+            
             #Calculate optimized values, base model uncertainties, and optimized uncertainties
-            meas.optimized_value,meas.optimized_uncertainty = meas.evaluate_uncertainty(self.solution.x,self.solution.cov)
+            meas.optimized_value,meas.optimized_uncertainty = meas.evaluate_uncertainty(x_in,cov_in)
             meas.model_uncertainty = math.sqrt( np.dot(a,a.T)+2*np.trace( np.dot(b,b) ) )/2
             
             #meas.consistency =  (meas.optimized_value - meas.value) / (2 * meas.uncertainty)
@@ -635,18 +658,46 @@ class Project(object):
         
         entropy = np.zeros((number_total,number_total))
         
+        full_shape = self.active_parameters[-1] + 1
+        
+        x_full = np.zeros(full_shape) #Make a full x that has placeholder values for all parameters
+        x_full[self.active_parameters] = self.solution.x #Put the active x values into x_full
+        cov_full = np.zeros((full_shape,full_shape))
+        for c_x,p_x in enumerate(self.active_parameters):
+            for c_y,p_y in enumerate(self.active_parameters):
+                cov_full[p_x,p_y] = self.solution.cov[c_x,c_y]
+        
         #Outer loop of measurements
         for i,meas_i in enumerate(self.measurement_list):
-            y,a_i = meas_i.sensitivity_response(self.solution.x)
+            
+            x_in = x_full[meas_i.active_parameters]
+            
+            a_full = np.zeros(full_shape)
+            
+            y,a_full[meas_i.active_parameters] = meas_i.sensitivity_response(x_in)
+            
+            a_i = a_full[self.active_parameters]
             a_i = np.array([a_i]).transpose()
             aat = np.dot(a_i,a_i.T) 
             
             caatc = np.dot(self.solution.cov,np.dot(aat,self.solution.cov))
             
             for r,meas_r in enumerate(self.active):
-                y,a_r = meas_r.sensitivity_response(self.solution.x)
-                b_r = meas_r.response.b
+                x_in = x_full[meas_r.active_parameters]
+                cov_in = cov_full[meas_r.active_parameters][:,meas_r.active_parameters]
                 
+                a_full = np.zeros(full_shape)
+                
+                y,a_full[meas_r.active_parameters] = meas_r.sensitivity_response(x_in)
+                
+                b_full = np.zeros((full_shape,full_shape))
+                for c_x,p_x in enumerate(meas_r.active_parameters):
+                    for c_y,p_y in enumerate(meas_r.active_parameters):
+                        b_full[p_x,p_y] = meas_r.response.b[c_x,c_y]
+                
+                b_r = b_full[self.active_parameters][:,self.active_parameters]
+                
+                a_r = a_full[self.active_parameters]
                 a_r = np.array([a_r]).transpose()
                 
                 artcaatcar = np.dot(a_r.T,np.dot(caatc,a_r))
@@ -692,6 +743,7 @@ class Project(object):
         for exp_num in np.argsort(entropies)[::-1]:
             if entropies[exp_num] < 0:
                 meas_remove = self.measurement_list.pop(exp_num)
+                self.low_information += [meas_remove]
                 meas_remove._status = 'Low Information'
                 print_args = (meas_remove.name,meas_remove.entropy)
                 
@@ -782,7 +834,7 @@ class Project(object):
         
         zred = self.solution.x[factors]
         
-        alphared = self.solution.alpha[factors]\
+        alphared = self.solution.alpha[factors]
         
         pts = np.arange(-1.5,1.5,0.01)
         xx,yy = np.meshgrid(pts,pts)
@@ -824,7 +876,7 @@ class Project(object):
         ax.axis('square')
         return
     
-    def plot_pdfs(self,factors_list=[0,1]):
+    def plot_pdfs(self,factors_list=[[0,1]]):
         """Generates a plot of the joint probability density functions for several pairs of parameters.
         
         :param factors_list: A list of pairs of parameters. For each pair [x, y] the parameter x will appear on the x axis and the parameter y will appear on the y axis. If this parameter is not supplied, it defaults to [0,1].
@@ -842,3 +894,39 @@ class Project(object):
             self._single_pdf_plot(factors=factors,ax=ax)
     
         return fig
+    
+    def plot_covariance(self,factors_list=None):
+        """Generates a heat map plot of the covariance matrix.
+        
+        :key factors_list: A list of the factors to be included in the plot. If not supplied, all parameters will be plotted.
+        :type factors:list: list of ints
+        """
+        
+        #Make the figure
+        fig,ax = plt.subplots(figsize=(5,4))
+        
+        #Get the alpha matrix
+        if factors_list is not None:
+            alphared = self.solution.alpha[factors_list]
+            active_params = self.active_parameters[factors_list]
+        else:
+            alphared = self.solution.alpha
+            active_params = self.active_parameters
+        
+        #Build the covariance matrix from the alpha matrix
+        S = np.dot(alphared,alphared.T)
+        
+        #Plot the image with a colorbar
+        im = ax.imshow(np.sqrt(np.abs(S)),cmap='Greys',origin='upper',vmin=0,vmax=0.5)
+        fig.colorbar(im,ax=ax,fraction=0.2)
+        
+        #Get the active parameter names and replace the y ticks
+        #active_params = self.active_parameters[factors_list]
+        params_info = self.model_parameter_info[active_params]
+        param_names = [param_info['parameter_name'] for param_info in params_info]
+        
+        
+        #meas = self[0]
+        #param_names = meas.get_active_names()
+        ax.set_yticklabels(param_names)
+        ax.set_xticklabels([])

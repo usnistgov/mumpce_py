@@ -384,26 +384,33 @@ class CanteraChemistryModel(mumpce.Model):
         
         if HasFalloff:
             rate = reaction.high_rate
-            reaction_info  = [{'reaction_number':reaction_number,'parameter_type':'High_pressure_A','parameter_name':reaction_name}]
+            fullname = reaction_name + ':HpA'
+            reaction_info  = [{'reaction_number':reaction_number,'parameter_type':'High_pressure_A','parameter_name':fullname}]
             #Do not consider activation energies very close to zero
             if abs(rate.activation_energy) > 0.1:
-                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'High_pressure_E','parameter_name':reaction_name}]
+                fullname = reaction_name + ':HpE'
+                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'High_pressure_E','parameter_name':fullname}]
             rate = reaction.low_rate
-            reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Low_pressure_A','parameter_name':reaction_name}]
+            fullname = reaction_name + ':LpA'
+            reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Low_pressure_A','parameter_name':fullname}]
             if abs(rate.activation_energy) > 0.1:
-                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Low_pressure_E','parameter_name':reaction_name}]
+                fullname = reaction_name + ':LpE'
+                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Low_pressure_E','parameter_name':fullname}]
         else:
             rate = reaction.rate
-            reaction_info  = [{'reaction_number':reaction_number,'parameter_type':'A_factor','parameter_name':reaction_name}]
+            fullname = reaction_name + ':A'
+            reaction_info  = [{'reaction_number':reaction_number,'parameter_type':'A_factor','parameter_name':fullname}]
             if abs(rate.activation_energy) > 0.1:
-                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Energy','parameter_name':reaction_name}]
+                fullname = reaction_name + ':E'
+                reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Energy','parameter_name':fullname}]
 
         if HasThirdBody:
             num_efficiencies = len(reaction.efficiencies)
             for species_name in reaction.efficiencies:
                 if reaction.efficiency(species_name) > 0:
+                    fullname = reaction_name + ':Eff:' + species_name
                     reaction_info += [{'reaction_number':reaction_number,'parameter_type':'Efficiency','species':species_name,
-                                       'parameter_name':reaction_name}]
+                                       'parameter_name':fullname}]
         return reaction_info
     
     def get_model_parameter_info(self,no_efficiencies=False,no_energy=False,no_falloff=False):
