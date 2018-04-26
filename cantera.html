@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Cantera interface to MUM-PCE &#8212; mumpce 0.1 documentation</title>
+    <title>The Cantera interface to MUM-PCE &#8212; MUM-PCE 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -37,7 +37,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="index.html">mumpce 0.1 documentation</a></div>
+          href="index.html">MUM-PCE</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="toy_model_example.html" title="Example usage and output"
              accesskey="P">previous</a> |
@@ -499,11 +499,11 @@
 </div>
 <div class="section" id="laminar-flame-speeds">
 <h3><a class="toc-backref" href="#id8">Laminar flame speeds</a><a class="headerlink" href="#laminar-flame-speeds" title="Permalink to this headline">¶</a></h3>
-<p>This model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/onedim.html#cantera.FreeFlame" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code></a> to determine the propagation speed of a freely-propagating laminar flame.</p>
+<p>This model uses a Cantera <code class="xref py py-class docutils literal"><span class="pre">cantera.FreeFlame</span></code> to determine the propagation speed of a freely-propagating laminar flame.</p>
 </div>
 <div class="section" id="shock-tubes">
 <h3><a class="toc-backref" href="#id9">Shock tubes</a><a class="headerlink" href="#shock-tubes" title="Permalink to this headline">¶</a></h3>
-<p>This class of model uses a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
+<p>This class of model uses a Cantera <code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code>, by default a constant volume reactor, as a surrogate for a shock tube. The <code class="xref py py-class docutils literal"><span class="pre">StateDefinition</span></code> is used as the initial state of the reactor.</p>
 <div class="section" id="shock-tube-ignition-delay-time">
 <h4>Shock tube ignition delay time<a class="headerlink" href="#shock-tube-ignition-delay-time" title="Permalink to this headline">¶</a></h4>
 <p>This model finds the ignition delay time <span class="math">\(\tau_{\text{ign}}\)</span> by finding the maximum pressure rise or species concentration production rate, by solving:</p>
@@ -535,7 +535,7 @@
 </div>
 <div class="section" id="reaction-rate-measurements">
 <h3><a class="toc-backref" href="#id10">Reaction rate measurements</a><a class="headerlink" href="#reaction-rate-measurements" title="Permalink to this headline">¶</a></h3>
-<p>This class of model will directly query the Cantera model for rate constant values and optimize the rate paramters to match that value. There is no Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/zerodim.html#cantera.Reactor" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code></a> model, but there is a Cantera <a class="reference external" href="http://cantera.org/docs/sphinx/html/cython/importing.html#cantera.Solution" title="(in Cantera v2.3)"><code class="xref py py-class docutils literal"><span class="pre">cantera.Solution</span></code></a> model that represents the chemistry model.</p>
+<p>This class of model will directly query the Cantera model for rate constant values and optimize the rate paramters to match that value. There is no Cantera <code class="xref py py-class docutils literal"><span class="pre">cantera.Reactor</span></code> model, but there is a Cantera <code class="xref py py-class docutils literal"><span class="pre">cantera.Solution</span></code> model that represents the chemistry model.</p>
 <div class="section" id="reaction-rate-at-specified-condition">
 <h4>Reaction rate at specified condition<a class="headerlink" href="#reaction-rate-at-specified-condition" title="Permalink to this headline">¶</a></h4>
 <p>This model specifies the measurement of a rate constant at a particular condition, <span class="math">\(k(T,P,X)\)</span>.</p>
@@ -716,7 +716,7 @@
 <td>The base class for optimizing reaction rates.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.ReactionRateBase.sensitivity" title="reactions.ReactionRateBase.sensitivity"><code class="xref py py-obj docutils literal"><span class="pre">ReactionRateBase.sensitivity</span></code></a>(perturbation,&nbsp;...)</td>
-<td></td>
+<td>Evaluates the sensitivity of the reaction rate with respect to the model parameters</td>
 </tr>
 </tbody>
 </table>
@@ -736,10 +736,10 @@
 <td>A class that will specify a ratio of two rate constants at a particular temperature and pressure.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="reactions.html#reactions.ReactionARatio" title="reactions.ReactionARatio"><code class="xref py py-obj docutils literal"><span class="pre">ReactionARatio</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
-<td>A class that will fix the ratio of A-factors for two reactions</td>
+<td>A class that will specify the ratio of A-factors for two reactions</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="reactions.html#reactions.ReactionEDiff" title="reactions.ReactionEDiff"><code class="xref py py-obj docutils literal"><span class="pre">ReactionEDiff</span></code></a>(T,&nbsp;Patm,&nbsp;composition,&nbsp;...[,&nbsp;...])</td>
-<td>A class that will fix the difference between activation energies for two reactions</td>
+<td>A class that will specify the difference between activation energies for two reactions</td>
 </tr>
 </tbody>
 </table>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Example usage and output &#8212; mumpce 0.1 documentation</title>
+    <title>Example usage and output &#8212; MUM-PCE 0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -37,7 +37,7 @@
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="index.html">mumpce 0.1 documentation</a></div>
+          href="index.html">MUM-PCE</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="toy.html" title="A toy example using MUM-PCE"
              accesskey="P">previous</a> |
@@ -688,7 +688,7 @@ Experiment 5
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="docutils container">
 </div>
 <div class="docutils container">
@@ -699,6 +699,469 @@ Experiment 5
 
 
 
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="stderr docutils container">
+<div class="highlight"><pre>
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+--- Logging error ---
+Traceback (most recent call last):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
+    self.flush()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
+    self.stream.flush()
+OSError: [Errno 5] Input/output error
+Call stack:
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
+    &#34;__main__&#34;, mod_spec)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
+    exec(code, run_globals)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
+    app.launch_new_instance()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
+    app.start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
+    ioloop.IOLoop.instance().start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
+    super(ZMQIOLoop, self).start()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
+    handler_func(fd_obj, events)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
+    self._handle_recv()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
+    self._run_callback(callback, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
+    callback(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
+    return fn(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
+    return self.dispatch_shell(stream, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
+    handler(stream, idents, msg)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
+    user_expressions, allow_stdin)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
+    res = shell.run_cell(code, store_history=store_history, silent=silent)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
+    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
+    interactivity=interactivity, compiler=compiler, result=result)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
+    if self.run_code(code, result):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
+    my_project.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
+    meas.make_response()
+  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
+    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
+    return _tqdm_notebook(*args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
+    self.sp = self.status_printer(self.fp, self.total, self.desc)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
+    display(container)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
+    format_dict, md_dict = format(obj, include=include, exclude=exclude)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
+    if self.ipython_display_formatter(obj):
+  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
+    r = method(self, *args, **kwargs)
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
+    method()
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
+    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
+  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
+    self.log.warn(message)
+Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
+Arguments: ()
+Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -767,8 +1230,98 @@ Both actual and predicted relative reductions in the sum of squares
 </div>
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
-<p>Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</p>
+<p>Show the uncertainty in the parameters and in the associated experimental and application targets</p>
 <div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">validate_solution</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
+Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
+Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [38]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+</pre></div></div>
+</div>
+This information can also be accessed by the :func:`__str__()` method of :py:class:`Project`.<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<div class="highlight"><pre>
+project
+6 measurements
+Experiment 2 (Active): 1
+Experiment 3 (Active): 2
+Experiment 4 (Active): 3
+Application 1 (Application): 0
+Experiment 1 (Inconsistent): 0
+Experiment 5 (Low Information): 4
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
+Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
+Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+
+</pre></div></div>
+</div>
+Here we show the joint probability density functions (PDFs) of several pairs of parameters.<div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [18]:
 </pre></div>
@@ -787,12 +1340,13 @@ Both actual and predicted relative reductions in the sum of squares
 <div class="docutils container">
 </div>
 <div class="docutils container">
-<img alt="_images/toy_model_example_36_0.png" src="_images/toy_model_example_36_0.png" />
+<img alt="_images/toy_model_example_41_0.png" src="_images/toy_model_example_41_0.png" />
 </div>
 </div>
-</div>
+Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</div>
 <div class="section" id="Consistency-analysis">
 <h3>Consistency analysis<a class="headerlink" href="#Consistency-analysis" title="Permalink to this headline">¶</a></h3>
+<p>Remove the inconsistent measurements.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [19]:
@@ -821,17 +1375,14 @@ Both actual and predicted relative reductions in the sum of squares
 No inconsistent measurements
 </pre></div></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Application 1 doesn&#8217;t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
-</div>
+<p>The parameter values are much more reasonable with the outlier removed.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [20]:
+<span></span>In [39]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
-<span></span><span class="k">print</span> <span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -840,17 +1391,36 @@ No inconsistent measurements
 </div>
 <div class="docutils container">
 <div class="highlight"><pre>
-[[ 0.12479468  0.          0.          0.          0.        ]
- [-0.12013267  0.22624567  0.          0.          0.        ]
- [-0.10457956 -0.12695211  0.07784912  0.          0.        ]
- [ 0.05268069 -0.3544285   0.01919642  0.13432677  0.        ]
- [ 0.39559594  0.06070328 -0.1889603  -0.04967127  0.11964893]]
+project
+6 measurements
+Experiment 2 (Active): 1
+Experiment 3 (Active): 2
+Experiment 4 (Active): 3
+Application 1 (Application): 0
+Experiment 1 (Inconsistent): 0
+Experiment 5 (Low Information): 4
+
+Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
+Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
+Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
+Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+
 </pre></div></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Application 1 doesn&#8217;t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
 </div>
-<div class="section" id="Parameter-uncertainty-analysis">
-<h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
-<p>The parameter values are much more reasonable with the outlier removed.</p>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
 <span></span>In [21]:
@@ -870,7 +1440,7 @@ No inconsistent measurements
 <div class="docutils container">
 </div>
 <div class="docutils container">
-<img alt="_images/toy_model_example_42_0.png" src="_images/toy_model_example_42_0.png" />
+<img alt="_images/toy_model_example_48_0.png" src="_images/toy_model_example_48_0.png" />
 </div>
 </div>
 </div>
@@ -903,6 +1473,7 @@ Experiment 3 Entropy flux   0.026593
 Experiment 4 Entropy flux   0.000074
 Application 1 Entropy flux  -0.028582
 Experiment 1 Entropy flux   0.000000
+Experiment 5 Entropy flux   0.000000
 No low-information measurements
 </pre></div></div>
 </div>
@@ -950,7 +1521,7 @@ No low-information measurements
 <div class="docutils container">
 </div>
 <div class="docutils container">
-<img alt="_images/toy_model_example_47_0.png" src="_images/toy_model_example_47_0.png" />
+<img alt="_images/toy_model_example_53_0.png" src="_images/toy_model_example_53_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -972,12 +1543,30 @@ No low-information measurements
 <div class="docutils container">
 </div>
 <div class="docutils container">
-<img alt="_images/toy_model_example_48_0.png" src="_images/toy_model_example_48_0.png" />
+<img alt="_images/toy_model_example_54_0.png" src="_images/toy_model_example_54_0.png" />
+</div>
+</div>
+<p>Here we show the covariance matrix of the model parameters.</p>
+<div class="nbinput docutils container">
+<div class="highlight-none"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">my_project</span><span class="o">.</span><span class="n">plot_covariance</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="docutils container">
+</div>
+<div class="docutils container">
+<img alt="_images/toy_model_example_56_0.png" src="_images/toy_model_example_56_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [26]:
+<span></span>In [27]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -993,16 +1582,16 @@ No low-information measurements
 <div class="highlight"><pre>
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
-Parameter 1                    :    1.00    2.72   -0.74    0.25    0.48    1.29
-Parameter 2                    :    1.00    2.72    0.26    0.55    1.30    1.74
-Parameter 3                    :    1.00    2.72    0.57    0.37    1.76    1.45
-Parameter 5                    :    1.00    2.72   -0.17    0.83    0.84    2.29
-Parameter 7                    :    1.00    2.72    0.36    0.92    1.44    2.52
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [27]:
+<span></span>In [28]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -1017,16 +1606,16 @@ Parameter 7                    :    1.00    2.72    0.36    0.92    1.44    2.52
 <div class="highlight"><pre>
 
 Parameter name                   Value   Uncert
-Parameter 1                    :    1.00    2.72
-Parameter 2                    :    1.00    2.72
-Parameter 3                    :    1.00    2.72
-Parameter 5                    :    1.00    2.72
-Parameter 7                    :    1.00    2.72
+Parameter 1                    :       1    2.72
+Parameter 2                    :       1    2.72
+Parameter 3                    :       1    2.72
+Parameter 5                    :       1    2.72
+Parameter 7                    :       1    2.72
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [28]:
+<span></span>In [29]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -1046,11 +1635,12 @@ Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
 Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
 Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
 Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [29]:
+<span></span>In [30]:
 </pre></div>
 </div>
 <div class="highlight-ipython3"><div class="highlight"><pre>
@@ -1064,12 +1654,13 @@ Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
 <div class="docutils container">
 <div class="highlight"><pre>
 project
-5 measurements
+6 measurements
 Experiment 2 (Active): 1
 Experiment 3 (Active): 2
 Experiment 4 (Active): 3
-Application 1 (Active): 0
+Application 1 (Application): 0
 Experiment 1 (Inconsistent): 0
+Experiment 5 (Low Information): 4
 
 Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
 Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
@@ -1077,13 +1668,14 @@ Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
 Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
 Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
 Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
+Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
-Parameter 1                    :    1.00    2.72   -0.74    0.25    0.48    1.29
-Parameter 2                    :    1.00    2.72    0.26    0.55    1.30    1.74
-Parameter 3                    :    1.00    2.72    0.57    0.37    1.76    1.45
-Parameter 5                    :    1.00    2.72   -0.17    0.83    0.84    2.29
-Parameter 7                    :    1.00    2.72    0.36    0.92    1.44    2.52
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 
 </pre></div></div>
 </div>
