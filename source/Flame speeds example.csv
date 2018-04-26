@@ -1,0 +1,5 @@
+Type,ID,Fuel1,X_fuel1,Fuel2,X_fuel2,Fuel3,X_fuel3,Ox,Dil,Temp,Pres,Model,Exp_val,Exp_unc
+fls,ecl90_b01,CH4,0.5461,N2,0,N2,0,2,Air,298,1,scheme.uscmech2-base.1atm.cti,6.76,1
+fls,ecl90_b02,CH4,0.5973,N2,0,N2,0,2,Air,298,1,scheme.uscmech2-base.1atm.cti,12.2,1
+fls,ecl90_b03,CH4,0.6948,N2,0,N2,0,2,Air,298,1,scheme.uscmech2-base.1atm.cti,20.3,1
+fls,ecl90_b04,CH4,0.7482,N2,0,N2,0,2,Air,298,1,scheme.uscmech2-base.1atm.cti,24.3,1

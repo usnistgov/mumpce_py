@@ -1,0 +1,5 @@
+Type,ID,Fuel1,X_fuel1,Fuel2,X_fuel2,Fuel3,X_fuel3,Ox,Dil,Temp,Pres,Model,Crit_spec,Crit_denom,Sim,Time,Exp_val,Exp_unc
+pro,Aa1,C4H10,0.010711755,C6H5CH3,0.040294685,tBPO,3.32e-05,0,AR,850,2.088632617,scheme.jetsurf-spst.2atm.cti,C2H4,,tau,500,0.66,0.1
+pro,Aa2,C4H10,0.010711755,C6H5CH3,0.040294685,tBPO,3.32e-05,0,AR,950,2.916451628,scheme.jetsurf-spst.2atm.cti,C2H4,,tau,500,1.56,0.1
+pro,Aa3,C4H10,0.010711755,C6H5CH3,0.040294685,tBPO,3.32e-05,0,AR,1050,3.586590828,scheme.jetsurf-spst.2atm.cti,C2H4,,tau,500,2.29,0.1
+pro,Ab1,C4H10,0.010711755,C6H5CH3,0.040294685,tBPO,3.32e-05,0,AR,850,2.088632617,scheme.jetsurf-spst.2atm.cti,C3H6,,tau,500,1.15,0.1

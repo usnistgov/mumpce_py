@@ -1,0 +1,5 @@
+Type,ID,Fuel1,X_fuel1,Fuel2,X_fuel2,Fuel3,X_fuel3,Ox,Dil,Temp,Pres,Model,Crit_spec,Sim,Exp_val,Exp_unc
+ign,lif77_1a01,CH4,0.01,C3H8,0,H2,0,0.02,AR,2020.20202020202,10.0,scheme.uscmech2-base.10atm.cti,OH,crit,3.69,0.1
+ign,lif77_1a02,CH4,0.01,C3H8,0,H2,0,0.02,AR,1992.0318725099603,10.0,scheme.uscmech2-base.10atm.cti,OH,crit,3.68,0.1
+ign,lif77_1a03,CH4,0.01,C3H8,0,H2,0,0.02,AR,1904.7619047619048,10.0,scheme.uscmech2-base.10atm.cti,OH,crit,4.24,0.1
+ign,lif77_1a04,CH4,0.01,C3H8,0,H2,0,0.02,AR,1876.172607879925,10.0,scheme.uscmech2-base.10atm.cti,OH,crit,4.34,0.1

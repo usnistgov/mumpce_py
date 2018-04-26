@@ -1,0 +1,10 @@
+Type,ID,Fuel1,X_fuel1,Fuel2,X_fuel2,Ox,Dil,Temp,Pres,Model,Reaction,Reac_denom,Sim,Exp_val,Exp_unc
+rxn,63r_318,C4H10,0.01,AR,0,0.03,AR,318,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,3.61,0.13
+rxn,63r_325,C4H10,0.01,AR,0,0.03,AR,325,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,3.55,0.13
+rxn,63r_350,C4H10,0.01,AR,0,0.03,AR,350,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,3.32,0.13
+rxn,63r_375,C4H10,0.01,AR,0,0.03,AR,375,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,3.13,0.13
+rxn,63r_400,C4H10,0.01,AR,0,0.03,AR,400,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,2.97,0.13
+rxn,63r_413,C4H10,0.01,AR,0,0.03,AR,413,3,scheme.uscmech2-base.2atm.cti,633,632.0,Ratio,2.88,0.13
+rxn,632_297,C4H10,0.01,AR,0,0.03,AR,297,3,scheme.uscmech2-base.2atm.cti,632,,Single,17.03,0.13
+rxn,632_329,C4H10,0.01,AR,0,0.03,AR,329,3,scheme.uscmech2-base.2atm.cti,632,,Single,17.78,0.13
+rxn,632_513,C4H10,0.01,AR,0,0.03,AR,513,3,scheme.uscmech2-base.2atm.cti,632,,Single,22.4,0.13
