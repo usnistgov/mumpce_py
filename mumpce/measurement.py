@@ -7,11 +7,14 @@ def idfunc(*arg,**kwargs):
         return arg[0]
     return arg
 
+#print('loading')
+
 try:
     import tqdm
-    tqfunc = tqdm.tqdm_notebook
+    tqfunc = tqdm.tqdm#_notebook
+    #print('tqdm found')
 except ImportError:
-    #tqdm is not available
+    #is not available
     tqfunc = idfunc
 
 class Measurement(object):
@@ -60,6 +63,8 @@ class Measurement(object):
                  sensitivity_list=None,
                  comment=None
                 ):
+        
+        self.tqfunc = tqfunc
         
         #Define the name
         self.name = name
@@ -136,6 +141,7 @@ class Measurement(object):
         sensitivity_args = (self.response_sensitivity,
                            self.active_parameters,
                            response_logfile)
+        sensitivity_kw = dict(tq=False)
         
         zero_term, sens_zero = self.model.sensitivity(*sensitivity_args)
         
@@ -157,7 +163,7 @@ class Measurement(object):
         
         #Changed this so that tqdm will be used if it is available, but otherwise not
         #for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
-        for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
+        for (parameter_number,parameter) in self.tqfunc(enumerate(self.active_parameters)):
             self.model.reset_model()
             base_value = self.model.get_parameter(parameter)
             param_name = self.model.model_parameter_info[parameter]['parameter_name']
@@ -175,12 +181,12 @@ class Measurement(object):
             response_logfile.write('\nParameter number = {: 4d} {:30s}\n'.format(parameter,param_name))
             response_logfile.write('Positive perturbation = {: 10.5e}\n'.format(positive_perturbation))
             self.model.perturb_parameter(parameter,positive_perturbation*base_value)
-            value_pos, sens_pos = self.model.sensitivity(*sensitivity_args)
+            value_pos, sens_pos = self.model.sensitivity(*sensitivity_args,**sensitivity_kw)
             
             #Negative perturbation
             response_logfile.write('Negative perturbation = {: 10.5e}\n'.format(negative_perturbation))
             self.model.perturb_parameter(parameter,negative_perturbation*base_value)
-            value_neg, sens_neg = self.model.sensitivity(*sensitivity_args)
+            value_neg, sens_neg = self.model.sensitivity(*sensitivity_args,**sensitivity_kw)
             
             perturbations[parameter_number,:] = [value_pos, value_neg]
                 

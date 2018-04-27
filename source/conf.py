@@ -18,9 +18,9 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../cantera_utils'))
-sys.path.insert(0, os.path.abspath('../toy'))
+sys.path.insert(0, os.path.abspath('../mumpce'))
+sys.path.insert(0, os.path.abspath('../mumpce/cantera_utils'))
+sys.path.insert(0, os.path.abspath('../mumpce/toy'))
 
 # Custom style for NIST header and footer
 def setup(app):
