@@ -47,12 +47,21 @@ Contents
    toy
    cantera
 
+Contact
++++++++
+
+David Sheen 
+
+* `Email <mailto:david.sheen@nist.gov>`_
+* `NIST Staff Page <https://www.nist.gov/people/david-sheen>`_
+* `GitHub profile <https://github.com/davidasheen>`_
+
 Links
 +++++
 
-`GitHub profile <https://github.com/davidasheen>`_
-
 `NIST GitHub Organization <https://github.com/usnistgov>`_
+
+`NIST Chemical Informatics Research Group <https://www.nist.gov/mml/csd/chemical-informatics-research-group>`_
 
 `NIST home page <http://nist.gov>`_
 

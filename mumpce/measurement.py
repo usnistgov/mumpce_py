@@ -11,7 +11,7 @@ def idfunc(*arg,**kwargs):
 
 try:
     import tqdm
-    tqfunc = tqdm.tqdm#_notebook
+    tqfunc = tqdm.tqdm_notebook
     #print('tqdm found')
 except ImportError:
     #is not available
@@ -141,7 +141,7 @@ class Measurement(object):
         sensitivity_args = (self.response_sensitivity,
                            self.active_parameters,
                            response_logfile)
-        sensitivity_kw = dict(tq=False)
+        sensitivity_kw = dict(tq=True)
         
         zero_term, sens_zero = self.model.sensitivity(*sensitivity_args)
         
@@ -163,7 +163,7 @@ class Measurement(object):
         
         #Changed this so that tqdm will be used if it is available, but otherwise not
         #for (parameter_number,parameter) in tqdm.tqdm(enumerate(self.active_parameters)):
-        for (parameter_number,parameter) in self.tqfunc(enumerate(self.active_parameters)):
+        for (parameter_number,parameter) in enumerate(self.tqfunc(self.active_parameters)):
             self.model.reset_model()
             base_value = self.model.get_parameter(parameter)
             param_name = self.model.model_parameter_info[parameter]['parameter_name']
