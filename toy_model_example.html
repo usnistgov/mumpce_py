@@ -1,39 +1,32 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Example usage and output &#8212; MUM-PCE 0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css" />
+    <link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script id="_fed_an_ua_tag" type="text/javascript" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-42404149-54&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery.1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+    <script type="text/javascript" src="_static/leave_notice.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Cantera interface to MUM-PCE" href="cantera.html" />
     <link rel="prev" title="A toy example using MUM-PCE" href="toy.html" /> 
-  </head>
-  <body role="document">
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -65,13 +58,15 @@
 
 /* remove conflicting styling from Sphinx themes */
 div.nbinput,
-div.nbinput > div,
-div.nbinput div[class^=highlight],
-div.nbinput div[class^=highlight] pre,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
 div.nboutput,
-div.nboutput > div,
-div.nboutput div[class^=highlight],
-div.nboutput div[class^=highlight] pre {
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
     background: none;
     border: none;
     padding: 0 0;
@@ -80,7 +75,7 @@ div.nboutput div[class^=highlight] pre {
 }
 
 /* avoid gaps between output lines */
-div.nboutput div[class^=highlight] pre {
+div.nboutput div[class*=highlight] pre {
     line-height: normal;
 }
 
@@ -91,6 +86,13 @@ div.nboutput {
     display: flex;
     align-items: flex-start;
     margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
 }
 
 /* input container */
@@ -104,38 +106,58 @@ div.nblast {
 }
 
 /* input prompt */
-div.nbinput > :first-child pre {
+div.nbinput div.prompt pre {
     color: #303F9F;
 }
 
 /* output prompt */
-div.nboutput > :first-child pre {
+div.nboutput div.prompt pre {
     color: #D84315;
 }
 
 /* all prompts */
-div.nbinput > :first-child[class^=highlight],
-div.nboutput > :first-child[class^=highlight],
-div.nboutput > :first-child {
+div.nbinput div.prompt,
+div.nboutput div.prompt {
     min-width: 7ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
     flex: 0;
 }
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
 
 /* input/output area */
-div.nbinput > :nth-child(2)[class^=highlight],
-div.nboutput > :nth-child(2),
-div.nboutput > :nth-child(2)[class^=highlight] {
+div.nbinput div.input_area,
+div.nboutput div.output_area {
     padding: 0.4em;
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
 }
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
 
 /* input area */
-div.nbinput > :nth-child(2)[class^=highlight] {
+div.nbinput div.input_area {
     border: 1px solid #cfcfcf;
     border-radius: 2px;
     background: #f7f7f7;
@@ -152,7 +174,7 @@ div.nboutput div.math p {
 }
 
 /* standard error */
-div.nboutput  > :nth-child(2).stderr {
+div.nboutput div.output_area.stderr {
     background: #fdd;
 }
 
@@ -190,18 +212,22 @@ div.nboutput  > :nth-child(2).stderr {
 .ansi-white-intense-fg { color: #A1A6B2; }
 .ansi-white-intense-bg { background-color: #A1A6B2; }
 
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
 .ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
 </style>
 <div class="section" id="Example-usage-and-output">
 <h1>Example usage and output<a class="headerlink" href="#Example-usage-and-output" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [2]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1">#import mumpce_py as mumpce</span>
@@ -217,11 +243,11 @@ div.nboutput  > :nth-child(2).stderr {
 <div class="section" id="Creating-a-model-directly">
 <h3>Creating a model directly<a class="headerlink" href="#Creating-a-model-directly" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">experiment_number</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">my_model</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">(</span><span class="n">experiment_number</span><span class="p">)</span>
 <span class="n">my_model</span><span class="o">.</span><span class="n">get_model_parameter_info</span><span class="p">()</span>
@@ -229,11 +255,11 @@ div.nboutput  > :nth-child(2).stderr {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[3]:
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>array([{&#39;parameter_number&#39;: 0, &#39;parameter_name&#39;: &#39;Parameter 1&#39;},
        {&#39;parameter_number&#39;: 1, &#39;parameter_name&#39;: &#39;Parameter 2&#39;},
        {&#39;parameter_number&#39;: 2, &#39;parameter_name&#39;: &#39;Parameter 3&#39;},
@@ -248,39 +274,39 @@ div.nboutput  > :nth-child(2).stderr {
 <div class="section" id="Evaluation-and-sensitivity-analysis">
 <h3>Evaluation and sensitivity analysis<a class="headerlink" href="#Evaluation-and-sensitivity-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[4]:
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>1.2214027581601699
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [5]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">V</span><span class="p">,</span><span class="n">S</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="mf">0.0000001</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Value =  1.22140275816
 Param  Value+       Value-           Sensitivity
@@ -300,11 +326,11 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="Initializing-measurements">
 <h3>Initializing measurements<a class="headerlink" href="#Initializing-measurements" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [6]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">toy_measurements</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">)</span>
 <span class="n">toy_apps</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_apps.xlsx&#39;</span><span class="p">,</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_app</span><span class="p">)</span>
 </pre></div>
@@ -314,11 +340,11 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="Sensitivity-analysis-with-Measurements">
 <h3>Sensitivity analysis with Measurements<a class="headerlink" href="#Sensitivity-analysis-with-Measurements" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [7]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">toy_measurements</span><span class="p">:</span>
     <span class="k">print</span><span class="p">(</span><span class="n">meas</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">(</span><span class="n">perturbation</span><span class="o">=</span><span class="mf">0.0000000001</span><span class="p">)</span>
@@ -329,9 +355,9 @@ Param  Value+       Value-           Sensitivity
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Value =  1.22140275816
@@ -402,11 +428,11 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="Create-the-Project">
 <h3>Create the Project<a class="headerlink" href="#Create-the-Project" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">measurement_list</span><span class="o">=</span><span class="n">toy_measurements</span><span class="p">,</span>
                              <span class="n">application_list</span><span class="o">=</span><span class="n">toy_apps</span><span class="p">,</span>
                              <span class="n">model</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_model</span><span class="p">,</span>
@@ -419,11 +445,11 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="Initializing-Measurements-within-Projects">
 <h3>Initializing Measurements within Projects<a class="headerlink" href="#Initializing-Measurements-within-Projects" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [9]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project_with_init</span> <span class="o">=</span> <span class="n">mumpce</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">parameter_uncertainties</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">,</span>
                                       <span class="n">initialize_function</span><span class="o">=</span><span class="n">mumpce</span><span class="o">.</span><span class="n">toy</span><span class="o">.</span><span class="n">toy_initialize</span><span class="p">)</span>
 <span class="n">my_project_with_init</span><span class="o">.</span><span class="n">measurement_initialize</span><span class="p">(</span><span class="s1">&#39;mumpce_toy_experiments.xlsx&#39;</span><span class="p">)</span>
@@ -433,23 +459,23 @@ Param  Value+       Value-           Sensitivity
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This is exactly equivalent to creating the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> with the measurement and application lists already created.</p>
+<p class="last">This is exactly equivalent to creating the <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a> with the measurement and application lists already created.</p>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">[</span><span class="s1">&#39;Experiment 1&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Experiment 1 (Active): 0
 Experiment 1 (Active): 0
@@ -461,22 +487,22 @@ Experiment 1 (Active): 0
 <p>Do sensitivity over all measurements in the measurement and application lists</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Calling <code class="xref py py-func docutils literal"><span class="pre">Project.find_sensitivity()</span></code> is the same as calling <code class="xref py py-func docutils literal"><span class="pre">Measurement.evaluate_sensitivity()</span></code> for each measurement</p>
+<p class="last">Calling <code class="xref py py-func docutils literal notranslate"><span class="pre">Project.find_sensitivity()</span></code> is the same as calling <code class="xref py py-func docutils literal notranslate"><span class="pre">Measurement.evaluate_sensitivity()</span></code> for each measurement</p>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Value =  1.22140275816
@@ -541,20 +567,20 @@ Param  Value+       Value-           Sensitivity
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">evaluate_sensitivity</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Value =  1.22140275816
 Param  Value+       Value-           Sensitivity
@@ -614,7 +640,7 @@ Param  Value+       Value-           Sensitivity
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal"><span class="pre">Project</span></code></a> acts as an iterable over its measurements and applications</p>
+<p class="last">The <a class="reference internal" href="Project.html#Project.Project" title="Project.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a> acts as an iterable over its measurements and applications</p>
 </div>
 </div>
 <div class="section" id="Response-surface-analysis">
@@ -622,19 +648,19 @@ Param  Value+       Value-           Sensitivity
 <div class="section" id="Active-parameters">
 <h4>Active parameters<a class="headerlink" href="#Active-parameters" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">find_active_parameters</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Experiment 1
 Experiment 2
@@ -644,31 +670,31 @@ Experiment 5
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">active_parameter_uncertainties</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 [0 1 2 4 6]
 [ 2.71828183  2.71828183  2.71828183  2.71828183  2.71828183]
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [15]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">set_active_parameters</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -677,11 +703,11 @@ Experiment 5
 <div class="section" id="Response-surface-evaluation">
 <h4>Response surface evaluation<a class="headerlink" href="#Response-surface-evaluation" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [16]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
     <span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">loglevel</span><span class="o">=</span><span class="bp">False</span> <span class="c1"># Suppress output in sensitivity analysis</span>
 <span class="n">my_project</span><span class="o">.</span><span class="n">make_response</span><span class="p">()</span>
@@ -689,496 +715,104 @@ Experiment 5
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1a1a255794324953b34e3ecc0bb4de5d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-
-
-
-
-
 
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "311b39cbd261413295c3f2a20839a743", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
---- Logging error ---
-Traceback (most recent call last):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 991, in emit
-    self.flush()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/logging/__init__.py&#34;, line 971, in flush
-    self.stream.flush()
-OSError: [Errno 5] Input/output error
-Call stack:
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/traitlets/config/application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/ioloop.py&#34;, line 177, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2827, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-15-024865556ffa&gt;&#34;, line 3, in &lt;module&gt;
-    my_project.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/Project.py&#34;, line 379, in make_response
-    meas.make_response()
-  File &#34;/home/local/NIST/dsheen/python/lib/python2.7/site-packages/mumpce/measurement.py&#34;, line 160, in make_response
-    for (parameter_number,parameter) in tqfunc(enumerate(self.active_parameters)):
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/__init__.py&#34;, line 19, in tqdm_notebook
-    return _tqdm_notebook(*args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 172, in __init__
-    self.sp = self.status_printer(self.fp, self.total, self.desc)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/tqdm/_tqdm_notebook.py&#34;, line 107, in status_printer
-    display(container)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/display.py&#34;, line 164, in display
-    format_dict, md_dict = format(obj, include=include, exclude=exclude)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 133, in format
-    if self.ipython_display_formatter(obj):
-  File &#34;&lt;decorator-gen-11&gt;&#34;, line 2, in __call__
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 190, in catch_format_error
-    r = method(self, *args, **kwargs)
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/IPython/core/formatters.py&#34;, line 882, in __call__
-    method()
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 474, in _ipython_display_
-    loud_error(&#39;Widget Javascript not detected.  It may not be &#39;
-  File &#34;/opt/anaconda2/envs/py36/lib/python3.6/site-packages/ipywidgets/widgets/widget.py&#34;, line 464, in loud_error
-    self.log.warn(message)
-Message: &#39;Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;&#39;
-Arguments: ()
-Widget Javascript not detected.  It may not be installed properly. Did you enable the widgetsnbextension? If not, then run &#34;jupyter nbextension enable --py --sys-prefix widgetsnbextension&#34;
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ce45efdd309040e3b9f86186f409bb01", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "62c77ddf9349467d831b3469077a08af", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "3fdac8a9513d4a9788aa410a712f712c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1d2d208c19034a8bb540db07b24fe5dd", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [17]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">for</span> <span class="n">meas</span> <span class="ow">in</span> <span class="n">my_project</span><span class="p">:</span>
     <span class="k">print</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">meas</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">a</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 [[ 1.    0.6   0.4   0.03  0.02]]
 [[ 0.02  0.6   1.    0.1   0.4 ]]
@@ -1193,19 +827,19 @@ Widget Javascript not detected.  It may not be installed properly. Did you enabl
 <div class="section" id="Solving-the-Project">
 <h3>Solving the Project<a class="headerlink" href="#Solving-the-Project" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [18]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">run_optimization</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 (5,)
 Both actual and predicted relative reductions in the sum of squares
@@ -1213,11 +847,11 @@ Both actual and predicted relative reductions in the sum of squares
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>Out[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[18]:
 </pre></div>
 </div>
-<div class="highlight-none"><div class="highlight"><pre>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
 <span></span>(array([-0.58888728,  1.12003551,  0.00704031, -1.62385897,  0.8043988 ]),
  array([[ 0.01488721, -0.01894579, -0.0104734 ,  0.01325883,  0.04734255],
         [-0.01894579,  0.04284732, -0.00131388, -0.04801795, -0.04545704],
@@ -1232,101 +866,103 @@ Both actual and predicted relative reductions in the sum of squares
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Show the uncertainty in the parameters and in the associated experimental and application targets</p>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [19]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">validate_solution</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 
 Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
-Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+Experiment 1        :   0.40   0.05   0.25   0.04   0.20   0.62
+Experiment 2        :   0.25   0.05   0.23   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.34   0.04   0.50   0.62
+Experiment 4        :   0.70   0.08   0.79   0.08   0.80   0.62
+Experiment 5        :   0.40   0.80  -0.05   0.24   0.50   0.62
+Application 1       :   0.00   0.00  -0.37   0.10   0.00   0.51
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [20]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
-Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
-Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
-Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
-Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
-Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+Parameter 1                    :       1    2.72   -0.59    0.24    0.55    1.28
+Parameter 2                    :       1    2.72    1.12    0.41     3.1    1.51
+Parameter 3                    :       1    2.72    0.01    0.31       1    1.36
+Parameter 5                    :       1    2.72   -1.62    0.57     0.2    1.77
+Parameter 7                    :       1    2.72    0.80    0.91     2.2    2.48
 </pre></div></div>
 </div>
-This information can also be accessed by the :func:`__str__()` method of :py:class:`Project`.<div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [36]:
+<p>This information can also be accessed by the <code class="xref py py-func docutils literal notranslate"><span class="pre">__str__()</span></code> method of <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [21]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 project
 6 measurements
+Experiment 1 (Active): 0
 Experiment 2 (Active): 1
 Experiment 3 (Active): 2
 Experiment 4 (Active): 3
+Experiment 5 (Active): 4
 Application 1 (Application): 0
-Experiment 1 (Inconsistent): 0
-Experiment 5 (Low Information): 4
 
 Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
-Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
-Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
-Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
-Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
-Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+Experiment 1        :   0.40   0.05   0.25   0.04   0.20   0.62
+Experiment 2        :   0.25   0.05   0.23   0.05  -0.60   0.62
+Experiment 3        :   0.20   0.05   0.34   0.04   0.50   0.62
+Experiment 4        :   0.70   0.08   0.79   0.08   0.80   0.62
+Experiment 5        :   0.40   0.80  -0.05   0.24   0.50   0.62
+Application 1       :   0.00   0.00  -0.37   0.10   0.00   0.51
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
-Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
-Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
-Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
-Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
-Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+Parameter 1                    :       1    2.72   -0.59    0.24    0.55    1.28
+Parameter 2                    :       1    2.72    1.12    0.41     3.1    1.51
+Parameter 3                    :       1    2.72    0.01    0.31       1    1.36
+Parameter 5                    :       1    2.72   -1.62    0.57     0.2    1.77
+Parameter 7                    :       1    2.72    0.80    0.91     2.2    2.48
 
 </pre></div></div>
 </div>
-Here we show the joint probability density functions (PDFs) of several pairs of parameters.<div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [18]:
+<p>Here we show the joint probability density functions (PDFs) of several pairs of parameters.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [22]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -1337,30 +973,31 @@ Here we show the joint probability density functions (PDFs) of several pairs of 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <img alt="_images/toy_model_example_41_0.png" src="_images/toy_model_example_41_0.png" />
 </div>
 </div>
-Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</div>
+<p>Because there is an outlier, the parameter values estimated for the constrained model are preposterous. Consistency analysis will fix this.</p>
+</div>
 <div class="section" id="Consistency-analysis">
 <h3>Consistency analysis<a class="headerlink" href="#Consistency-analysis" title="Permalink to this headline">¶</a></h3>
 <p>Remove the inconsistent measurements.</p>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [23]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">remove_inconsistent_measurements</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 (5,)
 Both actual and predicted relative reductions in the sum of squares
@@ -1377,56 +1014,56 @@ No inconsistent measurements
 </div>
 <p>The parameter values are much more reasonable with the outlier removed.</p>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [24]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 project
 6 measurements
 Experiment 2 (Active): 1
 Experiment 3 (Active): 2
 Experiment 4 (Active): 3
+Experiment 5 (Active): 4
 Application 1 (Application): 0
 Experiment 1 (Inconsistent): 0
-Experiment 5 (Low Information): 4
 
 Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
 Experiment 2        :   0.25   0.05   0.24   0.05  -0.60   0.62
 Experiment 3        :   0.20   0.05   0.21   0.05   0.50   0.62
 Experiment 4        :   0.70   0.08   0.70   0.08   0.80   0.62
+Experiment 5        :   0.40   0.80   1.11   0.31   0.50   0.62
 Application 1       :   0.00   0.00  -0.68   0.11   0.00   0.51
-Experiment 1        :   0.40   0.05  -0.15   0.09   0.20   0.62
-Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
+Experiment 1        :   0.40   0.05  -0.15   0.08   0.20   0.62
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
-Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
-Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
-Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
-Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.28
+Parameter 2                    :       1    2.72    0.26    0.51     1.3    1.67
+Parameter 3                    :       1    2.72    0.57    0.36     1.8    1.44
+Parameter 5                    :       1    2.72   -0.17    0.77    0.84    2.15
 Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 
 </pre></div></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Application 1 doesn&#8217;t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
+<p class="last">Application 1 doesn’t actually have a value, so the 0.00 value and 0.00 uncertainty are placeholders</p>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [25]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -1437,9 +1074,9 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <img alt="_images/toy_model_example_48_0.png" src="_images/toy_model_example_48_0.png" />
 </div>
 </div>
@@ -1447,19 +1084,19 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 <div class="section" id="Experimental-design">
 <h3>Experimental design<a class="headerlink" href="#Experimental-design" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [26]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">remove_low_information_measurements</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 Experiment 2 Entropy flux   0.002021
 Experiment 3 Entropy flux   0.026705
@@ -1478,19 +1115,19 @@ No low-information measurements
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [27]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span> <span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 [[ 0.12547508  0.          0.          0.          0.        ]
  [-0.13014049  0.24328481  0.          0.          0.        ]
@@ -1503,11 +1140,11 @@ No low-information measurements
 <div class="section" id="Parameter-uncertainty-analysis">
 <h3>Parameter uncertainty analysis<a class="headerlink" href="#Parameter-uncertainty-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [28]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
@@ -1518,18 +1155,18 @@ No low-information measurements
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <img alt="_images/toy_model_example_53_0.png" src="_images/toy_model_example_53_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [29]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">factors_list</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
                 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
@@ -1540,45 +1177,45 @@ No low-information measurements
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <img alt="_images/toy_model_example_54_0.png" src="_images/toy_model_example_54_0.png" />
 </div>
 </div>
 <p>Here we show the covariance matrix of the model parameters.</p>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [30]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">my_project</span><span class="o">.</span><span class="n">plot_covariance</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <img alt="_images/toy_model_example_56_0.png" src="_images/toy_model_example_56_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [31]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1">#my_project.interpret_model()</span>
 <span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 
 Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
@@ -1590,19 +1227,19 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [32]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">print_model_values</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 
 Parameter name                   Value   Uncert
@@ -1614,19 +1251,19 @@ Parameter 7                    :       1    2.72
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [33]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">validate_solution</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 
 Name                  Value  Unc    OptVal OptUnc MdlVal MdlUnc
@@ -1639,19 +1276,19 @@ Experiment 5        :   0.40   0.80   1.11   0.34   0.50   0.62
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
-<span></span>In [30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [34]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="docutils container">
+<div class="prompt empty docutils container">
 </div>
-<div class="docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
 project
 6 measurements
@@ -1679,12 +1316,108 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
 
 </pre></div></div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">my_project</span><span class="o">.</span><span class="n">interpret_model</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+Parameter name                   Value   Uncert  FactVal FactUnc NewVal  Uncert
+Parameter 1                    :       1    2.72   -0.74    0.25    0.48    1.29
+Parameter 2                    :       1    2.72    0.26    0.55     1.3    1.74
+Parameter 3                    :       1    2.72    0.57    0.37     1.8    1.45
+Parameter 5                    :       1    2.72   -0.17    0.83    0.84    2.29
+Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="highlight-none"><div class="highlight"><pre>
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">interpret_model_as_arrays</span><span class="p">(</span><span class="n">project</span><span class="p">,</span><span class="n">measurement</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Takes a project and returns the model parameter values and uncertainties as arrays</span>
+
+<span class="sd">    :param project: The MUM-PCE project whose parameters are being identified</span>
+<span class="sd">    :type project: MUM-PCE Project</span>
+<span class="sd">    :key measurement: A measurement identifier, either int or string</span>
+<span class="sd">    :returns: The new model parameter values and new uncertainties as NumPy arrays</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">meas</span> <span class="o">=</span> <span class="n">project</span><span class="p">[</span><span class="n">measurement</span><span class="p">]</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">meas</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">solution</span><span class="o">.</span><span class="n">cov</span>
+
+    <span class="n">new_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_uncertainties</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">active_num</span><span class="p">,</span><span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">meas</span><span class="o">.</span><span class="n">active_parameters</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">meas</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">this_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">active_num</span><span class="p">]</span>
+        <span class="n">this_std</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">active_num</span><span class="p">,</span><span class="n">active_num</span><span class="p">])</span>
+        <span class="n">this_unc</span> <span class="o">=</span> <span class="n">meas</span><span class="o">.</span><span class="n">parameter_uncertainties</span><span class="p">[</span><span class="n">active_num</span><span class="p">]</span>
+
+        <span class="n">multiplier</span> <span class="o">=</span> <span class="n">this_unc</span> <span class="o">**</span> <span class="n">this_x</span>
+        <span class="n">new_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">*</span><span class="n">multiplier</span>
+        <span class="n">new_uncertainty</span> <span class="o">=</span> <span class="n">this_unc</span> <span class="o">**</span> <span class="p">(</span><span class="n">this_std</span><span class="p">)</span>
+
+        <span class="n">new_values</span> <span class="o">+=</span> <span class="p">[</span><span class="n">new_value</span><span class="p">]</span>
+        <span class="n">new_uncertainties</span> <span class="o">+=</span> <span class="p">[</span><span class="n">new_uncertainty</span><span class="p">]</span>
+    <span class="n">new_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_values</span><span class="p">)</span>
+    <span class="n">new_uncertainties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_uncertainties</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">new_values</span><span class="p">,</span><span class="n">new_uncertainties</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">interpret_model_as_arrays</span><span class="p">(</span><span class="n">my_project</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Experiment 2 (Active): 1
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[46]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>(array([ 0.47803445,  1.29799983,  1.76326957,  0.84261713,  1.43934579]),
+ array([ 1.28524602,  1.73639604,  1.45217576,  2.29051459,  2.51677464]))
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
 <span></span>In [ ]:
 </pre></div>
 </div>
-<div class="highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
 </div>
@@ -1699,7 +1432,7 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
       </div>
         </div>
         <div class="sidebar">
-          <h3>Table Of Contents</h3>
+          <h3>Table of Contents</h3>
           <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Project.html">Projects and Solutions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="measurement.html">Measurements and Models</a></li>
@@ -1752,7 +1485,7 @@ Parameter 7                    :       1    2.72    0.36    0.92     1.4    2.52
         <div class="right">
           
     <div class="footer" role="contentinfo">
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.0.
     </div>
         </div>
         <div class="clearer"></div>
