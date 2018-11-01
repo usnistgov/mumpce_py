@@ -1,8 +1,8 @@
 from cantera_chemistry_model import CanteraChemistryModel
 import numpy as np
 import cantera as ct
-import mumpce_py as mumpce
-from mumpce_py.response_surface import ResponseSurface
+import mumpce
+from mumpce.response_surface import ResponseSurface
 
 class RxnMeasurement(mumpce.Measurement):
     """A special class for optimizing reaction rate measurements.
