@@ -163,11 +163,76 @@ class FlameSpeed(CanteraChemistryModel):
         return flame_speed_cm
     
     def sensitivity(self,perturbation,parameter_list,logfile):
+        """Evaluates the sensitivity of the model value with respect to the model parameters
+        
+        This method overwrites the :py:func:`CanteraChemistryModel.sensitivity`method by using Jacobian-derived sensitivities from the :py:class:`Cantera.FreeFlame` reactor. It cannot calculate sensitivities with respect to activation energies
+        
+        :param perturbation: The amount to perturb each parameter during the sensitivity analysis
+        :param parameter_list: The list of parameters to perturb. This will be a list of parameter identifiers, which are usually ints or strs.
+        :param logfile: The logging file that will contain the sensitivity calculation output.
+        :type perturbation: float
+        :type parameter_list: array_like
+        :type logfile: str
+        :returns: model_value,sensitivity_vector
+        :rtype: float,ndarray
+        """
         
         value = self.evaluate()
         
         full_sensitivity = self.simulation.get_flame_speed_reaction_sensitivities()
         sensitivity_vector = full_sensitivity[parameter_list]
+        
+        logfile.write("Value = {: 10.5e}\n".format(value))
+        logfile.write('Rxn  Sensitivity   Reaction Name\n')
+        for param_number,(param_id,sensitivity) in enumerate(zip(parameter_list,sensitivity_vector)):
+            param_name = self.model_parameter_info[param_id]['parameter_name']
+            logfile.write('{: 4d}  {: 10.4e}  {}\n'.format(param_id,sensitivity,param_name))
+        
+        return value,sensitivity_vector        
+    
+    def _sensitivity(self,perturbation,parameter_list,logfile):
+        """Evaluates the sensitivity of the model value with respect to the model parameters
+        
+        This method overwrites the :py:func:`CanteraChemistryModel.sensitivity`method by using Jacobian-derived sensitivities from the :py:class:`Cantera.FreeFlame` reactor. It can calculate sensitivities with respect to activation energies
+        
+        :param perturbation: The amount to perturb each parameter during the sensitivity analysis
+        :param parameter_list: The list of parameters to perturb. This will be a list of parameter identifiers, which are usually ints or strs.
+        :param logfile: The logging file that will contain the sensitivity calculation output.
+        :type perturbation: float
+        :type parameter_list: array_like
+        :type logfile: str
+        :returns: model_value,sensitivity_vector
+        :rtype: float,ndarray
+        """
+        
+        value = self.evaluate()
+        
+        def perturb(sim,i,dp):
+            param_id = parameter_list[i]
+            mult_base = self.get_parameter(param_id)
+            new_value = mult_base*(1+dp)
+            self.perturb_parameter(param_id,new_value)
+        
+        ###Adapted from Cantera.FlameSpeed.get_flame_reaction_sensitivities
+        def g(sim):
+            return sim.u[0]
+
+        Nvars = sum(D.n_components * D.n_points for D in self.simulation.domains)
+        i_Su = self.simulation.inlet.n_components + self.simulation.flame.component_index('u')
+        dgdx = np.zeros(Nvars)
+        dgdx[i_Su] = 1
+        Su0 = g(self.simulation)
+        
+        
+        full_sensitivity = self.simulation.solve_adjoint(perturb,len(parameter_list),dgdx)/Su0
+                                                         #self.simulation.get_flame_speed_reaction_sensitivities()
+        sensitivity_vector = full_sensitivity#[parameter_list]
+        
+        logfile.write("Value = {: 10.5e}\n".format(value))
+        logfile.write('Rxn  Sensitivity   Reaction Name\n')
+        for param_number,(param_id,sensitivity) in enumerate(zip(parameter_list,sensitivity_vector)):
+            param_name = self.model_parameter_info[param_id]['parameter_name']
+            logfile.write('{: 4d}  {: 10.4e}  {}\n'.format(param_id,sensitivity,param_name))
         
         return value,sensitivity_vector
         
