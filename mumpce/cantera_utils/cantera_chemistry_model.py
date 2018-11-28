@@ -172,14 +172,14 @@ class CanteraChemistryModel(mumpce.Model):
         """
         pass
     
-    def get_parameter(self,parameter_id):
-        param_info = self.model_parameter_info[parameter_id]
-        return param_info['parameter_value']
+#     def _get_parameter(self,parameter_id):
+#         param_info = self.model_parameter_info[parameter_id]
+#         return param_info['parameter_value']
 
-    def _get_parameter(self,parameter_id):
+    def get_parameter(self,parameter_id):
         """Retrieves a model parameter's value.
 
-        This will retrive the parameter specified by `parameter_id`, which will be either a reaction pre-exponential factor or an activation energy.
+        This will retrive the multiplier for the parameter specified by `parameter_id`, which will be either a reaction pre-exponential factor or an activation energy. 
 
         :param parameter_id: The parameter identifier. 
         :type parameter_id: int
@@ -189,6 +189,7 @@ class CanteraChemistryModel(mumpce.Model):
         param_info = self.model_parameter_info[parameter_id]
         reaction_number = param_info['reaction_number']
         parameter_type = param_info['parameter_type']
+        parameter_value_base = param_info['parameter_value']
 
         #print param_info
         #print parameter_type
@@ -220,12 +221,15 @@ class CanteraChemistryModel(mumpce.Model):
                 parameter_value = rate.pre_exponential_factor
             if 'E' in parameter_type:
                 parameter_value = rate.activation_energy        
-        return parameter_value
+        
+        multiplier = parameter_value/parameter_value_base
+        
+        return multiplier
 
     def perturb_parameter(self,parameter_id,perturbation):
         """Replaces a model parameter's value by a new value.
 
-        This will replace a reaction's pre-exponential factor or activation energy with a new value
+        This will multiply a reaction's pre-exponential factor or activation energy by a specified factor.
 
         :param parameter_id: The parameter identifier. 
         :type parameter_id: int
@@ -282,20 +286,22 @@ class CanteraChemistryModel(mumpce.Model):
                 if 'A' in parameter_type:
                     if 'Low' in parameter_type: #Just replace the A factor with the new value
                         A = new_value
-                    else:
-                        A = perturbation*A
+                    else: #Perturb the low-pressure A by the same factor as the high-pressure A
+                        new_low_A = param_info['parameter_low']*perturbation 
+                        A = new_low_A
                 if 'E' in parameter_type:
-                    E = new_value
+                    E = new_value #If activation energies are present, high- and low-pressure rates are optimized separately
                 reaction.low_rate = ct.Arrhenius(A,b,E)    
         else:
+            #Non-falloff reaction
             rate = reaction.rate
             A = rate.pre_exponential_factor
             b = rate.temperature_exponent
             E = rate.activation_energy
             if 'A' in parameter_type:
-                A = new_value#rate.pre_exponential_factor * new_value
+                A = new_value
             if 'E' in parameter_type:
-                E = new_value#rate.activation_energy * new_value        
+                E = new_value
             reaction.rate = ct.Arrhenius(A,b,E)
         
         time_to_prep = time.time()
@@ -313,95 +319,95 @@ class CanteraChemistryModel(mumpce.Model):
         #print eff_string
         #print rxn_string
     
-    def _perturb_parameter(self,parameter_id,new_value):
-        """Replaces a model parameter's value by a new value.
+#     def _perturb_parameter(self,parameter_id,new_value):
+#         """Replaces a model parameter's value by a new value.
 
-        This will replace a reaction's pre-exponential factor or activation energy with a new value
+#         This will replace a reaction's pre-exponential factor or activation energy with a new value
 
-        :param parameter_id: The parameter identifier. 
-        :type parameter_id: int
-        :param new_value: The amount to change the parameters value.
-        :type new_value: float
-        """
-        param_info = self.model_parameter_info[parameter_id]
-        reaction_number = param_info['reaction_number']
-        parameter_type = param_info['parameter_type']
+#         :param parameter_id: The parameter identifier. 
+#         :type parameter_id: int
+#         :param new_value: The amount to change the parameters value.
+#         :type new_value: float
+#         """
+#         param_info = self.model_parameter_info[parameter_id]
+#         reaction_number = param_info['reaction_number']
+#         parameter_type = param_info['parameter_type']
 
-        #print param_info
-        #print parameter_type
+#         #print param_info
+#         #print parameter_type
 
-        reaction = self.gas.reaction(reaction_number)
-        rtype = reaction.reaction_type
-        #print rtype 
-        #print reaction.rate
+#         reaction = self.gas.reaction(reaction_number)
+#         rtype = reaction.reaction_type
+#         #print rtype 
+#         #print reaction.rate
 
-        rxn_eq = reaction.equation
+#         rxn_eq = reaction.equation
         
-        time_start = time.time()
+#         time_start = time.time()
  
-        pressurestring = 'pressure'
-        HasFallOff = False
-        PerturbLow = False
-        #Check if this is a falloff reaction
-        if pressurestring in parameter_type:
-            HasFallOff = True
-        if HasFallOff:
-            highrate = reaction.high_rate
-            lowrate = reaction.low_rate
-            #Check to see if this is the high-pressure rate constant
-            if 'High' in parameter_type:
-                A = highrate.pre_exponential_factor
-                b = highrate.temperature_exponent
-                E = highrate.activation_energy
-                if 'A' in parameter_type:
-                    A = new_value
-                    perturbation = new_value/A # We need to know what the perturbation is
-                if 'E' in parameter_type:
-                    E = new_value
-                reaction.high_rate = ct.Arrhenius(A,b,E)
-            #Check to see if this is the low-pressure rate constant
-            if 'Low' in parameter_type:
-                PerturbLow = True
-            #If we are not treating the high- and low-pressure rate constants separately, then perturb the low-pressure rate constant, too
-            if self.no_falloff:
-                PerturbLow = True
-            if PerturbLow:
-                A = lowrate.pre_exponential_factor
-                b = lowrate.temperature_exponent
-                E = lowrate.activation_energy
-                if 'A' in parameter_type:
-                    if 'Low' in parameter_type: #Just replace the A factor with the new value
-                        A = new_value
-                    else:
-                        A = perturbation*A
-                if 'E' in parameter_type:
-                    E = new_value
-                reaction.low_rate = ct.Arrhenius(A,b,E)    
-        else:
-            rate = reaction.rate
-            A = rate.pre_exponential_factor
-            b = rate.temperature_exponent
-            E = rate.activation_energy
-            if 'A' in parameter_type:
-                A = new_value#rate.pre_exponential_factor * new_value
-            if 'E' in parameter_type:
-                E = new_value#rate.activation_energy * new_value        
-            reaction.rate = ct.Arrhenius(A,b,E)
+#         pressurestring = 'pressure'
+#         HasFallOff = False
+#         PerturbLow = False
+#         #Check if this is a falloff reaction
+#         if pressurestring in parameter_type:
+#             HasFallOff = True
+#         if HasFallOff:
+#             highrate = reaction.high_rate
+#             lowrate = reaction.low_rate
+#             #Check to see if this is the high-pressure rate constant
+#             if 'High' in parameter_type:
+#                 A = highrate.pre_exponential_factor
+#                 b = highrate.temperature_exponent
+#                 E = highrate.activation_energy
+#                 if 'A' in parameter_type:
+#                     A = new_value
+#                     perturbation = new_value/A # We need to know what the perturbation is
+#                 if 'E' in parameter_type:
+#                     E = new_value
+#                 reaction.high_rate = ct.Arrhenius(A,b,E)
+#             #Check to see if this is the low-pressure rate constant
+#             if 'Low' in parameter_type:
+#                 PerturbLow = True
+#             #If we are not treating the high- and low-pressure rate constants separately, then perturb the low-pressure rate constant, too
+#             if self.no_falloff:
+#                 PerturbLow = True
+#             if PerturbLow:
+#                 A = lowrate.pre_exponential_factor
+#                 b = lowrate.temperature_exponent
+#                 E = lowrate.activation_energy
+#                 if 'A' in parameter_type:
+#                     if 'Low' in parameter_type: #Just replace the A factor with the new value
+#                         A = new_value
+#                     else:
+#                         A = perturbation*A
+#                 if 'E' in parameter_type:
+#                     E = new_value
+#                 reaction.low_rate = ct.Arrhenius(A,b,E)    
+#         else:
+#             rate = reaction.rate
+#             A = rate.pre_exponential_factor
+#             b = rate.temperature_exponent
+#             E = rate.activation_energy
+#             if 'A' in parameter_type:
+#                 A = new_value#rate.pre_exponential_factor * new_value
+#             if 'E' in parameter_type:
+#                 E = new_value#rate.activation_energy * new_value        
+#             reaction.rate = ct.Arrhenius(A,b,E)
         
-        time_to_prep = time.time()
+#         time_to_prep = time.time()
         
-        #print('time to prepare reaction ',time_to_prep-time_start)
+#         #print('time to prepare reaction ',time_to_prep-time_start)
         
         
-        #print reaction.rate
-        self.gas.modify_reaction(reaction_number,reaction)
-        time_to_modify = time.time()
-        #print('time to modify reaction ',time_to_modify-time_to_prep)
-        #print cti_type
-        #print high_rate_string
-        #print low_rate_string
-        #print eff_string
-        #print rxn_string
+#         #print reaction.rate
+#         self.gas.modify_reaction(reaction_number,reaction)
+#         time_to_modify = time.time()
+#         #print('time to modify reaction ',time_to_modify-time_to_prep)
+#         #print cti_type
+#         #print high_rate_string
+#         #print low_rate_string
+#         #print eff_string
+#         #print rxn_string
         
     def reset_model(self):
         """Reset all model parameters to their original values
@@ -480,11 +486,13 @@ class CanteraChemistryModel(mumpce.Model):
         
         if HasFalloff:
             rate = reaction.high_rate
+            lowrate = reaction.low_rate
             fullname = reaction_name + ':HpA'
             reaction_info  = [{'reaction_number':reaction_number,
                                'parameter_type':'High_pressure_A',
                                'parameter_name':fullname,
-                               'parameter_value':rate.pre_exponential_factor}]
+                               'parameter_value':rate.pre_exponential_factor,
+                               'parameter_low':lowrate.pre_exponential_factor}]
             #Do not consider activation energies very close to zero
             if abs(rate.activation_energy) > 0.1:
                 fullname = reaction_name + ':HpE'

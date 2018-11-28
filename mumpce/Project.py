@@ -803,7 +803,7 @@ class Project(object):
             
             param_name = parameter_info[param]['parameter_name']
             
-            value = meas.model.get_parameter(param)[0]
+            value = parameter_info[param]['parameter_value']#meas.model.get_parameter(param)[0]
             
             this_x = self.solution.x[active_num]
             this_std = 2*np.sqrt(self.solution.cov[active_num,active_num])
