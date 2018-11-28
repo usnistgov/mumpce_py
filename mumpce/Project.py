@@ -767,6 +767,10 @@ class Project(object):
         return
     
     def interpret_model(self,measurement=0):
+        """Convert the information in Project.solution into meaningful parameter values.
+        
+        Convert the factorial variables :math:`x` and covariance matrix :math:`\Sigma` stored in :py:class:`Project.solution` into model parameters. By default, this function will operate on the first measurement in the measurement list
+        """
         meas = self[measurement]
         return meas.interpret_model(self.solution.x,self.solution.cov)
         

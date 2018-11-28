@@ -169,7 +169,9 @@ class toy_model(mumpce.Model):
         """
         model_parameter_info = []
         for parameter_number in range(self.number_parameters):
-            param_info = [{'parameter_number':parameter_number,'parameter_name':'Parameter ' + str(parameter_number+1)}]
+            param_info = [{'parameter_number':parameter_number,
+                           'parameter_name':'Parameter ' + str(parameter_number+1),
+                           'parameter_value':1.0}]
             model_parameter_info += param_info
         model_parameter_info = np.array(model_parameter_info)
         return model_parameter_info

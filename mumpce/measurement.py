@@ -417,7 +417,7 @@ class Measurement(object):
         
         head_args = (headname,headv,headf)
         
-        head_format = '{:30s}   {:7s} {:7s}'
+        head_format = '{:40s}   {:8s} {:7s}'
         
         #print(head_format.format(*head_args))
         
@@ -432,12 +432,12 @@ class Measurement(object):
             
             param_name = parameter_info[param]['parameter_name']
             
-            value = self.model.get_parameter(param)
+            value = parameter_info[param]['parameter_value']#self.model.get_parameter(param)
             this_unc = self.parameter_uncertainties[active_num]
             
-            print_args = (param_name,value,this_unc)
+            print_args = (param_name[:40],value,this_unc)
             
-            print_string = '{:30s} : {: 7.2g} {: 7.2f}'
+            print_string = '{:40s} : {: 8.2g} {: 7.2f}'
             #if abs(value) > 5000:
             #    print_string = '{:30s} : {: 7.2e} {: 7.2f}'
             

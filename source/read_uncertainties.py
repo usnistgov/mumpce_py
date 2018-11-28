@@ -40,6 +40,7 @@ def read_uncertainties(uncertainty_file=None,mumpce_cantera_model=None):
         #Get this parameter's type and corresponding reaction number
         parameter_type = param_info['parameter_type']
         reaction_number = param_info['reaction_number']
+        value = param_info['parameter_value']
         
         uncertainty = a_factor_uncertainties[reaction_number]
         if 'A' in parameter_type:
@@ -48,6 +49,6 @@ def read_uncertainties(uncertainty_file=None,mumpce_cantera_model=None):
         if 'E' in parameter_type:
             #For an activation energy, assume that it contributes the same amount to the uncertainty as the A-factor at 1000 K
             #This number is arbitrary
-            value = np.abs(mumpce_cantera_model.get_parameter(param_number))
+            #value = np.abs(mumpce_cantera_model.get_parameter(param_number))
             parameter_uncertainties[param_number] = min((value + 1000 * ct.gas_constant * np.log(uncertainty))/value,1.2)
     return parameter_uncertainties
