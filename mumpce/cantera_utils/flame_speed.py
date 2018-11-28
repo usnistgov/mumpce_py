@@ -162,7 +162,7 @@ class FlameSpeed(CanteraChemistryModel):
         flame_speed_cm = self.simulation.u[0] / 1.0e-2
         return flame_speed_cm
     
-    def _sensitivity(self,perturbation,parameter_list,logfile):
+    def _sensitivity(self,perturbation,parameter_list,logfile,tq=True):
         """Evaluates the sensitivity of the model value with respect to the model parameters
         
         This method overwrites the :py:func:`CanteraChemistryModel.sensitivity`method by using Jacobian-derived sensitivities from the :py:class:`Cantera.FreeFlame` reactor. It cannot calculate sensitivities with respect to activation energies
@@ -190,7 +190,7 @@ class FlameSpeed(CanteraChemistryModel):
         
         return value,sensitivity_vector        
     
-    def sensitivity(self,perturbation,parameter_list,logfile):
+    def sensitivity(self,perturbation,parameter_list,logfile,tq=True):
         """Evaluates the sensitivity of the model value with respect to the model parameters
         
         This method overwrites the :py:func:`CanteraChemistryModel.sensitivity`method by using Jacobian-derived sensitivities from the :py:class:`Cantera.FreeFlame` reactor. It can calculate sensitivities with respect to activation energies
