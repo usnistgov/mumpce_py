@@ -40,7 +40,7 @@ def read_uncertainties(uncertainty_file=None,mumpce_cantera_model=None):
         #Get this parameter's type and corresponding reaction number
         parameter_type = param_info['parameter_type']
         reaction_number = param_info['reaction_number']
-        value = param_info['parameter_value']
+        value = np.abs(param_info['parameter_value'])
         
         uncertainty = a_factor_uncertainties[reaction_number]
         if 'A' in parameter_type:
