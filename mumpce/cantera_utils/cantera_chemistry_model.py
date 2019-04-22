@@ -586,6 +586,7 @@ class CanteraChemistryModel(mumpce.Model):
             if include_this_parameter:
                 model_parameter_info += [param_info]
             #print param_info
+        #model_parameter_info = np.array(model_parameter_info)
         return model_parameter_info
     
     def sensitivity(self,perturbation,parameter_list,logfile,tq=True):
@@ -633,7 +634,8 @@ class CanteraChemistryModel(mumpce.Model):
             
             time_start = time.time()
             
-            mult_base = 1.0#self.get_parameter(param_id)
+            #mult_base = 1.0#self.get_parameter(param_id)
+            mult_base = self.get_parameter(param_id)
             time_get = time.time()
             #print('time to retrieve ',time_get - time_start)
             pos_pert = pos_mult*mult_base
