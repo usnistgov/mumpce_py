@@ -85,7 +85,7 @@ class Project(object):
         #: The list of model parameter information. If the measurement list exists when the Project is instantiated, Project will retrive this information from the first measurement.
         self.model_parameter_info = None
         if measurement_list is not None:
-            self.model_parameter_info = self.measurement_list[0].model.model_parameter_info
+            self.model_parameter_info = np.array(self.measurement_list[0].model.model_parameter_info)
         
         #Inconsistent measurements will be removed from the measurement list and added to this list 
         self.removed_list = []
@@ -932,5 +932,17 @@ class Project(object):
         
         #meas = self[0]
         #param_names = meas.get_active_names()
+        ax.set_yticks(np.arange(len(active_params)))
         ax.set_yticklabels(param_names)
         ax.set_xticklabels([])
+    
+    def get_opt_values(self,measurement=0):
+        '''Returns the model parameter values and uncertainties as arrays
+
+        :param project: The MUM-PCE project whose parameters are being identified
+        :type project: MUM-PCE Project
+        :key measurement: A measurement identifier, either int or string
+        :returns: The new model parameter values and new uncertainties as NumPy arrays
+        '''
+        meas = self[measurement]
+        return meas.get_opt_values(self.solution.x,self.solution.cov)

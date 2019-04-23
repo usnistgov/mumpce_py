@@ -513,4 +513,32 @@ class Measurement(object):
             
             self.model.perturb_parameter(param,new_value)
         return
+    
+    def get_model_values(self):
+        for active_num,param in enumerate(self.active_parameters):
+            value = parameter_info[param]['parameter_value']#self.model.get_parameter(param)
+            this_unc = self.parameter_uncertainties[active_num]
+            values += [value]
+            uncertainties += [this_unc]
+        values = np.array(values)
+        uncertainties = np.array(uncertainties)
+        return values,uncertainties
+    
+    def get_opt_values(self,x,cov):
+        for active_num,param in enumerate(self.active_parameters):
+            value = parameter_info[param]['parameter_value']#self.model.get_parameter(param)
+            this_x = x[active_num]
+            this_std = 2*np.sqrt(cov[active_num,active_num])
+            this_unc = self.parameter_uncertainties[active_num]
+
+            multiplier = this_unc ** this_x
+            new_value = value*multiplier
+            new_uncertainty = this_unc ** (this_std)
+
+            new_values += [new_value]
+            new_uncertainties += [new_uncertainty]
+        new_values = np.array(new_values)
+        new_uncertainties = np.array(new_uncertainties)
+
+        return new_values,new_uncertainties
             

@@ -173,7 +173,7 @@ class toy_model(mumpce.Model):
                            'parameter_name':'Parameter ' + str(parameter_number+1),
                            'parameter_value':1.0}]
             model_parameter_info += param_info
-        model_parameter_info = np.array(model_parameter_info)
+        #model_parameter_info = np.array(model_parameter_info)
         return model_parameter_info
 
 class toy_app(toy_model):
