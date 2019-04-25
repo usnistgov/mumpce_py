@@ -29,9 +29,6 @@ def setup(app):
     app.add_javascript('https://pages.nist.gov/nist-header-footer/js/jquery-1.9.0.min.js')
     app.add_javascript('https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js')
     
-    #Google analytics
-    app.add_javascript('https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-42404149-54&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c',id='_fed_an_ua_tag')
-    
     #LeaveNotice
     app.add_javascript('https://code.jquery.com/jquery.1.12.4.min.js')
     app.add_javascript('https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js')
