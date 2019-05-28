@@ -113,7 +113,8 @@ def ign_initialize(name=None,
             #print(delay)
             log_optimal_timestep = math.floor(math.log(delay,base)) - 1
             initial_timestep = (base ** log_optimal_timestep)/1.0e6
-        kwargs = dict(crit_ID=critical_species,initial_timestep=initial_timestep,critical_rise=critical_rise,**kwargs)
+        kwargs = dict(crit_ID=critical_species,initial_timestep=initial_timestep,
+                      critical_rise=critical_rise,critical_value=critical_value**kwargs)
     
     mdl = model(*args,**kwargs)
     meas = mumpce.Measurement(name=name,model=mdl,value=value,uncertainty=uncertainty,
