@@ -504,12 +504,12 @@ class Measurement(object):
     
     def modify_model(self,x):
         for active_num,param in enumerate(self.active_parameters):
-            value = self.model.get_parameter(param)
+            #value = self.model.get_parameter(param)
             this_x = x[active_num]
             this_unc = self.parameter_uncertainties[active_num]
             
             multiplier = this_unc ** this_x
-            new_value = value*multiplier
+            new_value = multiplier#*value
             
             self.model.perturb_parameter(param,new_value)
         return
