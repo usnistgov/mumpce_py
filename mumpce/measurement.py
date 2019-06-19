@@ -515,6 +515,9 @@ class Measurement(object):
         return
     
     def get_model_values(self):
+        values = []
+        uncertainties = []
+        parameter_info = self.model.model_parameter_info
         for active_num,param in enumerate(self.active_parameters):
             value = parameter_info[param]['parameter_value']#self.model.get_parameter(param)
             this_unc = self.parameter_uncertainties[active_num]
@@ -525,6 +528,9 @@ class Measurement(object):
         return values,uncertainties
     
     def get_opt_values(self,x,cov):
+        new_values = []
+        new_uncertainties = []
+        parameter_info = self.model.model_parameter_info
         for active_num,param in enumerate(self.active_parameters):
             value = parameter_info[param]['parameter_value']#self.model.get_parameter(param)
             this_x = x[active_num]
