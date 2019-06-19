@@ -359,7 +359,7 @@ class ShockTubeConcentration(stb.ShockTube):
         
         self.simulation.advance(time)
 
-        crit_X = float(self.reactor.thermo[self.critical_ID].X)
+        crit_X = float(self.reactor.thermo[self.critical_ID].X)/1e-6
         
         return crit_X#[0]
     
