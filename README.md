@@ -53,6 +53,8 @@ LICENSE.
 
 Contents
 --------
+A good starting point is to follow the examples located at https://pages.nist.gov/mumpce_py/, for which there are jupyter notebooks (cantera_examples.ipynb and  	toy_model_example.ipynb) along with raw data files located within mumpce_py/source/ 
+
 
 Contact
 -------
